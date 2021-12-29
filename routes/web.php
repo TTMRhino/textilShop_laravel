@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\models\Orders;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -24,6 +24,9 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 
 Route::middleware(['role:admin'])->prefix('admin_panel')->group( function () {
+    $layoutOrders_count = Orders::all()->count();
+
+    View::share('layoutOrders_count', $layoutOrders_count);//передает переменную во все лайауты
 
     Route::get('/',[App\Http\Controllers\Admin\HomeController::class, 'index']);
 });
