@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\models\Orders;
+use App\Http\Controllers\Admin\MainGroupController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -28,5 +29,8 @@ Route::middleware(['role:admin'])->prefix('admin_panel')->group( function () {
 
     View::share('layoutOrders_count', $layoutOrders_count);//передает переменную во все лайауты
 
-    Route::get('/',[App\Http\Controllers\Admin\HomeController::class, 'index']);
+    Route::get('/',[App\Http\Controllers\Admin\HomeController::class, 'index'])->name('homeAdmin');
+
+    Route::resource('MainGroup',MainGroupController::class);
+
 });

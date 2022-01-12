@@ -7,5 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class MainGroup extends Model
 {
+    public $timestamps = false;    
     use HasFactory;
 }
