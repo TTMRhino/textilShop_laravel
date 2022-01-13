@@ -1,10 +1,10 @@
 $(document).ready(function() {
 
-    $(".nav-link").click(function() {
+    $(".nav-link").each(function() {
 
-        var location = window.location.href;
+        var location2 = window.protocol + '//' + window.location.host + window.location.href;
         var link = this.href;
-        if (location == link) {
+        if (location2 == link) {
             $(this).addClass('active');
         }
 
@@ -13,7 +13,7 @@ $(document).ready(function() {
     $('.delete-btn').click(function() {
         const res = confirm('Подтведите действие');
 
-        if (!yes) {
+        if (!res) {
             return false;
         }
     });

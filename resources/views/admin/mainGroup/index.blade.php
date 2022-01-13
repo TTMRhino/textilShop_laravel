@@ -24,7 +24,12 @@
                 
                     <h3 class="card-title">Main Group</h3>
 
-               
+                    @if(session('success'))
+                    <div class="alert alert-success" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden></button>
+                        <h4><i class="icon fa fa-check"></i>{{ session('success') }}</h4>
+                    </div>
+                @endif
               
 
 
@@ -82,20 +87,29 @@
                                 <td >
                                     {{ $item->code1c }}
                                 </td>
-                                
+
                                 <td class="project-actions text-right">
                                     <a class="btn btn-primary btn-sm" href="#">
                                         <i class="fas fa-folder">
                               </i> View
                                     </a>
-                                    <a class="btn btn-info btn-sm" href="#">
+                                    <a class="btn btn-info btn-sm" href="{{ route('MainGroup.edit', $item->id) }}">
                                         <i class="fas fa-pencil-alt">
-                              </i> Edit
+                                        </i> Edit
                                     </a>
-                                    <a class="btn btn-danger btn-sm" href="#">
-                                        <i class="fas fa-trash">
-                              </i> Delete
-                                    </a>
+                                    <form action="{{ route('MainGroup.destroy', $item->id) }}" 
+                                        method="POST"
+                                        style="display:inline-block"
+                                        >
+                                        @csrf 
+                                        @method('delete')
+                                        <button type="submit" class="btn btn-danger btn-sm delete-btn" >
+                                            <i class="fas fa-trash">
+                                            </i> Delete
+                                        </button>
+
+                                    </form>
+                                   
                                 </td>
                             </tr>
                             @endforeach

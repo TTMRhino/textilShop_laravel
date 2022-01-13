@@ -68,9 +68,10 @@ class MainGroupController extends Controller
      * @param  \App\Models\MainGroup  $mainGroup
      * @return \Illuminate\Http\Response
      */
-    public function edit(MainGroup $mainGroup)
+    public function edit(MainGroup $MainGroup)
     {
-        //
+        
+        return view('admin.mainGroup.edit',[ 'MainGroup' => $MainGroup ]);
     }
 
     /**
@@ -80,9 +81,16 @@ class MainGroupController extends Controller
      * @param  \App\Models\MainGroup  $mainGroup
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, MainGroup $mainGroup)
-    {
-        //
+    public function update(Request $request, MainGroup $MainGroup)
+    {        
+        $MainGroup->title = $request->title;
+        $MainGroup->description = $request->description;
+        $MainGroup->key_words = $request->key_words;
+        $MainGroup->code1c = $request->code1c;
+
+        $MainGroup->save();
+
+        return redirect()->back()->withSuccess('Main Group edit successfully!');
     }
 
     /**
@@ -91,8 +99,10 @@ class MainGroupController extends Controller
      * @param  \App\Models\MainGroup  $mainGroup
      * @return \Illuminate\Http\Response
      */
-    public function destroy(MainGroup $mainGroup)
+    public function destroy(MainGroup $MainGroup)
     {
-        //
+        $MainGroup->delete();
+
+        return redirect()->back()->withSuccess('Main Group deleted successfully!');
     }
 }
