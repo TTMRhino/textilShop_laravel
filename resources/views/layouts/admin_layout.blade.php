@@ -126,7 +126,7 @@
           </li>
 
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{ route('SubGroup.index') }}" class="nav-link">
               
             <i class="far fa-object-group"></i>
               <p>
@@ -150,7 +150,7 @@
 
         <!-- Блок загрузки ---start----->
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{ route('uploadItems') }}" class="nav-link">
               
             <i class="fas fa-file-upload"></i>
               <p>
@@ -160,7 +160,7 @@
           </li>
 
           <li class="nav-item">
-          <a href="#" class="nav-link">
+            <a href="{{ route('uploadPrice') }}" class="nav-link">
               
               <i class="fas fa-file-upload"></i>
                 <p>

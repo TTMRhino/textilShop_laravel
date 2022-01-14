@@ -1,4 +1,4 @@
- @extends('layouts.admin_layout') @section('title', 'MainGroup') @section('content')
+@extends('layouts.admin_layout') @section('title', 'SubGroup') @section('content')
 
 <section class="content">
 
@@ -22,7 +22,7 @@
         <div class="col-sm-12 col-md-12">
             <div class="card">
                 
-                    <h3 class="card-title">Main Group</h3>
+                    <h3 class="card-title">Sub Group</h3>
 
                     @if(session('success'))
                     <div class="alert alert-success" role="alert">
@@ -34,9 +34,9 @@
 
 
                 <div class="dt-buttons  ">
-                    <a href="{{ route('MainGroup.create') }}" >
+                    <a href="{{ route('SubGroup.create') }}" >
                         <button class="btn btn-info " tabindex="0" aria-controls="example1" type="button">
-                            <span>Add Main Group</span>
+                            <span>Add Sub Group</span>
                         </button>
                     </a>
                    
@@ -55,10 +55,10 @@
                                     Title
                                 </th>
                                 <th style="width: 30%">
-                                    description
+                                    Maingroup
                                 </th>
                                 <th>
-                                    Key words
+                                    MainGroup code 1c
                                 </th>
                                 <th style="width: 8%" class="text-center">
                                     Code 1C
@@ -69,7 +69,7 @@
                         </thead>
                         <tbody>
 
-                            @foreach($MainGroup as $item)
+                            @foreach($SubGroup as $item)
 
                             <tr>
                                 <td>
@@ -79,10 +79,10 @@
                                     {{ $item->title }}
                                 </td>
                                 <td>
-                                    {{ $item->description }}   
+                                    {{ $item->maingroup_id }}   
                                 </td>
                                 <td >
-                                    {{ $item->key_words }}
+                                    {{ $item->maingroup_1c }}
                                 </td>
                                 <td >
                                     {{ $item->code1c }}
@@ -90,11 +90,11 @@
 
                                 <td class="project-actions text-right">
                                    
-                                    <a class="btn btn-info btn-sm" href="{{ route('MainGroup.edit', $item->id) }}">
+                                    <a class="btn btn-info btn-sm" href="{{ route('SubGroup.edit', $item->id) }}">
                                         <i class="fas fa-pencil-alt">
                                         </i> View/Edit
                                     </a>
-                                    <form action="{{ route('MainGroup.destroy', $item->id) }}" 
+                                    <form action="{{ route('SubGroup.destroy', $item->id) }}" 
                                         method="POST"
                                         style="display:inline-block"
                                         >

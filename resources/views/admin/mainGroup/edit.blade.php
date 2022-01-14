@@ -53,8 +53,12 @@
                 
               <!-- /.card-body -->
 
-              <div class="card-footer">
+              <div class="card-footer ">
                 <button type="submit" class="btn btn-primary">Save</button>
+               
+                    <a  class="btn  btn-warning" href="{{ URL::previous() }}" >Return</a>
+            
+                
               </div>
             </form>
           </div>

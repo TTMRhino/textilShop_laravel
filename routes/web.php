@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\models\Orders;
 use App\Http\Controllers\Admin\MainGroupController;
+use App\Http\Controllers\Admin\SubGroupController;
+use App\Http\Controllers\Admin\ItemsController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -32,5 +34,13 @@ Route::middleware(['role:admin'])->prefix('admin_panel')->group( function () {
     Route::get('/',[App\Http\Controllers\Admin\HomeController::class, 'index'])->name('homeAdmin');
 
     Route::resource('MainGroup',MainGroupController::class);
+    Route::resource('SubGroup',SubGroupController::class);
+    //Route::resource('Items',ItemsController::class);
+
+    Route::get('Items/uploadItems', [App\Http\Controllers\Admin\ItemsController::class, 'uploadItems'])->name('uploadItems');
+    Route::post('Items/uploadItems',[App\Http\Controllers\Admin\ItemsController::class, 'fileItems'])->name('fileItems');
+   
+    Route::get('Items/uploadPrice', [App\Http\Controllers\Admin\ItemsController::class, 'uploadPrice'])->name('uploadPrice');
+    Route::post('Items/uploadPrice',[App\Http\Controllers\Admin\ItemsController::class, 'file'])->name('file');
 
 });
