@@ -53,6 +53,8 @@
 
               <div class="card-footer">
                 <button type="submit" class="btn btn-primary">Create</button>
+
+                <a  class="btn  btn-warning" href="{{ URL::previous() }}" >Return</a>
               </div>
             </form>
           </div>

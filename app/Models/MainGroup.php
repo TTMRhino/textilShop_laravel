@@ -9,4 +9,9 @@ class MainGroup extends Model
 {
     public $timestamps = false;    
     use HasFactory;
+
+    public function subgroups()
+    {
+        return $this->hasMany(SubGroup::class);
+    }
 }

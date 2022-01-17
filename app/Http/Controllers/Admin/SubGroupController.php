@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\SubGroup;
+use App\Models\MainGroup;
 use Illuminate\Http\Request;
 
 class SubGroupController extends Controller
@@ -15,7 +16,10 @@ class SubGroupController extends Controller
      */
     public function index()
     {
-        $SubGroup = SubGroup::orderBy('title','desc')->get();
+        $SubGroup = SubGroup::all();
+
+
+       
 
         return view('admin.subGroup.index',[ 'SubGroup' => $SubGroup ]);
     }
@@ -26,8 +30,9 @@ class SubGroupController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        //
+    {   
+        $MaingGroup = MainGroup::orderBy('title','desc')->get();
+        return view('admin.subGroup.create', ['MainGroup' => $MaingGroup ]);
     }
 
     /**
@@ -38,7 +43,15 @@ class SubGroupController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $new_SubGroup = new SubGroup();
+
+        $new_SubGroup->title = $request->title;
+        $new_SubGroup->maingroup_id = $request->maingroup_id;
+        $new_SubGroup->maingroup_1c = $request->maingroup_1c;
+        $new_SubGroup->code1c = $request->code1c;
+        $new_SubGroup->save();
+
+        return redirect()->back()->withSuccess('Sub Group saved successfully!');
     }
 
     /**
@@ -58,9 +71,15 @@ class SubGroupController extends Controller
      * @param  \App\Models\SubGroup  $subGroup
      * @return \Illuminate\Http\Response
      */
-    public function edit(SubGroup $subGroup)
+    public function edit(SubGroup $SubGroup)
     {
-        //
+        $MaingGroup = MainGroup::all();
+
+       
+        return view('admin.subGroup.edit',[ 
+            'SubGroup' => $SubGroup,  
+            'MainGroup' => $MaingGroup 
+        ]);
     }
 
     /**
@@ -70,9 +89,15 @@ class SubGroupController extends Controller
      * @param  \App\Models\SubGroup  $subGroup
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, SubGroup $subGroup)
+    public function update(Request $request, SubGroup $SubGroup)
     {
-        //
+        $SubGroup->title = $request->title;
+        $SubGroup->maingroup_id = $request->maingroup_id;
+        $SubGroup->maingroup_1c = $request->maingroup_1c;
+        $SubGroup->code1c = $request->code1c;
+        $SubGroup->save();
+
+        return redirect()->back()->withSuccess('Sub Group edit successfully!');
     }
 
     /**
@@ -81,8 +106,10 @@ class SubGroupController extends Controller
      * @param  \App\Models\SubGroup  $subGroup
      * @return \Illuminate\Http\Response
      */
-    public function destroy(SubGroup $subGroup)
+    public function destroy(SubGroup $SubGroup)
     {
-        //
+        $SubGroup->delete();
+
+        return redirect()->back()->withSuccess('Sub Group deleted successfully!');
     }
 }

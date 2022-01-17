@@ -16,7 +16,8 @@ class MainGroupController extends Controller
     public function index()
     {
 
-        $MainGroup = MainGroup::orderBy('title','desc')->get();
+       $MainGroup = MainGroup::orderBy('title','desc')->get();       
+        
 
         return view('admin.mainGroup.index',[ 'MainGroup' => $MainGroup ]);
     }

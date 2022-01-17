@@ -79,7 +79,7 @@
                                     {{ $item->title }}
                                 </td>
                                 <td>
-                                    {{ $item->maingroup_id }}   
+                                    {{ $item->maingroup->title }}   
                                 </td>
                                 <td >
                                     {{ $item->maingroup_1c }}
