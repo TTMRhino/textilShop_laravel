@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\items;
+use App\Models\Items;
 use App\Models\MainGroup;
 use App\Models\SubGroup;
 use Illuminate\Http\Request;
+
+use Illuminate\Support\Facades\DB;
 
 class ItemsController extends Controller
 {
@@ -17,7 +19,10 @@ class ItemsController extends Controller
      */
     public function index()
     {
-        //
+        $Items = Items::paginate(10);
+
+        //return view('admin.items.index',[ 'Items' => DB::table('items')->paginate(5) ]);
+        return view('admin.items.index',[ 'Items' => $Items ]);
     }
 
     /**
@@ -58,9 +63,16 @@ class ItemsController extends Controller
      * @param  \App\Models\items  $items
      * @return \Illuminate\Http\Response
      */
-    public function edit(items $items)
+    public function edit(items $Item)
     {
-        //
+        $MaingGroup = MainGroup::all();
+        $SubGroup = SubGroup::all();
+
+        return view('admin.items.edit', [ 
+            'Items' => $Item,
+            'SubGroup' => $SubGroup,  
+            'MainGroup' => $MaingGroup 
+         ]);
     }
 
     /**
@@ -70,9 +82,28 @@ class ItemsController extends Controller
      * @param  \App\Models\items  $items
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, items $items)
+    public function update(Request $request, Items $Items)
     {
-        //
+        $Items->item = $request->item;
+        $Items->description = $request->description;
+        $Items->maingroup_id = $request->maingroup_id;
+        $Items->maingroup_1c = $request->maingroup_1c;
+
+        $Items->subgroup_1c = $request->subgroup_1c;
+        $Items->subgroup_id = $request->subgroup_id;
+        $Items->item = $request->item;
+
+        $Items->price = $request->price;
+        $Items->pur_price = $request->pur_price;
+        $Items->old_price = $request->old_price;
+
+        $Items->top_product = $request->top_product;
+        $Items->remains = $request->remains;
+        $Items->code1c = $request->code1c;
+
+        $Items->save();
+
+        return redirect()->back()->withSuccess('Item edit successfully!');
     }
 
     /**
@@ -90,7 +121,7 @@ class ItemsController extends Controller
     public function uploadItems(Request $req)
     {
        
-
+        dd($req);
         return view('admin.upload.items');
     }
 

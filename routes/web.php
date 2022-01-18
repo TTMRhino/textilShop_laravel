@@ -35,9 +35,14 @@ Route::middleware(['role:admin'])->prefix('admin_panel')->group( function () {
 
     Route::resource('MainGroup',MainGroupController::class);
     Route::resource('SubGroup',SubGroupController::class);
-    //Route::resource('Items',ItemsController::class);
+    Route::resource('Items',ItemsController::class);
 
+   // Route::get('Items', [App\Http\Controllers\Admin\ItemsController::class, 'index'])->name('items');
+
+
+    //страница загрузки наменклатуры
     Route::get('Items/uploadItems', [App\Http\Controllers\Admin\ItemsController::class, 'uploadItems'])->name('uploadItems');
+    //action обработчик загруженного файла (наменклатуры)
     Route::post('Items/uploadItems',[App\Http\Controllers\Admin\ItemsController::class, 'fileItems'])->name('fileItems');
    
     Route::get('Items/uploadPrice', [App\Http\Controllers\Admin\ItemsController::class, 'uploadPrice'])->name('uploadPrice');

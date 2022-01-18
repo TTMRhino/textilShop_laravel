@@ -15,4 +15,6 @@ class SubGroup extends Model
        return $this->belongsTo(MainGroup::class, 'maingroup_id', 'id');
     
     }
+
+    
 }

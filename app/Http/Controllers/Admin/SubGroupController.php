@@ -16,10 +16,8 @@ class SubGroupController extends Controller
      */
     public function index()
     {
-        $SubGroup = SubGroup::all();
-
-
-       
+        //$SubGroup = SubGroup::all();
+        $SubGroup = SubGroup::paginate(10);
 
         return view('admin.subGroup.index',[ 'SubGroup' => $SubGroup ]);
     }

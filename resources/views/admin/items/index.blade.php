@@ -1,4 +1,4 @@
- @extends('layouts.admin_layout') @section('title', 'MainGroup') @section('content')
+@extends('layouts.admin_layout') @section('title', 'Items') @section('content')
 
 <section class="content">
 
@@ -22,7 +22,7 @@
         <div class="col-sm-12 col-md-12">
             <div class="card">
                 
-                    <h3 class="card-title">Main Group</h3>
+                    <h3 class="card-title">Items</h3>
 
                     @if(session('success'))
                     <div class="alert alert-success" role="alert">
@@ -34,9 +34,9 @@
 
 
                 <div class="dt-buttons  ">
-                    <a href="{{ route('MainGroup.create') }}" >
+                    <a href="{{ route('Items.create') }}" >
                         <button class="btn btn-info " tabindex="0" aria-controls="example1" type="button">
-                            <span>Add Main Group</span>
+                            <span>Items</span>
                         </button>
                     </a>
                    
@@ -52,49 +52,73 @@
                                     #
                                 </th>
                                 <th style="width: 20%">
-                                    Title
+                                    Item
                                 </th>
-                                <th style="width: 30%">
-                                    description
+                                <th style="width: 8%">
+                                    Main Group
                                 </th>
-                                <th>
-                                    Key words
+                                <th  style="width: 8%">
+                                    Sub Group
                                 </th>
-                                <th style="width: 8%" class="text-center">
-                                    Code 1C
+                                <th style="width: 5%" class="text-center">
+                                   Price
                                 </th>
-                                <th style="width: 20%">
+                                <th style="width: 5%" class="text-center">
+                                    Remains
+                                </th>
+                                <th style="width: 8%">
+                                    Image                                    
+                                </th>
+                                <th style="width: 15%">
+                                                                        
                                 </th>
                             </tr>
                         </thead>
                         <tbody>
 
-                            @foreach($MainGroup as $item)
+                            @foreach($Items as $item)
 
                             <tr>
                                 <td>
                                    {{ $item->id}}
                                 </td>
                                 <td>
-                                    {{ $item->title }}
+                                    {{ $item->item }}
                                 </td>
                                 <td>
-                                    {{ $item->description }}   
+                                    @if(isset($item->maingroup['title']))
+                                    {{ $item->maingroup['title'] }}
+                                        
+                                    @else
+                                        no Main Group
+                                    @endif
                                 </td>
                                 <td >
-                                    {{ $item->key_words }}
+                                    @if(isset($item->subgroup['title']))
+                                     {{ $item->subgroup['title'] }}
+                                    @else
+                                        no Sub Group
+                                    @endif
+                                    
                                 </td>
                                 <td >
-                                    {{ $item->code1c }}
+                                    {{ $item->price }}
+                                </td>
+                                <td >
+                                    {{ $item->remains }}
+                                </td>
+                                <td >
+                                   
+                                    <img class="img-thumbnail mx-auto d-block" src="/images/product/{{$item->vendor}}.jpg" alt="pic Items">
                                 </td>
 
                                 <td class="project-actions text-right">
                                    
-                                    <a class="btn btn-info btn-sm" href="{{ route('MainGroup.edit', $item->id) }}">
+                                    <a class="btn btn-info btn-sm" href="{{ route('Items.edit', $item->id) }}">
                                         <i class="fas fa-pencil-alt">
                                         </i> View/Edit
                                     </a>
-                                    <form action="{{ route('MainGroup.destroy', $item->id) }}" 
+                                    <form action="{{ route('Items.destroy', $item->id) }}" 
                                         method="POST"
                                         style="display:inline-block"
                                         >
@@ -112,17 +136,16 @@
                             @endforeach
                         </tbody>
                     </table>
+                    
                 </div>
             </div>
             <!-- /.card-body -->
         </div>
     </div>
-
     <div class="row">
         <div class="col-sm-12 col-md-12">
-            {{ $MainGroup->onEachSide(2)->links() }}
+            {{ $Items->onEachSide(2)->links() }}
         </div>
     </div>
-
 </section>
 @endsection

@@ -118,5 +118,10 @@
         </div>
     </div>
 
+    <div class="row">
+        <div class="col-sm-12 col-md-12">
+            {{ $SubGroup->onEachSide(2)->links() }}
+        </div>
+    </div>
 </section>
 @endsection

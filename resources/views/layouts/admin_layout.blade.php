@@ -136,7 +136,7 @@
           </li>
 
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{ route('Items.index') }}" class="nav-link">
               
             <i class="fas fa-tools"></i>
               <p>
