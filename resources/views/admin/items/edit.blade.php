@@ -94,7 +94,7 @@
                 <div class="form-group">
                     <label for="description">Description</label>
                     <textarea class="form-control" rows="10" cols="45" 
-                    name="descriptione" id="description"
+                    name="description" id="description"
                     placeholder="Description"
                     >{{ $Items->description }}</textarea>
                    

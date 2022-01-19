@@ -150,7 +150,7 @@
 
         <!-- Блок загрузки ---start----->
           <li class="nav-item">
-            <a href="{{ route('uploadItems') }}" class="nav-link">
+            <a href="{{ route('Upload.index') }}" class="nav-link">
               
             <i class="fas fa-file-upload"></i>
               <p>
@@ -160,7 +160,7 @@
           </li>
 
           <li class="nav-item">
-            <a href="{{ route('uploadPrice') }}" class="nav-link">
+            <a href="{{ route('Upload.price') }}" class="nav-link">
               
               <i class="fas fa-file-upload"></i>
                 <p>
