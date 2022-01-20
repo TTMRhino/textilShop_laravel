@@ -71,7 +71,7 @@
         </div>
         <div class="info">
           <span class="" style="color:#a9a9a9;" ИМЯ ПОЛЬЗОВАТЕЛЯ!!!</span>
-          <a href=" логаут!!!"> : LogOut</a>
+          <a href=" {{ route('User.logout')}}"> : LogOut</a>
           
           
         </div>
@@ -85,7 +85,7 @@
         
 
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{ route('homeAdmin')}}" class="nav-link">
               
               <i class="far fa-chart-bar"></i>
               <p>
@@ -96,7 +96,7 @@
           </li>
 
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{ route('Customers.index') }}" class="nav-link">
               
             <i class="fas fa-shopping-cart"></i>
               <p>
@@ -175,7 +175,7 @@
           <!-- Блок загрузки ---end--- -->
 
           <li class="nav-item">
-            <a href="#" class="nav-link">              
+            <a href="{{ route('User') }}" class="nav-link">              
             <i class="fa fa-cog" aria-hidden="true"></i>
               <p>
                 Пароль             

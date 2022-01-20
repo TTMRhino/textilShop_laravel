@@ -6,6 +6,8 @@ use App\Http\Controllers\Admin\MainGroupController;
 use App\Http\Controllers\Admin\SubGroupController;
 use App\Http\Controllers\Admin\ItemsController;
 use App\Http\Controllers\Admin\UploadController;
+use App\Http\Controllers\Admin\CustomersController;
+use App\Http\Controllers\Admin\OrdersController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -37,26 +39,24 @@ Route::middleware(['role:admin'])->prefix('admin_panel')->group( function () {
     Route::resource('MainGroup',MainGroupController::class);
     Route::resource('SubGroup',SubGroupController::class);
     Route::resource('Items',ItemsController::class);
+    Route::resource('Customers',CustomersController::class);
+    Route::resource('COrders',OrdersController::class);
 
+    /*==== Upload files =====*/
+    //upload items
     Route::get('upload', [App\Http\Controllers\Admin\UploadController::class, 'index'])->name('Upload.index');
     Route::post('upload',[App\Http\Controllers\Admin\UploadController::class, 'fileItems'])->name('Upload.fileItems');
-
+    //upload price
     Route::get('upload/price', [App\Http\Controllers\Admin\UploadController::class, 'uploadPrice'])->name('Upload.price');
     Route::post('upload/price', [App\Http\Controllers\Admin\UploadController::class, 'filePrice'])->name('Upload.filePrice');
 
-    /*Route::get('Items/index', [App\Http\Controllers\Admin\ItemsController::class, 'index'])->name('Items.index');
-    Route::get('Items/create', [App\Http\Controllers\Admin\ItemsController::class, 'create'])->name('Items.create');
-    Route::get('Items/edit/{id}', [App\Http\Controllers\Admin\ItemsController::class, 'edit'])->name('Items.edit');
-    Route::get('Items/destroy', [App\Http\Controllers\Admin\ItemsController::class, 'destroy'])->name('Items.destroy');
-    Route::get('Items/update', [App\Http\Controllers\Admin\ItemsController::class, 'update'])->name('Items.update');
+    /** user (change password) */
+    Route::get('user', [App\Http\Controllers\Admin\UserController::class, 'index'])->name('User');
+    Route::post('user', [App\Http\Controllers\Admin\UserController::class, 'changePassword'])->name('User.passwordChange');
 
+    //user LogOut
+    Route::get('logout', [App\Http\Controllers\Admin\UserController::class, 'logout'])->name('User.logout');
 
-    //страница загрузки наменклатуры
-    Route::get('Items/uploadItems', [App\Http\Controllers\Admin\ItemsController::class, 'uploadItems'])->name('Items.uploadItems');
-    //action обработчик загруженного файла (наменклатуры)
-    Route::post('Items/uploadItems',[App\Http\Controllers\Admin\ItemsController::class, 'fileItems'])->name('Items.fileItems');
-   
-    Route::get('Items/uploadPrice', [App\Http\Controllers\Admin\ItemsController::class, 'uploadPrice'])->name('Items.uploadPrice');
-    Route::post('Items/uploadPrice',[App\Http\Controllers\Admin\ItemsController::class, 'file'])->name('Items.file');*/
+    
 
 });

@@ -22,4 +22,9 @@ class Items extends Model
        return $this->belongsTo(SubGroup::class, 'subgroup_id', 'id');
     
     }
+
+    public function orders()
+    {
+        return $this->hasMany(Orders::class);
+    }
 }
