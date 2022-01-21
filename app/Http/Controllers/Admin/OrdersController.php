@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Orders;
+use App\Models\Items;
 use Illuminate\Http\Request;
 
 class OrdersController extends Controller
@@ -59,10 +60,14 @@ class OrdersController extends Controller
      * @param  \App\Models\Orders  $orders
      * @return \Illuminate\Http\Response
      */
-    public function edit(Orders $order)
-    {
-
-        return view('admin.orders.edit',['Orders' => $Orders]);
+    public function edit(Orders $Order)
+    {   
+        $Items = Items::all();
+       
+        return view('admin.orders.edit',[
+            'Orders' => $Order,
+            'Items' => $Items
+        ]);
     }
 
     /**
@@ -72,9 +77,20 @@ class OrdersController extends Controller
      * @param  \App\Models\Orders  $orders
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Orders $orders)
+    public function update(Request $request, Orders $Order)
     {
-        //
+       // dd($Order);
+        $Order->item_id= $request->item_id;
+        $Order->quantity = $request->quantity;
+        $Order->customers_id = $request->customers_id;
+        $Order->price = $request->price;
+        $Order->item = $request->item;
+        $Order->total = $request->price * $request->quantity;
+        $Order->organization_id = $request->organization_id;
+
+        $Order->save();
+
+        return redirect()->back()->withSuccess('Order edit successfully!');
     }
 
     /**

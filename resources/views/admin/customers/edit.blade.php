@@ -144,13 +144,13 @@
                                 {{ $order->price * $order->quantity}}
                             </td> 
                             <td>                               
-                                <img src="/images/product/{{ $order->items_order->vendor}}.jpg" alt="pic">
+                                <img class="img-thumbnail mx-auto d-block" src="/images/product/{{ $order->items_order->vendor}}.jpg" alt="pic">
                             </td> 
                            
 
                             <td class="project-actions text-right">
                                
-                                <a class="btn btn-info btn-sm" href="#">
+                                <a class="btn btn-info btn-sm" href="{{ route('Orders.edit', $order->id) }}">
                                     <i class="fas fa-pencil-alt">
                                     </i> View/Edit
                                 </a>

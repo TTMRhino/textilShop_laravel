@@ -40,7 +40,7 @@ Route::middleware(['role:admin'])->prefix('admin_panel')->group( function () {
     Route::resource('SubGroup',SubGroupController::class);
     Route::resource('Items',ItemsController::class);
     Route::resource('Customers',CustomersController::class);
-    Route::resource('COrders',OrdersController::class);
+    Route::resource('Orders',OrdersController::class);
 
     /*==== Upload files =====*/
     //upload items
