@@ -28,7 +28,7 @@
       <!-- Info boxes -->
       <div class="row">
         <div class="col-12 col-sm-6 col-md-3">
-            <a href="ССЫЛКА!!!" class="small-box-footer">               
+            <a href="{{ route('Customers.index')}}" class="small-box-footer">               
             
           <div class="info-box">
             <span class="info-box-icon bg-info elevation-1"><i class="fas fa-shopping-cart"></i></span>           
@@ -44,7 +44,7 @@
     </a>
         <!-- /.col -->
         <div class="col-12 col-sm-6 col-md-3">
-            <a href="ССЫЛКА!!!" class="small-box-footer">
+            <a href="{{ route('Items.index')}}" class="small-box-footer">
           <div class="info-box mb-3">
             <span class="info-box-icon bg-success elevation-1"><i class="fas fa-tools"></i></i></span>
 
@@ -64,13 +64,13 @@
 
         <div class="col-12 col-sm-6 col-md-3">
 
-            <a href="ССЫЛКА!!!" class="small-box-footer">
+            <a href="{{ route('MainGroup.index')}}" class="small-box-footer">
           <div class="info-box mb-3">
             <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-object-group"></i></span>
 
             <div class="info-box-content">
               <span class="info-box-text">Группа</span>
-              <span class="info-box-number">{{ $subGroup_count }}</span>
+              <span class="info-box-number">{{ $mainGroup_count }}</span>
             </div>
             <!-- /.info-box-content -->
           </div>
@@ -79,14 +79,14 @@
         </div>
         <!-- /.col -->
         <div class="col-12 col-sm-6 col-md-3">
-            <a href="ССЫЛКА!!!" class="small-box-footer">
+            <a href="{{ route('SubGroup.index')}}" class="small-box-footer">
           <div class="info-box mb-3">
             
             <span class="info-box-icon bg-gradient-danger elevation-1"><i class="far fa-object-group"></i></span>
 
             <div class="info-box-content">
               <span class="info-box-text">Подгруппа</span>
-              <span class="info-box-number">{{ $mainGroup_count }}</span>
+              <span class="info-box-number">{{ $subGroup_count }}</span>
             </div>
             <!-- /.info-box-content -->
           </div>
@@ -98,7 +98,7 @@
 
         <!-- Клиенты -->
         <div class="col-12 col-sm-6 col-md-3">
-            <a href="ССЫЛКА!!!" class="small-box-footer">
+            <a href="{{ route('Customers.index')}}" class="small-box-footer">
           <div class="info-box mb-3">
             
             <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-users"></i></span>
@@ -116,7 +116,7 @@
         <!--Организация -->
 
         <div class="col-12 col-sm-6 col-md-3">
-            <a href="ССЫЛКА!!!" class="small-box-footer">
+            <a href="{{ route('Organizations.index') }}" class="small-box-footer">
           <div class="info-box mb-3">
             
             <span class="info-box-icon bg-gradient-success elevation-1"><i class="fa fa-industry" aria-hidden="true"></i></span>

@@ -1,7 +1,4 @@
-@extends('layouts.admin_layout') 
-
-@section('id', 'Orders') 
-@section('content')
+@extends('layouts.admin_layout') @section('title', 'Organizations') @section('content')
 
 <section class="content">
 
@@ -25,7 +22,7 @@
         <div class="col-sm-12 col-md-12">
             <div class="card">
                 
-                    <h3 class="card-title">Orders</h3>
+                    <h3 class="card-title">Organizations</h3>
 
                     @if(session('success'))
                     <div class="alert alert-success" role="alert">
@@ -36,12 +33,13 @@
               
 
 
-                <div class="dt-buttons">
-                    <a href="#" >
+                <div class="dt-buttons  ">
+                    <a href="{{ route('Organizations.create') }}" >
                         <button class="btn btn-info " tabindex="0" aria-controls="example1" type="button">
-                            <span>Orders</span>
+                            <span>Organizations</span>
                         </button>
-                    </a>                   
+                    </a>
+                   
 
                 </div>
 
@@ -53,25 +51,24 @@
                                 <th style="width: 1%">
                                     #
                                 </th>
-                                <th style="width: 10%">
-                                    name
+                                <th style="width: 20%">
+                                    User 
                                 </th>
                                 <th style="width: 8%">
-                                    data
+                                    Name
                                 </th>
                                 <th  style="width: 8%">
-                                    phone
+                                    Inn
                                 </th>
-                                <th style="width: 8%" class="">
-                                  city
+                                <th style="width: 5%" class="text-center">
+                                   Ogrn
                                 </th>
-                                <th style="width: 5%" class="">
-                                    adress
+                                <th style="width: 5%" class="text-center">
+                                    Kpp
                                 </th>
-                                <th style="width: 5%">
-                                    status                                   
+                                <th style="width: 8%">
+                                    Adress reg.                                   
                                 </th>
-                              
                                 <th style="width: 15%">
                                                                         
                                 </th>
@@ -79,54 +76,42 @@
                         </thead>
                         <tbody>
 
-                            @foreach($Customers as $Customer)
-                            
-                           
-                            <tr style=" 
-                                @if($Customer->status == 'New')
-                                    {{ 'background-color: #FF9966' }}
+                            @foreach($Organizations as $org)
 
-                                @elseif($Customer->status == 'InWork1')
-                                {{ 'background-color: #33CC66' }}
-
-                                @elseif($Customer->status == 'Done')
-                                {{ 'background-color: #666666' }}
-
-                                @endif
-                            ">
+                            <tr>
                                 <td>
-                                   {{ $Customer->id}}
+                                   {{ $org->id}}
                                 </td>
                                 <td>
-                                    {{ $Customer->name }}
+                                    {{ $org->user->name }}
                                 </td>
-                                <td>
-                                    {{ $Customer->data }}
+                                <td>                                   
+                                    {{ $org->name }}                                        
+                                  
                                 </td>
                                 <td >
-                                    {{ $Customer->phone }}
+                                  
+                                     {{ $org->inn}}
+                                   
                                     
                                 </td>
                                 <td >
-                                    {{ $Customer->city }}
+                                    {{ $org->ogrn }}
                                 </td>
                                 <td >
-                                    {{ $Customer->adress }}
+                                    {{ $org->kpp }}
                                 </td>
                                 <td >
-                                   
-                                    {{ $Customer->status }}
+                                    {{ $org->adres_registr }}
                                 </td>
-
-                               
 
                                 <td class="project-actions text-right">
                                    
-                                    <a class="btn btn-info btn-sm" href="{{ route('Customers.edit', $Customer->id) }}">
+                                    <a class="btn btn-info btn-sm" href="{{ route('Organizations.edit', $org->id) }}">
                                         <i class="fas fa-pencil-alt">
                                         </i> View/Edit
                                     </a>
-                                    <form action="{{ route('Customers.destroy', $Customer->id) }}" 
+                                    <form action="{{ route('Organizations.destroy', $org->id) }}" 
                                         method="POST"
                                         style="display:inline-block"
                                         >
@@ -152,7 +137,7 @@
     </div>
     <div class="row">
         <div class="col-sm-12 col-md-12">
-            {{ $Customers->onEachSide(2)->links() }}
+            {{ $Organizations->onEachSide(2)->links() }}
         </div>
     </div>
 </section>

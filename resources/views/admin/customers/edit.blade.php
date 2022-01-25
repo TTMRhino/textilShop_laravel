@@ -64,6 +64,19 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="status">Status work</label>
+                    <select class="form-control" name="status">                        
+
+                          
+                        <option value="New">New</option>                        
+                        <option value="Done">Done</option>  
+                        <option value="InWork">InWork</option>  
+                       
+                       
+                    </select>
+                </div>
+
+                <div class="form-group">
                     <label for="comments">Comments</label>
                     <textarea class="form-control" rows="10" cols="45" 
                     name="comments" id="comments"

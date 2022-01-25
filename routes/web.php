@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\ItemsController;
 use App\Http\Controllers\Admin\UploadController;
 use App\Http\Controllers\Admin\CustomersController;
 use App\Http\Controllers\Admin\OrdersController;
+use App\Http\Controllers\Admin\OrganizationsController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -41,6 +42,7 @@ Route::middleware(['role:admin'])->prefix('admin_panel')->group( function () {
     Route::resource('Items',ItemsController::class);
     Route::resource('Customers',CustomersController::class);
     Route::resource('Orders',OrdersController::class);
+    Route::resource('Organizations',OrganizationsController::class);
 
     /*==== Upload files =====*/
     //upload items

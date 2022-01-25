@@ -42,7 +42,7 @@
 
       <!-- Messages Dropdown Menu -->
       <li class="nav-item dropdown">
-        <a class="nav-link"  href="ССЫЛКО!!!">
+        <a class="nav-link"  href="{{ route('Customers.index')}}">
         <i class="fas fa-shopping-cart"></i>
           <span class="badge badge-danger navbar-badge">{{ $layoutOrders_count }}</span>
         </a>
@@ -106,7 +106,7 @@
           </li>
 
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{ route('Organizations.index') }}" class="nav-link">
               
             <i class="fa fa-users"></i>
               <p>
