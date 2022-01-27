@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Customers extends Model
 {
-   // public $timestamps = false;
+    public $timestamps = false;
     use HasFactory;
 
     public function customer_orders()

@@ -17,12 +17,37 @@ class ItemsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $Items = Items::paginate(10);
+        
 
-        //return view('admin.items.index',[ 'Items' => DB::table('items')->paginate(5) ]);
+        if(empty($request->search)){
+            $Items = Items::paginate(10);
+
+            return view('admin.items.index',[ 'Items' => $Items ]);
+        }
+        
+        //$request->search
+        
+        $Items = Items::where('item','LIKE', "%{$request->search}%")->
+        orWhere('maingroup_id', 'LIKE', "%{$request->search}%")->
+        orWhere('maingroup_1c', 'LIKE', "%{$request->search}%")->
+        orWhere('subgroup_1c', 'LIKE', "%{$request->search}%")->
+        orWhere('subgroup_id', 'LIKE', "%{$request->search}%")->
+        orWhere('vendor', 'LIKE', "%{$request->search}%")->
+        orWhere('price', 'LIKE', "%{$request->search}%")->
+        orWhere('pur_price', 'LIKE', "%{$request->search}%")->
+        orWhere('description', 'LIKE', "%{$request->search}%")->
+        orWhere('old_price', 'LIKE', "%{$request->search}%")->
+        orWhere('top_product', 'LIKE', "%{$request->search}%")->
+        orWhere('code1c', 'LIKE', "%{$request->search}%")->
+        paginate(10);
+
         return view('admin.items.index',[ 'Items' => $Items ]);
+
+        //dd($request);
+        //return view('admin.items.index',[ 'Items' => DB::table('items')->paginate(5) ]);
+       
     }
 
     /**
@@ -83,6 +108,11 @@ class ItemsController extends Controller
     public function show(items $items)
     {
         //
+    }
+
+    public function search(Request $request)
+    {
+        dd($request);
     }
 
     /**

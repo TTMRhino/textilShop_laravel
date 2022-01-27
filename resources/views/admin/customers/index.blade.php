@@ -86,7 +86,7 @@
                                 @if($Customer->status == 'New')
                                     {{ 'background-color: #FF9966' }}
 
-                                @elseif($Customer->status == 'InWork1')
+                                @elseif($Customer->status == 'InWork')
                                 {{ 'background-color: #33CC66' }}
 
                                 @elseif($Customer->status == 'Done')

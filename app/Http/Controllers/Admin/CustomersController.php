@@ -78,9 +78,23 @@ class CustomersController extends Controller
      * @param  \App\Models\Customers  $customers
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Customers $customers)
+    public function update(Request $request, Customers $Customer)
     {
-        //
+       
+
+        $Customer->data = $request->data;
+        $Customer->name = $request->name;
+        $Customer->phone = $request->phone;
+        $Customer->mailindex = $request->mailindex;
+        $Customer->city = $request->city;
+        $Customer->adress = $request->adress;
+        $Customer->comments = $request->comments;
+        $Customer->status = $request->status;
+        $Customer->orders_id = $request->orders_id;
+
+        $Customer->save();
+
+        return redirect()->back()->withSuccess('Customer edit successfully!');
     }
 
     /**

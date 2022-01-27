@@ -6,12 +6,21 @@
 
     <div class="row">
 
-        <div class="col-sm-12 col-md-12">
+        <div class="col-sm-8 col-md-4">
 
-            <div id="example1_filter" class="dataTables_filter">
-                <label>Search:<input type="search" class="form-control form-control-sm" placeholder="" aria-controls="example1">
-                </label>
-            </div>
+          
+            <form action="{{ route('Items.index')}}" method="POST">
+                @csrf 
+            
+                <div class="input-group mb-3 mt-2 dataTables_filter">
+                    <div class="input-group-prepend ">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                    </div>
+                    <!-- /btn-group -->
+                    <input type="text" name="search"class="form-control ">
+                </div>
+
+            </form>
 
         </div>
 
