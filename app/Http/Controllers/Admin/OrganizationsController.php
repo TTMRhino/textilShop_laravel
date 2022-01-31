@@ -14,9 +14,23 @@ class OrganizationsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $Organizations = Organizations::paginate(10);
+
+        if(empty($request->search)){
+            $Organizations =  Organizations::paginate(10);
+
+            return view('admin.organizations.index',[ 'Organizations' => $Organizations  ]);
+        }
+
+        $Organizations = Organizations::where('name','LIKE', "%{$request->search}%")->
+        orWhere('user_id', 'LIKE', "%{$request->search}%")->
+        orWhere('inn', 'LIKE', "%{$request->search}%")->
+        orWhere('ogrn', 'LIKE', "%{$request->search}%")->
+        orWhere('kpp', 'LIKE', "%{$request->search}%")->
+        orWhere('adres_registr', 'LIKE', "%{$request->search}%")->
+        paginate(10);
+       
        return view('admin.organizations.index',[ 'Organizations' => $Organizations  ]);
     }
 

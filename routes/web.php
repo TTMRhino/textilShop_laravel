@@ -44,7 +44,9 @@ Route::middleware(['role:admin'])->prefix('admin_panel')->group( function () {
     Route::resource('Orders',OrdersController::class);
     Route::resource('Organizations',OrganizationsController::class);
 
+    //search post
     Route::post('Items',[App\Http\Controllers\Admin\ItemsController::class, 'index'])->name('Items.index');
+    Route::post('Organizations',[App\Http\Controllers\Admin\OrganizationsController::class, 'index'])->name('Organizations.index');
 
     /*==== Upload files =====*/
     //upload items

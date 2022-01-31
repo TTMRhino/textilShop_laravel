@@ -2,6 +2,28 @@
 
 <section class="content">
 
+    <div class="row">
+
+        <div class="col-sm-8 col-md-4">
+
+          
+            <form action="{{ route('Organizations.index')}}" method="POST">
+                @csrf 
+            
+                <div class="input-group mb-3 mt-2 dataTables_filter">
+                    <div class="input-group-prepend ">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                    </div>
+                    <!-- /btn-group -->
+                    <input type="text" name="search"class="form-control ">
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
 
 
     <div class="row">
