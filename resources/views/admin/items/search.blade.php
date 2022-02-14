@@ -1,13 +1,15 @@
-@extends('layouts.admin_layout') @section('title', 'Organizations') @section('content')
+@extends('layouts.admin_layout') @section('title', 'Items') @section('content')
 
 <section class="content">
+
+
 
     <div class="row">
 
         <div class="col-sm-8 col-md-4">
 
           
-            <form action="{{ route('Organizations.search')}}" method="POST">
+            <form action="{{ route('Items.search')}}" method="POST">
                 @csrf 
             
                 <div class="input-group mb-3 mt-2 dataTables_filter">
@@ -25,40 +27,20 @@
     </div>
 
 
-
-    <div class="row">
-
-        <div class="col-sm-12 col-md-12">
-
-            <div id="example1_filter" class="dataTables_filter">
-                <label>Search:<input type="search" class="form-control form-control-sm" placeholder="" aria-controls="example1">
-                </label>
-            </div>
-
-        </div>
-
-    </div>
-
-
     <div class="row">
         <div class="col-sm-12 col-md-12">
             <div class="card">
                 
-                    <h3 class="card-title">Organizations</h3>
+                    <h3 class="card-title">Items</h3>
 
-                    @if(session('success'))
-                    <div class="alert alert-success" role="alert">
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden></button>
-                        <h4><i class="icon fa fa-check"></i>{{ session('success') }}</h4>
-                    </div>
-                @endif
+                  
               
 
 
                 <div class="dt-buttons  ">
-                    <a href="{{ route('Organizations.create') }}" >
+                    <a href="{{ route('Items.create') }}" >
                         <button class="btn btn-info " tabindex="0" aria-controls="example1" type="button">
-                            <span>Organizations</span>
+                            <span>Items</span>
                         </button>
                     </a>
                    
@@ -74,22 +56,22 @@
                                     #
                                 </th>
                                 <th style="width: 20%">
-                                    User 
+                                    Item
                                 </th>
                                 <th style="width: 8%">
-                                    Name
+                                    Main Group
                                 </th>
                                 <th  style="width: 8%">
-                                    Inn
+                                    Sub Group
                                 </th>
                                 <th style="width: 5%" class="text-center">
-                                   Ogrn
+                                   Price
                                 </th>
                                 <th style="width: 5%" class="text-center">
-                                    Kpp
+                                    Remains
                                 </th>
                                 <th style="width: 8%">
-                                    Adress reg.                                   
+                                    Image                                    
                                 </th>
                                 <th style="width: 15%">
                                                                         
@@ -98,42 +80,49 @@
                         </thead>
                         <tbody>
 
-                            @foreach($Organizations as $org)
+                            @foreach($Items as $item)
 
                             <tr>
                                 <td>
-                                   {{ $org->id}}
+                                   {{ $item->id}}
                                 </td>
                                 <td>
-                                    {{ $org->user->name }}
+                                    {{ $item->item }}
                                 </td>
-                                <td>                                   
-                                    {{ $org->name }}                                        
-                                  
+                                <td>
+                                    @if(isset($item->maingroup['title']))
+                                    {{ $item->maingroup['title'] }}
+                                        
+                                    @else
+                                        no Main Group
+                                    @endif
                                 </td>
                                 <td >
-                                  
-                                     {{ $org->inn}}
-                                   
+                                    @if(isset($item->subgroup['title']))
+                                     {{ $item->subgroup['title'] }}
+                                    @else
+                                        no Sub Group
+                                    @endif
                                     
                                 </td>
                                 <td >
-                                    {{ $org->ogrn }}
+                                    {{ $item->price }}
                                 </td>
                                 <td >
-                                    {{ $org->kpp }}
+                                    {{ $item->remains }}
                                 </td>
                                 <td >
-                                    {{ $org->adres_registr }}
+                                   
+                                    <img class="img-thumbnail mx-auto d-block" src="/images/product/{{$item->vendor}}.jpg" alt="pic Items">
                                 </td>
 
                                 <td class="project-actions text-right">
                                    
-                                    <a class="btn btn-info btn-sm" href="{{ route('Organizations.edit', $org->id) }}">
+                                    <a class="btn btn-info btn-sm" href="{{ route('Items.edit', $item->id) }}">
                                         <i class="fas fa-pencil-alt">
                                         </i> View/Edit
                                     </a>
-                                    <form action="{{ route('Organizations.destroy', $org->id) }}" 
+                                    <form action="{{ route('Items.destroy', $item->id) }}" 
                                         method="POST"
                                         style="display:inline-block"
                                         >
@@ -159,7 +148,7 @@
     </div>
     <div class="row">
         <div class="col-sm-12 col-md-12">
-            {{ $Organizations->onEachSide(2)->links() }}
+            {{ $Items->onEachSide(2)->links() }}
         </div>
     </div>
 </section>

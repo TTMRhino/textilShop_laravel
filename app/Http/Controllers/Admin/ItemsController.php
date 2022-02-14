@@ -17,18 +17,27 @@ class ItemsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
         
 
-        if(empty($request->search)){
+       // if(empty($request->search)){
             $Items = Items::paginate(10);
 
             return view('admin.items.index',[ 'Items' => $Items ]);
-        }
+       // }
         
         //$request->search
         
+       
+
+        //dd($request);
+        //return view('admin.items.index',[ 'Items' => DB::table('items')->paginate(5) ]);
+       
+    }
+
+    public function search(Request $request){
+
         $Items = Items::where('item','LIKE', "%{$request->search}%")->
         orWhere('maingroup_id', 'LIKE', "%{$request->search}%")->
         orWhere('maingroup_1c', 'LIKE', "%{$request->search}%")->
@@ -43,12 +52,9 @@ class ItemsController extends Controller
         orWhere('code1c', 'LIKE', "%{$request->search}%")->
         paginate(10);
 
-        return view('admin.items.index',[ 'Items' => $Items ]);
-
-        //dd($request);
-        //return view('admin.items.index',[ 'Items' => DB::table('items')->paginate(5) ]);
-       
+        return view('admin.items.search',[ 'Items' => $Items ]);
     }
+    
 
     /**
      * Show the form for creating a new resource.
@@ -108,11 +114,6 @@ class ItemsController extends Controller
     public function show(items $items)
     {
         //
-    }
-
-    public function search(Request $request)
-    {
-        dd($request);
     }
 
     /**

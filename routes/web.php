@@ -37,6 +37,10 @@ Route::middleware(['role:admin'])->prefix('admin_panel')->group( function () {
 
     Route::get('/',[App\Http\Controllers\Admin\HomeController::class, 'index'])->name('homeAdmin');
 
+    //search post
+    Route::post('Items/search',[App\Http\Controllers\Admin\ItemsController::class, 'search'])->name('Items.search');
+    Route::post('Organizations/search',[App\Http\Controllers\Admin\OrganizationsController::class, 'search'])->name('Organizations.search');
+
     Route::resource('MainGroup',MainGroupController::class);
     Route::resource('SubGroup',SubGroupController::class);
     Route::resource('Items',ItemsController::class);
@@ -44,9 +48,12 @@ Route::middleware(['role:admin'])->prefix('admin_panel')->group( function () {
     Route::resource('Orders',OrdersController::class);
     Route::resource('Organizations',OrganizationsController::class);
 
+    //Route::get('Items', [App\Http\Controllers\Admin\ItemsController::class, 'create'])->name('Items.create');
+    //Route::post('Items', [App\Http\Controllers\Admin\ItemsController::class, 'store'])->name('Items.store');
+
     //search post
-    Route::post('Items',[App\Http\Controllers\Admin\ItemsController::class, 'index'])->name('Items.index');
-    Route::post('Organizations',[App\Http\Controllers\Admin\OrganizationsController::class, 'index'])->name('Organizations.index');
+    //Route::post('Items',[App\Http\Controllers\Admin\ItemsController::class, 'index'])->name('Items.index');
+    
 
     /*==== Upload files =====*/
     //upload items

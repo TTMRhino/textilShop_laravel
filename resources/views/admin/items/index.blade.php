@@ -9,7 +9,7 @@
         <div class="col-sm-8 col-md-4">
 
           
-            <form action="{{ route('Items.index')}}" method="POST">
+            <form action="{{ route('Items.search')}}" method="POST">
                 @csrf 
             
                 <div class="input-group mb-3 mt-2 dataTables_filter">
