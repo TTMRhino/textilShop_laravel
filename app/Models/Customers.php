@@ -7,12 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Customers extends Model
 {
-    public $timestamps = false;
     use HasFactory;
+
+    public $timestamps = false;
+   // protected $fillable = ['name','phone','mailindex','city','adress','comments','orders_id'];
 
     public function customer_orders()
     {
-       return $this->belongsTo(Customers::class, 'customers_id', 'id');    
+       return $this->hasMany(Orders::class);    
     }
 
     public function organization_orders()

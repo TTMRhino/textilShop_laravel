@@ -1,14 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\ItemsResource;
+use App\Http\Resources\OrganizationsResource;
 use Illuminate\Http\Request;
-use App\Models\Items;
+use App\models\Organizations;
 
-
-class ItemsController extends Controller
+class OrganizationsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +16,7 @@ class ItemsController extends Controller
      */
     public function index()
     {
-        return ItemsResource::collection(Items::all());
+        return OrganizationsResource::collection(Organizations::all());
     }
 
     /**
@@ -39,7 +38,7 @@ class ItemsController extends Controller
      */
     public function show($id)
     {
-        return new ItemsResource( Items::findorFail($id));
+        return new OrganizationsResource(Organizations::findorFail($id));
     }
 
     /**

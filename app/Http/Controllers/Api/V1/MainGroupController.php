@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\OrganizationsResource;
+use App\Http\Resources\MainGroupResource;
 use Illuminate\Http\Request;
-use App\models\Organizations;
+use App\models\MainGroup;
 
-class OrganizationsController extends Controller
+class MainGroupController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +16,7 @@ class OrganizationsController extends Controller
      */
     public function index()
     {
-        return OrganizationsResource::collection(Organizations::all());
+        return MainGroupResource::collection(MainGroup::all());
     }
 
     /**
@@ -38,7 +38,7 @@ class OrganizationsController extends Controller
      */
     public function show($id)
     {
-        return new OrganizationsResource(Organizations::findorFail($id));
+        return new MainGroupResource( MainGroup::findorFail($id));
     }
 
     /**

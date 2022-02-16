@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CustomersResource;
 use Illuminate\Http\Request;
+use App\Http\Requests\CustomersRequest;
 use App\models\Customers;
 
 class CustomersController extends Controller
@@ -25,9 +26,11 @@ class CustomersController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CustomersRequest $request)
     {
-        //
+        $create_customer = Customers::create($request->validated());
+
+        return new CustomersResource($create_customer);
     }
 
     /**

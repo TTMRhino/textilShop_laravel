@@ -2,12 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\ItemsController;
-use App\Http\Controllers\Api\MainGroupController;
-use App\Http\Controllers\Api\SubGroupController;
-use App\Http\Controllers\Api\OrdersController;
-use App\Http\Controllers\Api\CustomersController;
-use App\Http\Controllers\Api\OrganizationsController;
+
 
 /*
 |--------------------------------------------------------------------------

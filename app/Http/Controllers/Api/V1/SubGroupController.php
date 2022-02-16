@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\MainGroupResource;
+use App\Http\Resources\SubGroupResource;
 use Illuminate\Http\Request;
-use App\models\MainGroup;
+use App\models\SubGroup;
 
-class MainGroupController extends Controller
+class SubGroupController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +16,7 @@ class MainGroupController extends Controller
      */
     public function index()
     {
-        return MainGroupResource::collection(MainGroup::all());
+        return SubGroupResource::collection(SubGroup::all());
     }
 
     /**
@@ -38,7 +38,7 @@ class MainGroupController extends Controller
      */
     public function show($id)
     {
-        return new MainGroupResource( MainGroup::findorFail($id));
+        return new SubGroupResource(SubGroup::with('maingroup')->findorFail($id));
     }
 
     /**

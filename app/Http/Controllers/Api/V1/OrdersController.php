@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\SubGroupResource;
+use App\Http\Resources\OrdersResource;
 use Illuminate\Http\Request;
-use App\models\SubGroup;
+use App\models\Orders;
 
-class SubGroupController extends Controller
+class OrdersController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +16,7 @@ class SubGroupController extends Controller
      */
     public function index()
     {
-        return SubGroupResource::collection(SubGroup::all());
+        return OrdersResource::collection(Orders::all());
     }
 
     /**
@@ -27,7 +27,10 @@ class SubGroupController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
+        $create_order = Orders::create($request->all());
+
+        return new OrdersResource($create_order);
     }
 
     /**
@@ -38,7 +41,7 @@ class SubGroupController extends Controller
      */
     public function show($id)
     {
-        return new SubGroupResource(SubGroup::with('maingroup')->findorFail($id));
+        return new OrdersResource(Orders::findorFail($id));
     }
 
     /**

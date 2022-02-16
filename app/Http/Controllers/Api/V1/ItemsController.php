@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\OrdersResource;
+use App\Http\Resources\ItemsResource;
 use Illuminate\Http\Request;
-use App\models\Orders;
+use App\Models\Items;
 
-class OrdersController extends Controller
+
+class ItemsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +17,7 @@ class OrdersController extends Controller
      */
     public function index()
     {
-        return OrdersResource::collection(Orders::all());
+        return ItemsResource::collection(Items::paginate(10));
     }
 
     /**
@@ -38,7 +39,7 @@ class OrdersController extends Controller
      */
     public function show($id)
     {
-        return new OrdersResource(Orders::findorFail($id));
+        return new ItemsResource( Items::findorFail($id));
     }
 
     /**
