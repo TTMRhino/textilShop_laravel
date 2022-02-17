@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\OrganizationsResource;
+use App\Http\Requests\OrganizationsRequest;
 use Illuminate\Http\Request;
 use App\models\Organizations;
 
@@ -16,7 +17,10 @@ class OrganizationsController extends Controller
      */
     public function index()
     {
-        return OrganizationsResource::collection(Organizations::all());
+
+        //authenticated only !!! To DO
+        //return OrganizationsResource::collection(Organizations::all());
+        return null;
     }
 
     /**
@@ -27,7 +31,9 @@ class OrganizationsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $create_organization = Organizations::create($request->all());
+
+        return new OrganizationsResource($create_organization);
     }
 
     /**
@@ -37,7 +43,8 @@ class OrganizationsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
+    {   
+        //authenticated only !!! To DO
         return new OrganizationsResource(Organizations::findorFail($id));
     }
 
@@ -48,9 +55,12 @@ class OrganizationsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(OrganizationsRequest $request, Organizations $organization)
     {
-        //
+        $organization->update($request->validated());
+
+        return new OrganizationsResource($organization);
+
     }
 
     /**

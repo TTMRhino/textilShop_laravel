@@ -19,12 +19,26 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+
+Route::group(['middleware' => 'auth:sanctum'], function(){
+    Route::apiResources([
+        'organizations' => OrganizationsController::class,
+    ]);
+});
+
+/*Route::middleware('auth_api')->match(['post','get'],'/user/{id}', function (Request $request, $id) {
+    $user = App\Models\User::find($id);
+   
+    if(is_null($user)) return response('', 404);
+    return $user;
+});*/
+
 Route::apiResources([
     'items' => ItemsController::class,
     'maingroup' => MainGroupController::class,
     'subgroup' => SubGroupController::class,
     'orders' => OrdersController::class,
     'customers' => CustomersController::class,
-    'organizations' => OrganizationsController::class,
+    
     
 ]);
