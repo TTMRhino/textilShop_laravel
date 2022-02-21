@@ -21,9 +21,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 Route::group(['middleware' => 'auth:sanctum'], function(){
-    Route::apiResources([
+     Route::apiResources([
         'organizations' => OrganizationsController::class,
     ]);
+  
+    //Route::get('/organizations/{id}', [OrganizationsController::class,], 'show');
 });
 
 /*Route::middleware('auth_api')->match(['post','get'],'/user/{id}', function (Request $request, $id) {
