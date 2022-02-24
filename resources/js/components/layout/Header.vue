@@ -18,8 +18,10 @@
                             <div class="search-box-view">
                                 <form action="http://textileshop/shop/search" method="get">
                                     <input type="text" class="email" placeholder="Поиск ..." name="q">
-                                    <button type="submit" class="submit"><i class="fa fa-search"></i></button>
+                                    <i class="fa-solid fa-magnifying-glass"></i>
 
+
+                                    <button type="submit" class="submit"></button>
                                 </form>
                             </div>
                         </div>
@@ -56,76 +58,38 @@
                         <!-- Search Box Start -->
                         <div class="col-xl-6 col-lg-7 d-none d-lg-block">
                             <div class="middle-menu pull-right">
-                                <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                                        <span class="navbar-toggler-icon"></span>
-                                    </button>
+                                <nav>
+                                    <ul class="middle-menu-list">
+                                        <li>
+                                            <router-link :to="{name:'home'}">Домой<i class="fa "></i></router-link>                                         </router-link>
 
-                                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                                    <ul class="middle-menu-list navbar-nav mr-auto">
-                                        <li class="nav-item">
-                                            <router-link :to="{name:'home'}">Домой</router-link>
                                         </li>
-                                        <li class="nav-item">                                           
-                                            <router-link :to="{name:'about'}">О нас</router-link>
+                                        <li>                                            
+                                            <router-link :to="{name:'about'}">О нас</router-link>     
                                         </li>
-                                        <li class="nav-item">
+                                        <li>                                            
+                                            <router-link :to="{name:'about'}">Товары</router-link>  
+                                        </li>
+
+
+                                        <li>
+                                            
+                                            <router-link :to="{name:'about'}">Контакты</router-link> 
+                                        </li>
+                                        <li>
                                            
-                                            <router-link :to="{name:'about'}">Товары</router-link>
+                                            <router-link :to="{name:'about'}"> <i class="fa fa-key"></i>Кабинет</router-link> 
                                         </li>
-                                        <li class="nav-item">
-                                           
-                                             <router-link :to="{name:'about'}">Контакты</router-link>
-                                        </li>
-                                        <li class="nav-item">                                         
-                                             <router-link :to="{name:'about'}"> <i class="fa fa-key"/> Кабинет<br /></router-link>
-                                        </li>
-                                        <li class="nav-item">                                           
-                                             <router-link :to="{name:'about'}"> <i class="fa fa-sign-out"/>LogOut<br /></router-link>
+                                      <!--  <li>
+                                            <a href="/auth/logout">
+                                                <i class="fa fa-sign-out" aria-hidden="true"></i>
+                                                LogOut <br />
+                                            </a>
 
-                                        </li>
-
-
+                                        </li>-->
 
                                     </ul>
-                                    </div>
                                 </nav>
-
-                             <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">Navbar</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Dropdown
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Something else here</a>
-        </div>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link disabled" href="#">Disabled</a>
-      </li>
-    </ul>
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>
-  </div>
-</nav>
                             </div>
                         </div>
                         <!-- Search Box End -->
@@ -150,10 +114,6 @@
                                                 </div>
                                                 <!-- Cart Footer Inner End -->
 
-
-
-
-
                                             </li>
                                         </ul>
                                     </li>
@@ -165,17 +125,32 @@
                             <div class="mobile-menu">
                                 <nav>
                                     <ul>
-                                        <li><a href="/">Домой</a></li>
-                                        <li><a href="/shop/index">Товары</a></li>
-                                        <li><a href="about.html">О Нас</a></li>
-                                        <li><a href="contact.html">Контакты</a></li>
-
                                         <li>
-                                            <a href="/auth/logout">
-                                                <i class="fa fa-sign-out" aria-hidden="true"></i>
+                                          
+                                            <router-link :to="{name:'home'}"> Домой</router-link> 
+                                            
+                                        </li>
+                                        <li>
+                                            
+                                            <router-link :to="{name:'about'}"> Товары</router-link>
+                                        </li>
 
-                                                LogOut <br />
-                                            </a>
+
+                                        </li>
+                                        <li>
+                                            
+                                            <router-link :to="{name:'about'}"> О Нас</router-link>
+                                        </li>
+                                        <li>                                         
+                                            <router-link :to="{name:'about'}"> Контакты</router-link>
+                                        </li>
+                                        <li>
+                                            <router-link :to="{name:'about'}"> <i class="fa fa-key"></i>Кабинет</router-link> 
+                                        </li>
+                                        <li>
+                                          
+                                            <router-link :to="{name:'about'}"> <i class="fa fa-sign-out"></i> LogOut</router-link> 
+                                            
 
                                         </li>
                                     </ul>

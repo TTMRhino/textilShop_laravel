@@ -431,7 +431,7 @@ ul.ht-dropdown.dropdown-style-two li {
 }
 
 .search-box-view .submit::before {
-    /* content: "";*/
+    content: "";
     font-family: "FontAwesome";
     font-size: 18px;
     font-weight: normal;
@@ -464,7 +464,7 @@ ul.ht-dropdown.dropdown-style-two li {
 }
 
 .search-box-view .submit:before {
-    /* content: "\f002";*/
+    content: "\f002";
 }
 
 .search-box-view .submit {

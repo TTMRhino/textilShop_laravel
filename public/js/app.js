@@ -5468,31 +5468,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({});
 
 /***/ }),
@@ -28460,127 +28435,159 @@ var render = function () {
             _vm._v(" "),
             _c("div", { staticClass: "col-xl-6 col-lg-7 d-none d-lg-block" }, [
               _c("div", { staticClass: "middle-menu pull-right" }, [
-                _c(
-                  "nav",
-                  {
-                    staticClass:
-                      "navbar navbar-expand-lg navbar-light bg-light",
-                  },
-                  [
-                    _vm._m(2),
+                _c("nav", [
+                  _c("ul", { staticClass: "middle-menu-list" }, [
+                    _c(
+                      "li",
+                      [
+                        _c("router-link", { attrs: { to: { name: "home" } } }, [
+                          _vm._v("Домой"),
+                          _c("i", { staticClass: "fa " }),
+                        ]),
+                      ],
+                      1
+                    ),
                     _vm._v(" "),
                     _c(
-                      "div",
-                      {
-                        staticClass: "collapse navbar-collapse",
-                        attrs: { id: "navbarSupportedContent" },
-                      },
+                      "li",
                       [
                         _c(
-                          "ul",
-                          {
-                            staticClass: "middle-menu-list navbar-nav mr-auto",
-                          },
+                          "router-link",
+                          { attrs: { to: { name: "about" } } },
+                          [_vm._v("О нас")]
+                        ),
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "li",
+                      [
+                        _c(
+                          "router-link",
+                          { attrs: { to: { name: "about" } } },
+                          [_vm._v("Товары")]
+                        ),
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "li",
+                      [
+                        _c(
+                          "router-link",
+                          { attrs: { to: { name: "about" } } },
+                          [_vm._v("Контакты")]
+                        ),
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "li",
+                      [
+                        _c(
+                          "router-link",
+                          { attrs: { to: { name: "about" } } },
                           [
-                            _c(
-                              "li",
-                              { staticClass: "nav-item" },
-                              [
-                                _c(
-                                  "router-link",
-                                  { attrs: { to: { name: "home" } } },
-                                  [_vm._v("Домой")]
-                                ),
-                              ],
-                              1
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "li",
-                              { staticClass: "nav-item" },
-                              [
-                                _c(
-                                  "router-link",
-                                  { attrs: { to: { name: "about" } } },
-                                  [_vm._v("О нас")]
-                                ),
-                              ],
-                              1
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "li",
-                              { staticClass: "nav-item" },
-                              [
-                                _c(
-                                  "router-link",
-                                  { attrs: { to: { name: "about" } } },
-                                  [_vm._v("Товары")]
-                                ),
-                              ],
-                              1
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "li",
-                              { staticClass: "nav-item" },
-                              [
-                                _c(
-                                  "router-link",
-                                  { attrs: { to: { name: "about" } } },
-                                  [_vm._v("Контакты")]
-                                ),
-                              ],
-                              1
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "li",
-                              { staticClass: "nav-item" },
-                              [
-                                _c(
-                                  "router-link",
-                                  { attrs: { to: { name: "about" } } },
-                                  [
-                                    _c("i", { staticClass: "fa fa-key" }),
-                                    _vm._v(" Кабинет"),
-                                    _c("br"),
-                                  ]
-                                ),
-                              ],
-                              1
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "li",
-                              { staticClass: "nav-item" },
-                              [
-                                _c(
-                                  "router-link",
-                                  { attrs: { to: { name: "about" } } },
-                                  [
-                                    _c("i", { staticClass: "fa fa-sign-out" }),
-                                    _vm._v("LogOut"),
-                                    _c("br"),
-                                  ]
-                                ),
-                              ],
-                              1
-                            ),
+                            _c("i", { staticClass: "fa fa-key" }),
+                            _vm._v("Кабинет"),
                           ]
                         ),
-                      ]
+                      ],
+                      1
                     ),
-                  ]
-                ),
-                _vm._v(" "),
-                _vm._m(3),
+                  ]),
+                ]),
               ]),
             ]),
             _vm._v(" "),
-            _vm._m(4),
+            _vm._m(2),
             _vm._v(" "),
-            _vm._m(5),
+            _c("div", { staticClass: "col-sm-12 d-lg-none" }, [
+              _c("div", { staticClass: "mobile-menu" }, [
+                _c("nav", [
+                  _c("ul", [
+                    _c(
+                      "li",
+                      [
+                        _c("router-link", { attrs: { to: { name: "home" } } }, [
+                          _vm._v(" Домой"),
+                        ]),
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "li",
+                      [
+                        _c(
+                          "router-link",
+                          { attrs: { to: { name: "about" } } },
+                          [_vm._v(" Товары")]
+                        ),
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "li",
+                      [
+                        _c(
+                          "router-link",
+                          { attrs: { to: { name: "about" } } },
+                          [_vm._v(" О Нас")]
+                        ),
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "li",
+                      [
+                        _c(
+                          "router-link",
+                          { attrs: { to: { name: "about" } } },
+                          [_vm._v(" Контакты")]
+                        ),
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "li",
+                      [
+                        _c(
+                          "router-link",
+                          { attrs: { to: { name: "about" } } },
+                          [
+                            _c("i", { staticClass: "fa fa-key" }),
+                            _vm._v("Кабинет"),
+                          ]
+                        ),
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "li",
+                      [
+                        _c(
+                          "router-link",
+                          { attrs: { to: { name: "about" } } },
+                          [
+                            _c("i", { staticClass: "fa fa-sign-out" }),
+                            _vm._v(" LogOut"),
+                          ]
+                        ),
+                      ],
+                      1
+                    ),
+                  ]),
+                ]),
+              ]),
+            ]),
           ]),
         ]),
       ]),
@@ -28598,7 +28605,7 @@ var staticRenderFns = [
           _c("div", { staticClass: "col-lg-4 col-md-12 d-center" }, [
             _c("div", { staticClass: "header-top-left" }, [
               _c("img", { attrs: { src: "images/icon/call.png", alt: "" } }),
-              _vm._v(" +7(9000) - 741-791\n                            "),
+              _vm._v(" +7(9000) - 741-791\n                        "),
             ]),
           ]),
           _vm._v(" "),
@@ -28622,11 +28629,12 @@ var staticRenderFns = [
                     },
                   }),
                   _vm._v(" "),
-                  _c(
-                    "button",
-                    { staticClass: "submit", attrs: { type: "submit" } },
-                    [_c("i", { staticClass: "fa fa-search" })]
-                  ),
+                  _c("i", { staticClass: "fa-solid fa-magnifying-glass" }),
+                  _vm._v(" "),
+                  _c("button", {
+                    staticClass: "submit",
+                    attrs: { type: "submit" },
+                  }),
                 ]
               ),
             ]),
@@ -28665,155 +28673,6 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "button",
-      {
-        staticClass: "navbar-toggler",
-        attrs: {
-          type: "button",
-          "data-toggle": "collapse",
-          "data-target": "#navbarSupportedContent",
-          "aria-controls": "navbarSupportedContent",
-          "aria-expanded": "false",
-          "aria-label": "Toggle navigation",
-        },
-      },
-      [_c("span", { staticClass: "navbar-toggler-icon" })]
-    )
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "nav",
-      { staticClass: "navbar navbar-expand-lg navbar-light bg-light" },
-      [
-        _c("a", { staticClass: "navbar-brand", attrs: { href: "#" } }, [
-          _vm._v("Navbar"),
-        ]),
-        _vm._v(" "),
-        _c(
-          "button",
-          {
-            staticClass: "navbar-toggler",
-            attrs: {
-              type: "button",
-              "data-toggle": "collapse",
-              "data-target": "#navbarSupportedContent",
-              "aria-controls": "navbarSupportedContent",
-              "aria-expanded": "false",
-              "aria-label": "Toggle navigation",
-            },
-          },
-          [_c("span", { staticClass: "navbar-toggler-icon" })]
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          {
-            staticClass: "collapse navbar-collapse",
-            attrs: { id: "navbarSupportedContent" },
-          },
-          [
-            _c("ul", { staticClass: "navbar-nav mr-auto" }, [
-              _c("li", { staticClass: "nav-item active" }, [
-                _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
-                  _vm._v("Home "),
-                  _c("span", { staticClass: "sr-only" }, [_vm._v("(current)")]),
-                ]),
-              ]),
-              _vm._v(" "),
-              _c("li", { staticClass: "nav-item" }, [
-                _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
-                  _vm._v("Link"),
-                ]),
-              ]),
-              _vm._v(" "),
-              _c("li", { staticClass: "nav-item dropdown" }, [
-                _c(
-                  "a",
-                  {
-                    staticClass: "nav-link dropdown-toggle",
-                    attrs: {
-                      href: "#",
-                      id: "navbarDropdown",
-                      role: "button",
-                      "data-toggle": "dropdown",
-                      "aria-haspopup": "true",
-                      "aria-expanded": "false",
-                    },
-                  },
-                  [_vm._v("\n          Dropdown\n        ")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  {
-                    staticClass: "dropdown-menu",
-                    attrs: { "aria-labelledby": "navbarDropdown" },
-                  },
-                  [
-                    _c(
-                      "a",
-                      { staticClass: "dropdown-item", attrs: { href: "#" } },
-                      [_vm._v("Action")]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "a",
-                      { staticClass: "dropdown-item", attrs: { href: "#" } },
-                      [_vm._v("Another action")]
-                    ),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "dropdown-divider" }),
-                    _vm._v(" "),
-                    _c(
-                      "a",
-                      { staticClass: "dropdown-item", attrs: { href: "#" } },
-                      [_vm._v("Something else here")]
-                    ),
-                  ]
-                ),
-              ]),
-              _vm._v(" "),
-              _c("li", { staticClass: "nav-item" }, [
-                _c(
-                  "a",
-                  { staticClass: "nav-link disabled", attrs: { href: "#" } },
-                  [_vm._v("Disabled")]
-                ),
-              ]),
-            ]),
-            _vm._v(" "),
-            _c("form", { staticClass: "form-inline my-2 my-lg-0" }, [
-              _c("input", {
-                staticClass: "form-control mr-sm-2",
-                attrs: {
-                  type: "search",
-                  placeholder: "Search",
-                  "aria-label": "Search",
-                },
-              }),
-              _vm._v(" "),
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-outline-success my-2 my-sm-0",
-                  attrs: { type: "submit" },
-                },
-                [_vm._v("Search")]
-              ),
-            ]),
-          ]
-        ),
-      ]
-    )
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("div", { staticClass: "col-lg-3 col-sm-7 col-7" }, [
       _c("div", { staticClass: "cart-box text-right" }, [
         _c("ul", { attrs: { id: "cartBox" } }, [
@@ -28842,47 +28701,6 @@ var staticRenderFns = [
                     ),
                   ]),
                 ]),
-              ]),
-            ]),
-          ]),
-        ]),
-      ]),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-sm-12 d-lg-none" }, [
-      _c("div", { staticClass: "mobile-menu" }, [
-        _c("nav", [
-          _c("ul", [
-            _c("li", [_c("a", { attrs: { href: "/" } }, [_vm._v("Домой")])]),
-            _vm._v(" "),
-            _c("li", [
-              _c("a", { attrs: { href: "/shop/index" } }, [_vm._v("Товары")]),
-            ]),
-            _vm._v(" "),
-            _c("li", [
-              _c("a", { attrs: { href: "about.html" } }, [_vm._v("О Нас")]),
-            ]),
-            _vm._v(" "),
-            _c("li", [
-              _c("a", { attrs: { href: "contact.html" } }, [
-                _vm._v("Контакты"),
-              ]),
-            ]),
-            _vm._v(" "),
-            _c("li", [
-              _c("a", { attrs: { href: "/auth/logout" } }, [
-                _c("i", {
-                  staticClass: "fa fa-sign-out",
-                  attrs: { "aria-hidden": "true" },
-                }),
-                _vm._v(
-                  "\n\n                                                LogOut "
-                ),
-                _c("br"),
               ]),
             ]),
           ]),
