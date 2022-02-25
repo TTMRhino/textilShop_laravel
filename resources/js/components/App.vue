@@ -1,11 +1,14 @@
 <template>
-<div id="app"> 
-    <div class="container">
-      <menu-header></menu-header>
-        <div>
-            <router-view></router-view>
-        </div>
-    </div>
+
+    <div class="wrapper homepage">
+      <menu-header></menu-header>        
+    <router-view></router-view>
+
+
+
+     
+   
+
 </div>
 </template>
 

@@ -13,15 +13,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- place favicon.ico in the root directory -->
-    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="shortcut icon" type="images/x-icon" href="/favicon.ico">
 
        
     <meta name="csrf-param" content="_csrf">
-<meta name="csrf-token" content="niUEmtdiYpcsHDtCBkLUT0XL3_ZHBb_EBb2PoZjc-5z1YmrS4FYt8GdRCnR2cbwqcImzvDdO8Z5Q7bqVr52-9g==">
+<meta name="csrf-token" content="AGMeTpFAc6ubivA1BH3tkrlKjHnjYBogiP25bIgU0C1rJHAGpnQ8zNDHwQN0ToX3jAjgM5MrVHrdrYxYv1WVRw==">
 
 
-<link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet">
-<!--<link href="https://fonts.googleapis.com/css?family=Lily+Script+One" rel="stylesheet">-->
+<!--<link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet">-->
+<link href="https://fonts.googleapis.com/css?family=Lily+Script+One" rel="stylesheet">
 
 <link href="/css/meanmenu.min.css" rel="stylesheet">
 <link href="/css/animate.css" rel="stylesheet">
@@ -29,11 +29,11 @@
 <link href="/css/owl.carousel.min.css" rel="stylesheet">
 <link href="/css/slick.css" rel="stylesheet">
 <link href="/css/jquery-ui.min.css" rel="stylesheet">
-<link href="/css/font-awesome.min.css" >
+<link href="/css/font-awesome.min.css" rel="text/css">
 <link href="/css/jquery.fancybox.css" rel="stylesheet">
 <link href="/css/bootstrap.min.css" rel="stylesheet">
 
-<!<link href="/css/default.css" rel="stylesheet">
+<link href="/css/default.css" rel="stylesheet">
 
 <link href="/css/style.css" rel="stylesheet">
 <link href="/css/responsive.css" rel="stylesheet">
@@ -51,7 +51,7 @@
 
  
     <!-- Wrapper Start -->
-    <div class="wrapper homepage">
+    
         
         <!-- Newsletter Popup End -->
         <!-- Header Area Start -->
@@ -60,61 +60,67 @@
         
         
         
-    <div class="container" id="app">
-        <app>
-        </app>
+    <div class="" id="app">
+        
+            <app>
+            </app>
+
+           
+            <!-- Brand Logo End -->        
+            <footer class="off-white-bg">
+                <!-- Footer Top Start -->
+                <div class="footer-top pt-50 pb-60">
+                    <div class="container">
+                                    
+                        <div class="row">
+                            <!-- Single Footer Start -->
+                            <div class="col-lg-4  col-md-7 col-sm-6">
+                                <div class="single-footer">
+                                    <h3>Контакты</h3>
+                                    <div class="footer-content">
+                                        <div class="loc-address">
+                                            <span><i class="fa fa-map-marker"></i>г. Челябинск, ул. Маслобазовая 5, оф. 8</span>
+                                            <span><i class="fas fa-at"></i>почта : goodmarket74@mail.ru</span>
+                                            <span><i class="fa fa-phone"></i>Тел: +7 (9000) -741 -791</span>
+                                        </div>
+                                        <div class="payment-mth"><a href="#"><img class="img" src="images/footer/1.png" alt="payment-image"></a></div>
+                                    </div>
+                                </div>
+                            </div>
+                        
+                            
+                            <!-- Single Footer Start -->
+                        </div>
+                        <!-- Row End -->
+                    </div>
+                    <!-- Container End -->
+                </div>
+                <!-- Footer Top End -->
+                <!-- Footer Bottom Start -->
+                <div class="footer-bottom off-white-bg2">
+                    <div class="container">
+                        <div class="footer-bottom-content">
+                            <p class="copy-right-text">Copyright © <a  href="#">Jantrik</a> All Rights Reserved.</p>
+                            <div class="footer-social-content">
+                                <ul class="social-content-list">                                
+                                    <!-- <li><a href="#"><i class="fa fa-facebook"></i></a></li> -->
+                                
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Container End -->
+                </div>
+                <!-- Footer Bottom End -->
+            </footer>
+            <!-- Footer End -->
+       
+        
     </div>
    
     
-        <!-- Brand Logo End -->        
-        <footer class="off-white-bg">
-            <!-- Footer Top Start -->
-            <div class="footer-top pt-50 pb-60">
-                <div class="container">
-                                   
-                    <div class="row">
-                        <!-- Single Footer Start -->
-                        <div class="col-lg-4  col-md-7 col-sm-6">
-                            <div class="single-footer">
-                                <h3>Контакты</h3>
-                                <div class="footer-content">
-                                    <div class="loc-address">
-                                        <span><i class="fa fa-map-marker"></i>г. Челябинск, ул. Маслобазовая 5, оф. 8</span>
-                                        <span><i class="fas fa-at"></i>почта : goodmarket74@mail.ru</span>
-                                        <span><i class="fa fa-phone"></i>Тел: +7 (9000) -741 -791</span>
-                                    </div>
-                                    <div class="payment-mth"><a href="#"><img class="img" src="images/footer/1.png" alt="payment-image"></a></div>
-                                </div>
-                            </div>
-                        </div>
-                      
-                        
-                        <!-- Single Footer Start -->
-                    </div>
-                    <!-- Row End -->
-                </div>
-                <!-- Container End -->
-            </div>
-            <!-- Footer Top End -->
-            <!-- Footer Bottom Start -->
-            <div class="footer-bottom off-white-bg2">
-                <div class="container">
-                    <div class="footer-bottom-content">
-                        <p class="copy-right-text">Copyright © <a  href="#">Jantrik</a> All Rights Reserved.</p>
-                        <div class="footer-social-content">
-                            <ul class="social-content-list">                                
-                                <!-- <li><a href="#"><i class="fa fa-facebook"></i></a></li> -->
-                               
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <!-- Container End -->
-            </div>
-            <!-- Footer Bottom End -->
-        </footer>
-        <!-- Footer End -->
-    </div>
+        
+    
 
 
     

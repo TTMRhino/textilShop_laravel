@@ -1,5 +1,5 @@
 <template>
-    <div>
+  
         <header>
             <!-- Header Top Start -->
             <div class="header-top">
@@ -165,7 +165,7 @@
             </div>
             <!-- Header Bottom End -->
         </header>
-    </div>
+   
 </template>
 
 <script>

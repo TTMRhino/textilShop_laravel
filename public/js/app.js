@@ -5274,6 +5274,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'App',
@@ -5489,6 +5492,112 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({});
 
 /***/ }),
@@ -5504,6 +5613,162 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -28392,14 +28657,12 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { attrs: { id: "app" } }, [
-    _c(
-      "div",
-      { staticClass: "container" },
-      [_c("menu-header"), _vm._v(" "), _c("div", [_c("router-view")], 1)],
-      1
-    ),
-  ])
+  return _c(
+    "div",
+    { staticClass: "wrapper homepage" },
+    [_c("menu-header"), _vm._v(" "), _c("router-view")],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -28424,167 +28687,141 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("header", [
-      _vm._m(0),
-      _vm._v(" "),
-      _c("div", { staticClass: "header-bottom header-sticky" }, [
-        _c("div", { staticClass: "container" }, [
-          _c("div", { staticClass: "row" }, [
-            _vm._m(1),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-xl-6 col-lg-7 d-none d-lg-block" }, [
-              _c("div", { staticClass: "middle-menu pull-right" }, [
-                _c("nav", [
-                  _c("ul", { staticClass: "middle-menu-list" }, [
-                    _c(
-                      "li",
-                      [
-                        _c("router-link", { attrs: { to: { name: "home" } } }, [
-                          _vm._v("Домой"),
-                          _c("i", { staticClass: "fa " }),
-                        ]),
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "li",
-                      [
-                        _c(
-                          "router-link",
-                          { attrs: { to: { name: "about" } } },
-                          [_vm._v("О нас")]
-                        ),
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "li",
-                      [
-                        _c(
-                          "router-link",
-                          { attrs: { to: { name: "about" } } },
-                          [_vm._v("Товары")]
-                        ),
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "li",
-                      [
-                        _c(
-                          "router-link",
-                          { attrs: { to: { name: "about" } } },
-                          [_vm._v("Контакты")]
-                        ),
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "li",
-                      [
-                        _c(
-                          "router-link",
-                          { attrs: { to: { name: "about" } } },
-                          [
-                            _c("i", { staticClass: "fa fa-key" }),
-                            _vm._v("Кабинет"),
-                          ]
-                        ),
-                      ],
-                      1
-                    ),
-                  ]),
+  return _c("header", [
+    _vm._m(0),
+    _vm._v(" "),
+    _c("div", { staticClass: "header-bottom header-sticky" }, [
+      _c("div", { staticClass: "container" }, [
+        _c("div", { staticClass: "row" }, [
+          _vm._m(1),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-xl-6 col-lg-7 d-none d-lg-block" }, [
+            _c("div", { staticClass: "middle-menu pull-right" }, [
+              _c("nav", [
+                _c("ul", { staticClass: "middle-menu-list" }, [
+                  _c(
+                    "li",
+                    [
+                      _c("router-link", { attrs: { to: { name: "home" } } }, [
+                        _vm._v("Домой"),
+                        _c("i", { staticClass: "fa " }),
+                      ]),
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "li",
+                    [
+                      _c("router-link", { attrs: { to: { name: "about" } } }, [
+                        _vm._v("О нас"),
+                      ]),
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "li",
+                    [
+                      _c("router-link", { attrs: { to: { name: "about" } } }, [
+                        _vm._v("Товары"),
+                      ]),
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "li",
+                    [
+                      _c("router-link", { attrs: { to: { name: "about" } } }, [
+                        _vm._v("Контакты"),
+                      ]),
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "li",
+                    [
+                      _c("router-link", { attrs: { to: { name: "about" } } }, [
+                        _c("i", { staticClass: "fa fa-key" }),
+                        _vm._v("Кабинет"),
+                      ]),
+                    ],
+                    1
+                  ),
                 ]),
               ]),
             ]),
-            _vm._v(" "),
-            _vm._m(2),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-sm-12 d-lg-none" }, [
-              _c("div", { staticClass: "mobile-menu" }, [
-                _c("nav", [
-                  _c("ul", [
-                    _c(
-                      "li",
-                      [
-                        _c("router-link", { attrs: { to: { name: "home" } } }, [
-                          _vm._v(" Домой"),
-                        ]),
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "li",
-                      [
-                        _c(
-                          "router-link",
-                          { attrs: { to: { name: "about" } } },
-                          [_vm._v(" Товары")]
-                        ),
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "li",
-                      [
-                        _c(
-                          "router-link",
-                          { attrs: { to: { name: "about" } } },
-                          [_vm._v(" О Нас")]
-                        ),
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "li",
-                      [
-                        _c(
-                          "router-link",
-                          { attrs: { to: { name: "about" } } },
-                          [_vm._v(" Контакты")]
-                        ),
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "li",
-                      [
-                        _c(
-                          "router-link",
-                          { attrs: { to: { name: "about" } } },
-                          [
-                            _c("i", { staticClass: "fa fa-key" }),
-                            _vm._v("Кабинет"),
-                          ]
-                        ),
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "li",
-                      [
-                        _c(
-                          "router-link",
-                          { attrs: { to: { name: "about" } } },
-                          [
-                            _c("i", { staticClass: "fa fa-sign-out" }),
-                            _vm._v(" LogOut"),
-                          ]
-                        ),
-                      ],
-                      1
-                    ),
-                  ]),
+          ]),
+          _vm._v(" "),
+          _vm._m(2),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-sm-12 d-lg-none" }, [
+            _c("div", { staticClass: "mobile-menu" }, [
+              _c("nav", [
+                _c("ul", [
+                  _c(
+                    "li",
+                    [
+                      _c("router-link", { attrs: { to: { name: "home" } } }, [
+                        _vm._v(" Домой"),
+                      ]),
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "li",
+                    [
+                      _c("router-link", { attrs: { to: { name: "about" } } }, [
+                        _vm._v(" Товары"),
+                      ]),
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "li",
+                    [
+                      _c("router-link", { attrs: { to: { name: "about" } } }, [
+                        _vm._v(" О Нас"),
+                      ]),
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "li",
+                    [
+                      _c("router-link", { attrs: { to: { name: "about" } } }, [
+                        _vm._v(" Контакты"),
+                      ]),
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "li",
+                    [
+                      _c("router-link", { attrs: { to: { name: "about" } } }, [
+                        _c("i", { staticClass: "fa fa-key" }),
+                        _vm._v("Кабинет"),
+                      ]),
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "li",
+                    [
+                      _c("router-link", { attrs: { to: { name: "about" } } }, [
+                        _c("i", { staticClass: "fa fa-sign-out" }),
+                        _vm._v(" LogOut"),
+                      ]),
+                    ],
+                    1
+                  ),
                 ]),
               ]),
             ]),
@@ -28605,7 +28842,7 @@ var staticRenderFns = [
           _c("div", { staticClass: "col-lg-4 col-md-12 d-center" }, [
             _c("div", { staticClass: "header-top-left" }, [
               _c("img", { attrs: { src: "images/icon/call.png", alt: "" } }),
-              _vm._v(" +7(9000) - 741-791\n                        "),
+              _vm._v(" +7(9000) - 741-791\n                    "),
             ]),
           ]),
           _vm._v(" "),
@@ -28738,7 +28975,232 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", [_c("h1", [_vm._v("About")])])
+    return _c("div", [
+      _c("div", { staticClass: "about-main-area" }, [
+        _c("div", { staticClass: "container" }, [
+          _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "col-lg-7 col-md-12" }, [
+              _c("div", { staticClass: "about-img" }, [
+                _c("img", {
+                  staticClass: "img",
+                  attrs: { src: "images/banner/about.jpg", alt: "about-us" },
+                }),
+              ]),
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-lg-5 col-md-12" }, [
+              _c("div", { staticClass: "about-content" }, [
+                _c("h3", [_vm._v("Почему мы?")]),
+                _vm._v(" "),
+                _c("p", [
+                  _vm._v(
+                    "Мы работаем напрямую с Турецкой фабрикой. Весь товар наивысшего качества от производителя."
+                  ),
+                ]),
+                _vm._v(" "),
+                _c("ul", { staticClass: "mt-20 about-content-list" }, [
+                  _c("li", [
+                    _c("a", { attrs: { href: "#" } }, [
+                      _vm._v("Работаем по честной цене"),
+                    ]),
+                  ]),
+                  _vm._v(" "),
+                  _c("li", [
+                    _c("a", { attrs: { href: "#" } }, [
+                      _vm._v("Акции и подарки"),
+                    ]),
+                  ]),
+                  _vm._v(" "),
+                  _c("li", [
+                    _c("a", { attrs: { href: "#" } }, [
+                      _vm._v("Доставка транспортными компаниями по РФ"),
+                    ]),
+                  ]),
+                  _vm._v(" "),
+                  _c("li", [
+                    _c("a", { attrs: { href: "#" } }, [
+                      _vm._v("Собственная доставка по городу от 100 руб."),
+                    ]),
+                  ]),
+                  _vm._v(" "),
+                  _c("li", [
+                    _c("a", { attrs: { href: "#" } }, [_vm._v("Гарантия")]),
+                  ]),
+                ]),
+              ]),
+            ]),
+          ]),
+        ]),
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "about-bottom pt-50 pb-60" }, [
+        _c("div", { staticClass: "container" }, [
+          _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "col-lg-6 col-md-6" }, [
+              _c("div", { staticClass: "ht-single-about pb-sm-40" }, [
+                _c("h3", [_vm._v("Наш опыт")]),
+                _vm._v(" "),
+                _c("p", [
+                  _vm._v(
+                    "Уже больше года наш интернет-мгазин реализует Фатин на территории РФ."
+                  ),
+                ]),
+                _vm._v(" "),
+                _c("p", [
+                  _vm._v(
+                    "Мы стараемся держать цены на весь ассортимент наших товаров, гибкая система скидок позволяет нам радовать наших покупателей."
+                  ),
+                ]),
+                _vm._v(" "),
+                _c("p", [
+                  _vm._v(
+                    "У нас своя логистика, что позволяет доставлять товары по городу в кротчайшие сроки. Отправка по РФ любой удобной ТК."
+                  ),
+                ]),
+              ]),
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-lg-6 col-md-6" }, [
+              _c("div", { staticClass: "ht-single-about" }, [
+                _c("h3", [_vm._v("Наша Мотивация")]),
+                _vm._v(" "),
+                _c("div", { staticClass: "ht-about-work" }, [
+                  _c("span", [_vm._v("1")]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "ht-work-text" }, [
+                    _c("h5", [
+                      _c("a", { attrs: { href: "#" } }, [
+                        _vm._v("Счастливые покупатели!"),
+                      ]),
+                    ]),
+                    _vm._v(" "),
+                    _c("p", [
+                      _vm._v("Удовлетворить спрос покупателя - наша задача."),
+                    ]),
+                  ]),
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "ht-about-work" }, [
+                  _c("span", [_vm._v("2")]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "ht-work-text" }, [
+                    _c("h5", [
+                      _c("a", { attrs: { href: "#" } }, [
+                        _vm._v("Акции и Бонусы"),
+                      ]),
+                    ]),
+                    _vm._v(" "),
+                    _c("p", [
+                      _vm._v(
+                        "Иногда мы проводим розыгрыш товаров среди наших покупателей."
+                      ),
+                    ]),
+                  ]),
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "ht-about-work" }, [
+                  _c("span", [_vm._v("3")]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "ht-work-text" }, [
+                    _c("h5", [
+                      _c("a", { attrs: { href: "#" } }, [
+                        _vm._v("Благотворительность"),
+                      ]),
+                    ]),
+                    _vm._v(" "),
+                    _c("p", [_vm._v("Помогаем некоммерческим организациям.")]),
+                  ]),
+                ]),
+              ]),
+            ]),
+          ]),
+        ]),
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "about-bottom pt-50 pb-60" }, [
+        _c("div", { staticClass: "container" }, [
+          _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "col-lg-6 col-md-6" }, [
+              _c("div", { staticClass: "ht-single-about pb-sm-40" }, [
+                _c("h3", [_vm._v("Наш опыт")]),
+                _vm._v(" "),
+                _c("p", [
+                  _vm._v(
+                    "Уже больше года наш интернет-мгазин реализует Фатин на территории РФ."
+                  ),
+                ]),
+                _vm._v(" "),
+                _c("p", [
+                  _vm._v(
+                    "Мы стараемся держать цены на весь ассортимент наших товаров, гибкая система скидок позволяет нам радовать наших покупателей."
+                  ),
+                ]),
+                _vm._v(" "),
+                _c("p", [
+                  _vm._v(
+                    "У нас своя логистика, что позволяет доставлять товары по городу в кротчайшие сроки. Отправка по РФ любой удобной ТК."
+                  ),
+                ]),
+              ]),
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-lg-6 col-md-6" }, [
+              _c("div", { staticClass: "ht-single-about" }, [
+                _c("h3", [_vm._v("Наша Мотивация")]),
+                _vm._v(" "),
+                _c("div", { staticClass: "ht-about-work" }, [
+                  _c("span", [_vm._v("1")]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "ht-work-text" }, [
+                    _c("h5", [
+                      _c("a", { attrs: { href: "#" } }, [
+                        _vm._v("Счастливые покупатели!"),
+                      ]),
+                    ]),
+                    _vm._v(" "),
+                    _c("p", [
+                      _vm._v("Удовлетворить спрос покупателя - наша задача."),
+                    ]),
+                  ]),
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "ht-about-work" }, [
+                  _c("span", [_vm._v("2")]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "ht-work-text" }, [
+                    _c("h5", [
+                      _c("a", { attrs: { href: "#" } }, [
+                        _vm._v("Акции и Бонусы"),
+                      ]),
+                    ]),
+                    _vm._v(" "),
+                    _c("p", [
+                      _vm._v(
+                        "Иногда мы проводим розыгрыш товаров среди наших покупателей."
+                      ),
+                    ]),
+                  ]),
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "ht-about-work" }, [
+                  _c("span", [_vm._v("3")]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "ht-work-text" }, [
+                    _c("h5", [
+                      _c("a", { attrs: { href: "#" } }, [
+                        _vm._v("Благотворительность"),
+                      ]),
+                    ]),
+                    _vm._v(" "),
+                    _c("p", [_vm._v("Помогаем некоммерческим организациям.")]),
+                  ]),
+                ]),
+              ]),
+            ]),
+          ]),
+        ]),
+      ]),
+    ])
   },
 ]
 render._withStripped = true
@@ -28770,7 +29232,287 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", [_c("h1", [_vm._v("Home!")])])
+    return _c("div", [
+      _c("div", { staticClass: "slider-area slider-style-three" }, [
+        _c("div", { staticClass: "container" }, [
+          _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "col-md-8" }, [
+              _c("div", { staticClass: "slider-wrapper theme-default" }, [
+                _c(
+                  "div",
+                  { staticClass: "nivoSlider", attrs: { id: "slider" } },
+                  [
+                    _c("a", { attrs: { href: "shop.html" } }, [
+                      _c("img", {
+                        attrs: {
+                          src: "/images/slider/5.jpg",
+                          "data-thumb": "/images/slider/5.jpg",
+                          alt: "",
+                          title: "#slider-1-caption1",
+                        },
+                      }),
+                    ]),
+                    _vm._v(" "),
+                    _c("a", { attrs: { href: "shop.html" } }, [
+                      _c("img", {
+                        attrs: {
+                          src: "/images/slider/6.jpg",
+                          "data-thumb": "/images/slider/6.jpg",
+                          alt: "",
+                          title: "#slider-1-caption2",
+                        },
+                      }),
+                    ]),
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "nivo-html-caption nivo-caption",
+                    attrs: { id: "slider-1-caption1" },
+                  },
+                  [
+                    _c("div", { staticClass: "text-content-wrapper" }, [
+                      _c("div", { staticClass: "text-content" }, [
+                        _c(
+                          "h4",
+                          {
+                            staticClass:
+                              "title2 wow bounceInLeft text-white mb-16",
+                            attrs: {
+                              "data-wow-duration": "2s",
+                              "data-wow-delay": "0s",
+                            },
+                          },
+                          [_vm._v("GoodMarket74.ru")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "h1",
+                          {
+                            staticClass:
+                              "title1 wow bounceInRight text-white mb-16",
+                            attrs: {
+                              "data-wow-duration": "2s",
+                              "data-wow-delay": "1s",
+                            },
+                          },
+                          [
+                            _vm._v("Оптово-розничный Интернет магазин "),
+                            _c("br"),
+                            _vm._v("по продаже Фатина."),
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
+                            staticClass: "banner-readmore wow bounceInUp mt-35",
+                            attrs: {
+                              "data-wow-duration": "2s",
+                              "data-wow-delay": "2s",
+                            },
+                          },
+                          [
+                            _c(
+                              "a",
+                              {
+                                staticClass: "button slider-btn",
+                                attrs: { href: "shop.html" },
+                              },
+                              [_vm._v("В каталог")]
+                            ),
+                          ]
+                        ),
+                      ]),
+                    ]),
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "nivo-html-caption nivo-caption",
+                    attrs: { id: "slider-1-caption2" },
+                  },
+                  [
+                    _c("div", { staticClass: "text-content-wrapper" }, [
+                      _c("div", { staticClass: "text-content slide-2" }, [
+                        _c(
+                          "h4",
+                          {
+                            staticClass:
+                              "title2 wow bounceInLeft text-white mb-16",
+                            attrs: {
+                              "data-wow-duration": "1s",
+                              "data-wow-delay": "1s",
+                            },
+                          },
+                          [_vm._v("Доставка по всей территории РФ")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "h1",
+                          {
+                            staticClass: "title1 wow flipInX text-white mb-16",
+                            attrs: {
+                              "data-wow-duration": "1s",
+                              "data-wow-delay": "2s",
+                            },
+                          },
+                          [
+                            _vm._v("от 100 рублей "),
+                            _c("br"),
+                            _vm._v("по городу"),
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
+                            staticClass: "banner-readmore wow bounceInUp mt-35",
+                            attrs: {
+                              "data-wow-duration": "1s",
+                              "data-wow-delay": "3s",
+                            },
+                          },
+                          [
+                            _c(
+                              "a",
+                              {
+                                staticClass: "button slider-btn",
+                                attrs: { href: "shop.html" },
+                              },
+                              [_vm._v("В каталог")]
+                            ),
+                          ]
+                        ),
+                      ]),
+                    ]),
+                  ]
+                ),
+              ]),
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-md-4" }, [
+              _c("div", { staticClass: "single-banner zoom mb-20" }, [
+                _c("a", { attrs: { href: "#" } }, [
+                  _c("img", {
+                    attrs: { src: "images/banner/9.jpg", alt: "slider-banner" },
+                  }),
+                ]),
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "single-banner zoom" }, [
+                _c("a", { attrs: { href: "#" } }, [
+                  _c("img", {
+                    attrs: {
+                      src: "images/banner/10.jpg",
+                      alt: "slider-banner",
+                    },
+                  }),
+                ]),
+              ]),
+            ]),
+          ]),
+        ]),
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "product-area pt-30" }, [
+        _c("div", { staticClass: "container" }, [
+          _c("div", { staticClass: "row" }),
+        ]),
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "upper-banner banner pb-60" }, [
+        _c("div", { staticClass: "container" }, [
+          _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "col-sm-6" }, [
+              _c("div", { staticClass: "single-banner zoom" }, [
+                _c("a", { attrs: { href: "#" } }, [
+                  _c("img", {
+                    attrs: { src: "images/banner/1.png", alt: "slider-banner" },
+                  }),
+                ]),
+              ]),
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-sm-6" }, [
+              _c("div", { staticClass: "single-banner zoom" }, [
+                _c("a", { attrs: { href: "#" } }, [
+                  _c("img", {
+                    attrs: { src: "images/banner/2.png", alt: "slider-banner" },
+                  }),
+                ]),
+              ]),
+            ]),
+          ]),
+        ]),
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "company-policy pb-60" }, [
+        _c("div", { staticClass: "container" }, [
+          _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "col-lg-3 col-sm-6" }, [
+              _c("div", { staticClass: "single-policy" }, [
+                _c("div", { staticClass: "icone-img" }, [
+                  _c("img", { attrs: { src: "images/icon/1.png", alt: "" } }),
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "policy-desc" }, [
+                  _c("h3", [_vm._v("Доставка")]),
+                  _vm._v(" "),
+                  _c("p", [_vm._v("от 100 рублей по городу.")]),
+                ]),
+              ]),
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-lg-3 col-sm-6" }, [
+              _c("div", { staticClass: "single-policy" }, [
+                _c("div", { staticClass: "icone-img" }, [
+                  _c("img", { attrs: { src: "images/icon/2.png", alt: "" } }),
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "policy-desc" }, [
+                  _c("h3", [_vm._v("Заказы на сайте")]),
+                  _vm._v(" "),
+                  _c("p", [_vm._v("принимаем 24/7")]),
+                ]),
+              ]),
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-lg-3 col-sm-6" }, [
+              _c("div", { staticClass: "single-policy" }, [
+                _c("div", { staticClass: "icone-img" }, [
+                  _c("img", { attrs: { src: "images/icon/3.png", alt: "" } }),
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "policy-desc" }, [
+                  _c("h3", [_vm._v("Гарантия")]),
+                  _vm._v(" "),
+                  _c("p", [_vm._v("На весь товар.")]),
+                ]),
+              ]),
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-lg-3 col-sm-6" }, [
+              _c("div", { staticClass: "single-policy" }, [
+                _c("div", { staticClass: "icone-img" }, [
+                  _c("img", { attrs: { src: "images/icon/4.png", alt: "" } }),
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "policy-desc" }, [
+                  _c("h3", [_vm._v("Акции и скидки")]),
+                  _vm._v(" "),
+                  _c("p", [_vm._v("Бери больше – плати меньше.")]),
+                ]),
+              ]),
+            ]),
+          ]),
+        ]),
+      ]),
+    ])
   },
 ]
 render._withStripped = true
