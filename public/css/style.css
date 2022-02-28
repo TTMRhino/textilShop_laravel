@@ -666,10 +666,10 @@ ul.ht-dropdown.dropdown-style-two li {
 .cart-box>ul>li>a {
     color: #9d9d9d;
     display: inline-block;
-    font-size: 25px;
+    font-size: 40px;
     line-height: 29px;
     margin: 0;
-    padding: 10px 0 10px 15px;
+    padding: 0px 10px 0px 5px;
 }
 
 .cart-box>ul>li:hover>a {

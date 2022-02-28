@@ -2,13 +2,13 @@
 
 use Illuminate\Support\Facades\Route;
 use App\models\Orders;
-use App\Http\Controllers\Admin\MainGroupController;
+/*use App\Http\Controllers\Admin\MainGroupController;
 use App\Http\Controllers\Admin\SubGroupController;
 use App\Http\Controllers\Admin\ItemsController;
 use App\Http\Controllers\Admin\UploadController;
 use App\Http\Controllers\Admin\CustomersController;
 use App\Http\Controllers\Admin\OrdersController;
-use App\Http\Controllers\Admin\OrganizationsController;
+use App\Http\Controllers\Admin\OrganizationsController;*/
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -24,7 +24,7 @@ use App\Http\Controllers\Admin\OrganizationsController;
     return view('welcome');
 });*/
 
-Route::get('/{any}', 'SpaController@index')->where('any','.*');
+
 
 Auth::routes();
 
@@ -43,12 +43,12 @@ Route::middleware(['role:admin'])->prefix('admin_panel')->group( function () {
     Route::post('Items/search',[App\Http\Controllers\Admin\ItemsController::class, 'search'])->name('Items.search');
     Route::post('Organizations/search',[App\Http\Controllers\Admin\OrganizationsController::class, 'search'])->name('Organizations.search');
 
-    Route::resource('MainGroup',MainGroupController::class);
-    Route::resource('SubGroup',SubGroupController::class);
-    Route::resource('Items',ItemsController::class);
-    Route::resource('Customers',CustomersController::class);
-    Route::resource('Orders',OrdersController::class);
-    Route::resource('Organizations',OrganizationsController::class);
+    Route::resource('MainGroup',Admin\MainGroupController::class);
+    Route::resource('SubGroup',Admin\SubGroupController::class);
+    Route::resource('Items',Admin\ItemsController::class);
+    Route::resource('Customers',Admin\CustomersController::class);
+    Route::resource('Orders',Admin\OrdersController::class);
+    Route::resource('Organizations',Admin\OrganizationsController::class);
 
     //Route::get('Items', [App\Http\Controllers\Admin\ItemsController::class, 'create'])->name('Items.create');
     //Route::post('Items', [App\Http\Controllers\Admin\ItemsController::class, 'store'])->name('Items.store');
@@ -75,3 +75,5 @@ Route::middleware(['role:admin'])->prefix('admin_panel')->group( function () {
     
 
 });
+
+Route::get('/{any}', 'SpaController@index')->where('any','.*');

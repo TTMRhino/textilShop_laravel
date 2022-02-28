@@ -21,7 +21,10 @@
 
 
 <!--<link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet">-->
-<link href="https://fonts.googleapis.com/css?family=Lily+Script+One" rel="stylesheet">
+<!--<link href="https://fonts.googleapis.com/css?family=Lily+Script+One" rel="stylesheet">-->
+
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+<!--<link rel="stylesheet" href="http://fortawesome.github.io/Font-Awesome/assets/font-awesome/css/font-awesome.css">  -->
 
 <link href="/css/meanmenu.min.css" rel="stylesheet">
 <link href="/css/animate.css" rel="stylesheet">
@@ -80,7 +83,8 @@
                                     <div class="footer-content">
                                         <div class="loc-address">
                                             <span><i class="fa fa-map-marker"></i>г. Челябинск, ул. Маслобазовая 5, оф. 8</span>
-                                            <span><i class="fas fa-at"></i>почта : goodmarket74@mail.ru</span>
+                                            <span><i class="fa fa-envelope-o" aria-hidden="true"></i>
+                                            </i>почта : goodmarket74@mail.ru</span>
                                             <span><i class="fa fa-phone"></i>Тел: +7 (9000) -741 -791</span>
                                         </div>
                                         <div class="payment-mth"><a href="#"><img class="img" src="images/footer/1.png" alt="payment-image"></a></div>

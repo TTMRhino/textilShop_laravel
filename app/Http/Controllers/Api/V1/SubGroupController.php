@@ -38,7 +38,7 @@ class SubGroupController extends Controller
      */
     public function show($id)
     {
-        return new SubGroupResource(SubGroup::with('maingroup')->findorFail($id));
+        return new SubGroupResource(SubGroup::findorFail($id));
     }
 
     /**

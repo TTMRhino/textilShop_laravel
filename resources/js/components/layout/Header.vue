@@ -29,14 +29,14 @@
 
                         <!-- Header Top Right Start -->
                         <div class="col-lg-4 col-md-12">
-                            <div class="header-top-right">
-                                <h4 class="text-center">Вы зашли под организацией:</h4>
-                                <h4 class=" text-center text-info">admin</h4>
 
-
-
-                                <!-- Header-list-menu End -->
-                            </div>
+                          <!--  <div class="header-top-right">
+                                    <h4 class="text-center">Вы зашли под организацией:</h4>
+                                    <h4 class=" text-center text-info">admin</h4>
+                                
+                            </div> 
+                            -->
+                            
 
                         </div>
                         <!-- Header Top Right End -->
@@ -51,7 +51,10 @@
                     <div class="row">
                         <div class="col-xl-3 col-lg-2 col-sm-5 col-5">
                             <div class="logo">
-                                <a href="/"><img src="/images/logo/logo.png" alt="logo-image"></a>
+                               
+                                <router-link :to="{name:'home'}">
+                                    <img src="/images/logo/logo.png" alt="logo-image">
+                                </router-link>
                             </div>
                         </div>
                         <!-- Primary Vertical-Menu End -->
@@ -61,22 +64,22 @@
                                 <nav>
                                     <ul class="middle-menu-list">
                                         <li>
-                                            <router-link :to="{name:'home'}">Домой<i class="fa "></i></router-link>                                         </router-link>
+                                            <router-link :to="{name:'home'}">Домой<i class="fa "></i></router-link>                                     </router-link>
 
                                         </li>
                                         <li>                                            
                                             <router-link :to="{name:'about'}">О нас</router-link>     
                                         </li>
                                         <li>                                            
-                                            <router-link :to="{name:'about'}">Товары</router-link>  
+                                            <router-link :to="{name:'shop'}">Товары</router-link>  
                                         </li>
 
 
                                         <li>
                                             
-                                            <router-link :to="{name:'about'}">Контакты</router-link> 
+                                            <router-link :to="{name:'contact'}">Контакты</router-link> 
                                         </li>
-                                        <li>
+                                        <!--<li>
                                            
                                             <router-link :to="{name:'about'}"> <i class="fa fa-key"></i>Кабинет</router-link> 
                                         </li>
@@ -98,12 +101,15 @@
                             <div class="cart-box text-right">
                                 <ul id="cartBox">
 
-                                    <li><a href="/cart/index"><i class="fa fa-shopping-basket"></i><span
-                                                class="cart-counter">0</span></a>
+                                    <li>
+                                        <a href="/cart/index">
+                                            <i class="fa fa-cart-arrow-down" aria-hidden="true"></i>
+                                            <span class="cart-counter">
+                                                0
+                                            </span>
+                                        </a>
                                         <ul class="ht-dropdown main-cart-box">
                                             <li>
-
-
 
                                                 <!-- Cart Footer Inner Start -->
                                                 <div class="cart-footer fix">
@@ -144,7 +150,8 @@
                                         <li>                                         
                                             <router-link :to="{name:'about'}"> Контакты</router-link>
                                         </li>
-                                        <li>
+
+                                       <!-- <li>
                                             <router-link :to="{name:'about'}"> <i class="fa fa-key"></i>Кабинет</router-link> 
                                         </li>
                                         <li>
@@ -153,6 +160,7 @@
                                             
 
                                         </li>
+                                    -->
                                     </ul>
                                 </nav>
                             </div>
