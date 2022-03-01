@@ -61,15 +61,18 @@
 
                                     <div class="row">
                                         <!-- Single Product Start -->
-                                        <div class="col-lg-4 col-sm-6">
+                                        <div class="col-lg-4 col-sm-6"
+                                             v-for="item in items"
+                                                    :key="item.id"
+                                        >
                                             <div class="single-product">
                                                 <!-- Product Image Start -->
                                                 <div class="pro-img">
-                                                    <a href="/product/view?vendor=l43661">
-                                                        <img class="primary-img" src="/images/products/l43661.jpg"
-                                                            alt="Доска гладильная Haushalt НР1Т/С корица 1220*400 (терм. пластик, европодст., удлин., кроншт)">
+                                                     <router-link :to="{name:'detail', params:{id: item.id}}">
+                                                        <img class="primary-img" :src="'/images/products/' + item.vendor +'.jpg'"
+                                                            :alt=" item.item ">
 
-                                                    </a>
+                                                    </router-link>
                                                 </div>
                                                 <!-- Product Image End -->
                                                 <!-- Product Content Start -->
@@ -81,11 +84,13 @@
                                                         <i class="fa fa-star"></i>
                                                         <i class="fa fa-star"></i>
                                                     </div>
-                                                    <h4><a href="/product/view?vendor=l43661">Доска гладильная Haushalt
-                                                            НР1Т/С корица 1220*400 (терм. пластик, европодст., удлин.,
-                                                            кроншт)</a></h4>
+                                                    <h4>
+                                                         <router-link :to="{name:'detail', params:{id: item.id}}">
+                                                            {{ item.item }}
+                                                        </router-link>
+                                                    </h4>
                                                     <p>
-                                                        <span class="price">р.</span>
+                                                        <span class="price">{{ item.price }} р.</span>
                                                     </p>
 
                                                     <div class="alert alert-warning" role="alert">
@@ -120,20 +125,24 @@
                                 <!-- #grid view End -->
 
 
-                                <div id="list-view" class="tab-pane active">
+                                <div id="list-view" class="tab-pane active"
+                                     v-for="item in items"
+                                            :key="item.id"
+                                >
 
                                     <div class="single-product">
                                         <!-- Product Image Start -->
                                         <div class="pro-img">
-                                            <router-link :to="{name:'detail'}">
-                                                 <img class="primary-img" src="/images/products/l43661.jpg"
-                                                    alt="Доска гладильная Haushalt НР1Т/С корица 1220*400 (терм. пластик, европодст., удлин., кроншт)">    
+                                            <router-link :to="{name:'detail', params:{id: item.id}}">
+                                         
+                                                 <img class="primary-img" :src="'/images/products/' + item.vendor +'.jpg'"
+                                                    :alt=" item.item ">    
                                             </router-link>
                                            
                                         </div>
                                         <!-- Product Image End -->
                                         <!-- Product Content Start -->
-                                        <div class="pro-content">
+                                        <div class="pro-content" >
                                             <div class="product-rating">
                                                 <i class="fa fa-star"></i>
                                                 <i class="fa fa-star"></i>
@@ -141,24 +150,16 @@
                                                 <i class="fa fa-star"></i>
                                                 <i class="fa fa-star"></i>
                                             </div>
-                                            <h4><a href="/product/view?vendor=l43661">Доска гладильная Haushalt НР1Т/С
-                                                    корица 1220*400 (терм. пластик, европодст., удлин., кроншт)</a></h4>
+                                            <h4>
+                                                <router-link :to="{name:'detail', params:{id: item.id}}">
+                                                {{ item.item }}
+                                                 </router-link>
+                                            </h4>
                                             <p>
-                                                <span class="price">р.</span>
+                                                <span class="price"> {{ item.price }}р.</span>
 
                                             </p>
-                                            <!--<p>Гладильный стол из термостойкого пластика размером 1220*400мм
-Инновационная технология отражения пара. Эффект двусторонней глажки.
-Устойчивая металлическая ножка.
-Пластиковые наконечники на опорах против скольжения и повреждения пола.
-Автоматический многоуровневый регулятор высоты до 0,9 м.
-Двухпозиционная EURO подставка под утюг с термостойкими силиконовыми вставками, специально для утюгов с тефлоновым покрытием.
-Широкая гладильная поверхность позволяет гладить постельное белье и скатерти.
-Сертифицированный электросоединитель 2,2 м.
-Подвижный складной держатель шнура.
-Защита от случайного раскладывания
-Съемный чехол из качественных термостойких тканей.
-Вес - 4,5кг</p>-->
+                                         
 
 
                                             <div class="alert alert-warning" role="alert"
@@ -242,7 +243,19 @@ import Menu from "../layout/Menu.vue"
 
         components:{
             'menu-shop':Menu,
-        }
+        },
+        created(){
+           
+
+            this.$store.dispatch('asyncGetItems')
+        },
+         computed:{
+            items(){
+                
+                
+                return this.$store.getters.items
+            }
+        },
 
     }
 </script>

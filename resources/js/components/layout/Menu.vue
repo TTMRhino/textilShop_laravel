@@ -30,14 +30,14 @@
 
                 </ul>
 
-                <div class="alert alert-danger" role="alert" v-if="errored">
+               <!-- <div class="alert alert-danger" role="alert" v-if="errored">
                     Ошибка!                   
                 </div>
 
               <div class="d-flex align-items-center" v-if="loading">
                 <strong>Loading...</strong>
                 <div class="spinner-border ml-auto" role="status" aria-hidden="true"></div>
-              </div>
+              </div>-->
 
                <!-- <ul class="middle-menu-list menuSideBar">
                     <li><a href="/shop/index?maingroup_id=2">
@@ -65,13 +65,14 @@
     export default {
         data(){
             return{
-                mainGroups:[],
-                errored:false,
-                loading:true
+               // mainGroups:this.$store.getters.getGroups
+               // mainGroups:[],
+                //errored:false,
+                //loading:true
             }
         },
         mounted(){
-            axios.get('/api/v1/maingroup')
+            /*axios.get('/api/v1/maingroup')
             .then(res => { 
                 this.mainGroups = res.data.data
                 }).catch(err => {
@@ -79,7 +80,17 @@
                     console.err(err)
                 }).finally(() => { 
                     this.loading = false 
-                    })
+                    })*/
+        },
+        computed:{
+            mainGroups(){
+               
+                return this.$store.getters.groups
+            }
+        },
+        created(){
+            //забираем с сервера группы(все) 
+            this.$store.dispatch('asyncGetGroups')
         }
     }
 </script>

@@ -9,8 +9,9 @@
                         <!-- Thumbnail Large Image start -->
                         <div class="tab-content">
                             <div id="thumb1" class="tab-pane active">
+                             
                                 <a data-fancybox="images" href="/images/products/l43661.jpg"><img
-                                        src="/images/products/l43661.jpg" alt="product-view"></a>
+                                        :src="'/images/products/' + item.vendor +'.jpg'" alt="product-view"></a>
                             </div>
                             <!-- <div id="thumb2" class="tab-pane">
                                 <a data-fancybox="images" href="/img/products/2.jpg"><img src="/img/products/2.jpg" alt="product-view"></a>
@@ -39,13 +40,14 @@
                     <!-- Thumbnail Description Start -->
                     <div class="col-lg-7">
                         <div class="thubnail-desc fix">
-                            <h3 class="product-header">Доска гладильная Haushalt НР1Т/С корица 1220*400 (терм. пластик,
-                                европодст., удлин., кроншт)</h3>
+                            <h3 class="product-header">
+                                {{ item.item }}
+                            </h3>
 
 
                             <p class="">Группа: </p>
 
-                            <p class="">Подгруппа: Доски "Ника"
+                            <p class="">Подгруппа: 
                             </p>
 
                             <div class="rating-summary fix mtb-10">
@@ -59,7 +61,7 @@
 
                             </div>
                             <div class="pro-price mb-10">
-                                <p><span class="price">р.</span><del class="prev-price"></del></p>
+                                <p><span class="price">{{ item.price }}р.</span><del class="prev-price"></del></p>
                             </div>
                             <div class="pro-ref mb-15">
                                 <p><span class="in-stock">На складе</span><span class="sku">50шт.</span></p>
@@ -72,19 +74,8 @@
                                 </form>
                             </div>
 
-                            <p class="ptb-20">Гладильный стол из термостойкого пластика размером 1220*400мм
-                                Инновационная технология отражения пара. Эффект двусторонней глажки.
-                                Устойчивая металлическая ножка.
-                                Пластиковые наконечники на опорах против скольжения и повреждения пола.
-                                Автоматический многоуровневый регулятор высоты до 0,9 м.
-                                Двухпозиционная EURO подставка под утюг с термостойкими силиконовыми вставками,
-                                специально для утюгов с тефлоновым покрытием.
-                                Широкая гладильная поверхность позволяет гладить постельное белье и скатерти.
-                                Сертифицированный электросоединитель 2,2 м.
-                                Подвижный складной держатель шнура.
-                                Защита от случайного раскладывания
-                                Съемный чехол из качественных термостойких тканей.
-                                Вес - 4,5кг
+                            <p class="ptb-20">
+                                {{ item.description }}
                             </p>
                         </div>
                     </div>
@@ -101,5 +92,21 @@
 <script>
     export default {
 
+        data(){
+            return{
+                id:this.$route.params['id'],
+                item:{}
+            }
+        },
+        created(){
+            console.log(`id = ${this.id}`)
+
+            this.item = this.$resource(`/api/v1/items/${this.id}`)
+                .get().then(res => res.json()).then(item => {
+                    this.item = item.data
+                })      
+        
+        }
+
     }
-</script>>
+</script>
