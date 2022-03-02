@@ -6398,8 +6398,28 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      sortBy: "item",
+      sortType: 'ASC'
+    };
+  },
   components: {
     'menu-shop': _layout_Menu_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
@@ -6409,6 +6429,21 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     items: function items() {
       return this.$store.getters.items;
+    }
+  },
+  methods: {
+    setSortBy: function setSortBy(sortBy) {
+      this.sortBy = sortBy;
+      console.log(this.sortBy);
+    },
+    sort: function sort() {
+      var sortType = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'ASC';
+      //this.$store.commit('setSort', {sortBy:this.sortBy, sortType:this.sortType})
+      this.$store.dispatch('asyncGetItems', {
+        sortBy: this.sortBy,
+        sortType: sortType
+      });
+      console.log(this.sortType + this.sortBy);
     }
   }
 });
@@ -6682,13 +6717,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                vue__WEBPACK_IMPORTED_MODULE_1__["default"].resource("/api/v1/items/").get().then(function (res) {
-                  return res.json();
-                }).then(function (res) {
-                  context.commit('setItems', res);
-                });
+                console.log("PPPPPPPPPPPPPPPPPPP");
+                console.log(payload);
+                if (typeof payload.sortBy == 'undefined') //НАчать отсуюдлго .При монтороавнии стр переменные  sort и sortType == undifined!
+                  vue__WEBPACK_IMPORTED_MODULE_1__["default"].resource("/api/v1/items?sort=".concat(payload.sort, "&sortType=").concat(payload.sortType)).get().then(function (res) {
+                    return res.json();
+                  }).then(function (res) {
+                    context.commit('setItems', res);
+                  });
 
-              case 1:
+              case 3:
               case "end":
                 return _context.stop();
             }
@@ -6700,6 +6738,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   getters: {
     items: function items(state) {
       return state.items;
+    },
+    sort: function sort(state) {
+      return state.sort;
     }
   }
 });
@@ -31829,7 +31870,101 @@ var render = function () {
           _c("div", { staticClass: "col-lg-3  order-2" }, [_c("menu-shop")], 1),
           _vm._v(" "),
           _c("div", { staticClass: "col-lg-9 order-lg-2" }, [
-            _vm._m(0),
+            _c(
+              "div",
+              {
+                staticClass:
+                  "grid-list-top border-default universal-padding fix mb-30",
+              },
+              [
+                _vm._m(0),
+                _vm._v(" "),
+                _c("div", { staticClass: "main-toolbar-sorter f-right" }, [
+                  _c("div", { staticClass: "toolbar-sorter" }, [
+                    _c("div", { staticClass: "btn-group btn-sort" }, [
+                      _vm._m(1),
+                      _vm._v(" "),
+                      _c(
+                        "ul",
+                        {
+                          staticClass: "dropdown-menu",
+                          attrs: { role: "menu" },
+                        },
+                        [
+                          _c("li", [
+                            _c(
+                              "a",
+                              {
+                                attrs: { href: "#" },
+                                on: {
+                                  click: function ($event) {
+                                    return _vm.setSortBy("item")
+                                  },
+                                },
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                                Имя\n                                            "
+                                ),
+                              ]
+                            ),
+                          ]),
+                          _vm._v(" "),
+                          _c("li", [
+                            _c(
+                              "a",
+                              {
+                                attrs: { href: "#" },
+                                on: {
+                                  click: function ($event) {
+                                    return _vm.setSortBy("price")
+                                  },
+                                },
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                                Цена\n                                            "
+                                ),
+                              ]
+                            ),
+                          ]),
+                        ]
+                      ),
+                    ]),
+                    _vm._v(" "),
+                    _c("span", [
+                      _c(
+                        "a",
+                        {
+                          attrs: { href: "#" },
+                          on: {
+                            click: function ($event) {
+                              return _vm.sort("DESC")
+                            },
+                          },
+                        },
+                        [_c("i", { staticClass: "fa fa-arrow-up" })]
+                      ),
+                    ]),
+                    _vm._v(" "),
+                    _c("span", [
+                      _c(
+                        "a",
+                        {
+                          attrs: { href: "#" },
+                          on: {
+                            click: function ($event) {
+                              return _vm.sort("ASC")
+                            },
+                          },
+                        },
+                        [_c("i", { staticClass: "fa fa-arrow-down" })]
+                      ),
+                    ]),
+                  ]),
+                ]),
+              ]
+            ),
             _vm._v(" "),
             _c("div", { staticClass: "main-categorie" }, [
               _c(
@@ -31881,7 +32016,7 @@ var render = function () {
                                 ),
                                 _vm._v(" "),
                                 _c("div", { staticClass: "pro-content" }, [
-                                  _vm._m(1, true),
+                                  _vm._m(2, true),
                                   _vm._v(" "),
                                   _c(
                                     "h4",
@@ -31927,7 +32062,7 @@ var render = function () {
                                     ]
                                   ),
                                   _vm._v(" "),
-                                  _vm._m(2, true),
+                                  _vm._m(3, true),
                                 ]),
                               ]),
                             ]
@@ -31980,7 +32115,7 @@ var render = function () {
                           ),
                           _vm._v(" "),
                           _c("div", { staticClass: "pro-content" }, [
-                            _vm._m(3, true),
+                            _vm._m(4, true),
                             _vm._v(" "),
                             _c(
                               "h4",
@@ -32030,7 +32165,7 @@ var render = function () {
                               ]
                             ),
                             _vm._v(" "),
-                            _vm._m(4, true),
+                            _vm._m(5, true),
                           ]),
                         ]),
                       ]
@@ -32041,7 +32176,7 @@ var render = function () {
               ),
             ]),
             _vm._v(" "),
-            _vm._m(5),
+            _vm._m(6),
           ]),
         ]),
       ]),
@@ -32053,92 +32188,46 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
-        staticClass: "grid-list-top border-default universal-padding fix mb-30",
-      },
-      [
-        _c("div", { staticClass: "grid-list-view f-left" }, [
-          _c("ul", { staticClass: "list-inline nav" }, [
-            _c("li", [
-              _c("a", { attrs: { "data-toggle": "tab", href: "#grid-view" } }, [
-                _c("i", { staticClass: "fa fa-th" }),
-              ]),
-            ]),
-            _vm._v(" "),
-            _c("li", [
-              _c(
-                "a",
-                {
-                  staticClass: "active",
-                  attrs: { "data-toggle": "tab", href: "#list-view" },
-                },
-                [_c("i", { staticClass: "fa fa-list-ul" })]
-              ),
-            ]),
-            _vm._v(" "),
-            _c("li", [
-              _c("span", { staticClass: "grid-item-list" }, [
-                _vm._v(" товары 1-12 of 13"),
-              ]),
-            ]),
+    return _c("div", { staticClass: "grid-list-view f-left" }, [
+      _c("ul", { staticClass: "list-inline nav" }, [
+        _c("li", [
+          _c("a", { attrs: { "data-toggle": "tab", href: "#grid-view" } }, [
+            _c("i", { staticClass: "fa fa-th" }),
           ]),
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "main-toolbar-sorter f-right" }, [
-          _c("div", { staticClass: "toolbar-sorter" }, [
-            _c("div", { staticClass: "btn-group btn-sort" }, [
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-default dropdown-toggle",
-                  attrs: { type: "button", "data-toggle": "dropdown" },
-                },
-                [
-                  _vm._v(
-                    "\n                                        Сортировать "
-                  ),
-                  _c("span", { staticClass: "caret" }),
-                ]
-              ),
-              _vm._v(" "),
-              _c(
-                "ul",
-                { staticClass: "dropdown-menu", attrs: { role: "menu" } },
-                [
-                  _c("li", [
-                    _c("a", { attrs: { href: "/shop/index?sort=item" } }, [
-                      _vm._v("Имя"),
-                    ]),
-                  ]),
-                  _vm._v(" "),
-                  _c("li", [
-                    _c("a", { attrs: { href: "/shop/index?sort=price" } }, [
-                      _vm._v("Цена"),
-                    ]),
-                  ]),
-                ]
-              ),
-            ]),
-            _vm._v(" "),
-            _c("span", [
-              _c(
-                "a",
-                { attrs: { href: "/shop/index?type_sort=DESC&sort=price" } },
-                [_c("i", { staticClass: "fa fa-arrow-up" })]
-              ),
-            ]),
-            _vm._v(" "),
-            _c("span", [
-              _c(
-                "a",
-                { attrs: { href: "/shop/index?type_sort=ASC&sort=price" } },
-                [_c("i", { staticClass: "fa fa-arrow-down" })]
-              ),
-            ]),
+        _c("li", [
+          _c(
+            "a",
+            {
+              staticClass: "active",
+              attrs: { "data-toggle": "tab", href: "#list-view" },
+            },
+            [_c("i", { staticClass: "fa fa-list-ul" })]
+          ),
+        ]),
+        _vm._v(" "),
+        _c("li", [
+          _c("span", { staticClass: "grid-item-list" }, [
+            _vm._v(" товары 1-12 of 13"),
           ]),
         ]),
+      ]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "btn btn-default dropdown-toggle",
+        attrs: { type: "button", "data-toggle": "dropdown" },
+      },
+      [
+        _vm._v("\n                                        Сортировать "),
+        _c("span", { staticClass: "caret" }),
       ]
     )
   },

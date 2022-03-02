@@ -37,15 +37,29 @@
                                             Сортировать <span class="caret"></span>
                                         </button>
                                         <ul class="dropdown-menu" role="menu">
-                                            <li><a href="/shop/index?sort=item">Имя</a></li>
-                                            <li><a href="/shop/index?sort=price">Цена</a></li>
+                                            <li>
+                                                <a href="#" @click="setSortBy('item')">
+                                                    Имя
+                                                </a>
+                                                </li>
+                                            <li>
+                                                <a href="#" @click="setSortBy('price')">
+                                                    Цена
+                                                </a>
+                                            </li>
                                         </ul>
                                     </div>
 
-                                    <span><a href="/shop/index?type_sort=DESC&sort=price"><i
-                                                class="fa fa-arrow-up"></i></a></span>
-                                    <span><a href="/shop/index?type_sort=ASC&sort=price"><i
-                                                class="fa fa-arrow-down"></i></a></span>
+                                    <span>
+                                        <a href="#" @click="sort('DESC')">
+                                            <i class="fa fa-arrow-up"></i>
+                                        </a>
+                                    </span>
+                                    <span>
+                                        <a href="#" @click="sort('ASC')">
+                                            <i class="fa fa-arrow-down"></i>
+                                        </a>
+                                    </span>
                                 </div>
                             </div>
                             <!-- Toolbar Short Area End -->
@@ -241,6 +255,13 @@
 import Menu from "../layout/Menu.vue"
     export default {
 
+        data(){
+            return{
+                sortBy:"item",
+                sortType:'ASC'
+            }
+        },
+
         components:{
             'menu-shop':Menu,
         },
@@ -250,12 +271,29 @@ import Menu from "../layout/Menu.vue"
             this.$store.dispatch('asyncGetItems')
         },
          computed:{
-            items(){
-                
+            items(){                
                 
                 return this.$store.getters.items
             }
         },
+        methods:{
+           
+
+            setSortBy: function(sortBy){               
+                this.sortBy = sortBy
+                console.log(this.sortBy)
+            },
+           
+
+            sort:function(sortType='ASC'){
+               //this.$store.commit('setSort', {sortBy:this.sortBy, sortType:this.sortType})
+             
+           
+              this.$store.dispatch('asyncGetItems',{sortBy:this.sortBy, sortType})
+
+                console.log(this.sortType + this.sortBy)
+            }
+        }
 
     }
 </script>

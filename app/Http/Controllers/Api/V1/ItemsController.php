@@ -15,9 +15,21 @@ class ItemsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        return ItemsResource::collection(Items::paginate(10));
+    public function index(Request $request)
+    {   
+        //dd($request->sort);
+        $query = Items::query();
+
+        $sort = $request->sort ? $request->sort : 'item';
+        $sortType = $request->sortType ? $request->sortType : 'ASC';
+
+        $query->orderBy($sort, $sortType);
+
+       // $items = ItemsResource::collection(Items::paginate(10));
+        //$items = ItemsResource::collection(Items::paginate(10)->sortDesc($sort));
+        
+        //return ItemsResource::collection(Items::paginate(10));
+        return $query->paginate(10);
     }
 
     /**
@@ -39,6 +51,7 @@ class ItemsController extends Controller
      */
     public function show($id)
     {
+       
         return new ItemsResource( Items::findorFail($id));
     }
 

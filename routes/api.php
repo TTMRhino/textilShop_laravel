@@ -35,8 +35,11 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     return $user;
 });*/
 
+Route::get('/items/{sort?}',[App\Http\Controllers\Api\V1\ItemsController::class, 'index']);
+
+
 Route::apiResources([
-    'items' => ItemsController::class,
+    //'items' => ItemsController::class,
     'maingroup' => MainGroupController::class,
     'subgroup' => SubGroupController::class,
     'orders' => OrdersController::class,
