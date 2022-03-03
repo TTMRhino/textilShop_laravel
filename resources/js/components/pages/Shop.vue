@@ -23,7 +23,7 @@
                                     <li><a data-toggle="tab" href="#grid-view"><i class="fa fa-th"></i></a></li>
                                     <li><a class="active" data-toggle="tab" href="#list-view"><i
                                                 class="fa fa-list-ul"></i></a></li>
-                                    <li><span class="grid-item-list"> товары 1-12 of 13</span></li>
+                                    <li><span class="grid-item-list"> товары {{ pagination.to - 10}}-{{ pagination.to }} of {{ pagination.total}}</span></li>
                                 </ul>
                             </div>
                             <!-- Toolbar Short Area Start -->
@@ -51,12 +51,12 @@
                                     </div>
 
                                     <span>
-                                        <a href="#" @click="sort('DESC')">
+                                        <a href="#" @click="ssortType('ASC')">
                                             <i class="fa fa-arrow-up"></i>
                                         </a>
                                     </span>
                                     <span>
-                                        <a href="#" @click="sort('ASC')">
+                                        <a href="#" @click="sortType('DESC')">
                                             <i class="fa fa-arrow-down"></i>
                                         </a>
                                     </span>
@@ -210,34 +210,9 @@
                             <!-- Grid & List Main Area End -->
                         </div>
 
-                        <!--Breadcrumb and Page Show Start -->
-                        <div class="pagination-box fix">
+                        <!-- PAGINATION -->
+                        <pagination :pagination ="pagination" />
 
-
-
-                            <ul class="blog-pagination ">
-
-                                <ul class="pagination">
-                                    <li class="prev disabled"><a href="/shop/index?page=0" data-page="1">&laquo;</a></li>
-                                    
-                                    <li class="active"><a href="/shop/index" data-page="0">1</a></li>
-                                    <li><a href="/shop/index?page=2" data-page="1">2</a></li>
-
-                                    <li class="next"><a href="/shop/index?page=2" data-page="1">&raquo;</a></li>
-                                </ul>
-                            </ul>
-
-                            <div class="toolbar-sorter-footer">
-                                <label>Показать:</label>
-                                <select class="sorter" name="sorter">
-                                    <option value="Position" selected="selected">12</option>
-                                    <option value="Product Name">15</option>
-                                    <option value="Price">30</option>
-                                </select>
-                                <span>страниц</span>
-                            </div>
-                        </div>
-                        <!--Breadcrumb and Page Show End -->
                     </div>
                     <!-- product Categorie List End -->
                 </div>
@@ -253,43 +228,54 @@
 <script>
 
 import Menu from "../layout/Menu.vue"
+import Pagination from "../layout/Pagination.vue"
     export default {
-
+    components:{
+            'menu-shop':Menu,
+            'pagination': Pagination,
+        },
         data(){
             return{
-                sortBy:"item",
-                sortType:'ASC'
+                //sortBy:"item",
+                //sortType:'ASC',
+                pagination: null
             }
         },
 
-        components:{
-            'menu-shop':Menu,
-        },
+       
         created(){
            
 
             this.$store.dispatch('asyncGetItems')
+            this.pagination = this.$store.getters.pagination      
+            console.log(this.pagination)      
+            
         },
          computed:{
             items(){                
                 
                 return this.$store.getters.items
-            }
+            },
+           
         },
         methods:{
            
 
             setSortBy: function(sortBy){               
                 this.sortBy = sortBy
+                
+                this.$store.commit('setSort', { sortBy: sortBy, sortType:this.sortType})
+
+                this.$store.dispatch('asyncGetItems',{sortBy:this.sortBy, sortType:this.sortType})
                 console.log(this.sortBy)
             },
            
 
-            sort:function(sortType='ASC'){
+            sortType:function(sortType='ASC'){
                //this.$store.commit('setSort', {sortBy:this.sortBy, sortType:this.sortType})
              
            
-              this.$store.dispatch('asyncGetItems',{sortBy:this.sortBy, sortType})
+              this.$store.dispatch('asyncGetItems')
 
                 console.log(this.sortType + this.sortBy)
             }
