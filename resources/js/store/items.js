@@ -13,8 +13,10 @@ export default {
     },
     mutations: {
         setSort(state, payload) {
-            state.sort.sortBy = payload.sort.sortBy
-            state.sort.sortType = payload.sort.sortType
+            console.log("SETSORT");
+            console.log(payload);
+            state.sort.sortBy = payload.sortBy
+            state.sort.sortType = payload.sortType
         },
 
         setItems(state, payload) {
@@ -24,10 +26,12 @@ export default {
 
         setPagination(state, payload) {
 
-            state.pagination.sfirst_page_url = payload.first_page_url
+
+
+            //state.pagination.sfirst_page_url = payload.first_page_url
             state.pagination.from = payload.from
             state.pagination.last_page = payload.last_page
-            state.pagination.last_page_url = payload.last_page_url
+                // state.pagination.last_page_url = payload.last_page_url
             state.pagination.links = payload.links
             state.pagination.next_page_url = payload.next_page_url
             state.pagination.path = payload.path
@@ -37,23 +41,25 @@ export default {
             state.pagination.total = payload.total
             state.pagination.current_page = payload.current_page
 
+
+
         }
 
     },
     actions: {
         async asyncGetItems(context, payload) {
-            // console.log("GET ITEMS !")
-            //console.log(payload.page)
+
+            let search = ''
 
             //при первом заходе в shop sortBy и sortType  не установлены
             if (typeof payload == 'undefined') {
                 payload = {
-                    sortBy: 'item',
-                    sortType: 'ASC'
+                    sortBy: this.state.items.sort.sortBy,
+                    sortType: this.state.items.sort.sortType
                 }
             } else if (typeof payload.sortBy == 'undefined' || typeof payload.sortType == 'undefined') {
-                payload.sortBy = 'item'
-                payload.sortType = 'ASC'
+                payload.sortBy = this.state.items.sort.sortBy
+                payload.sortType = this.state.items.sort.sortType
             }
 
 
@@ -62,9 +68,14 @@ export default {
 
             }
 
+            if (typeof payload.search != 'undefined') {
+                console.log("searach =" + payload.search)
+                search = payload.search
+            }
 
 
-            Vue.resource(`/api/v1/items?sort=${this.state.items.sort.sortBy}&sortType=${this.state.items.sort.sortType}&page=${payload.page}`)
+
+            Vue.resource(`/api/v1/items?sort=${this.state.items.sort.sortBy}&sortType=${this.state.items.sort.sortType}&page=${payload.page}&search=${payload.search}`)
                 .get().then(res => res.json()).then(res => {
                     context.commit('setItems', res)
                     context.commit('setPagination', res)

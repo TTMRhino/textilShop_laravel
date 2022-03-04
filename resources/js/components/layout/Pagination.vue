@@ -11,20 +11,23 @@
                                     <li class="prev disabled">                                       
                                        
 
-                                         <a href="#" :disabled="currentPage <= 1"  @click="movePage(--currentPage )">
+                                         <a href="#"   @click="movePage(--currentPage )">
                                              &laquo;
                                         </a>   
                                     </li>
                                     
-                                    <li class="active"><a href="/shop/index" data-page="0">1</a></li>
-
-                                    <li>
-                                        <a href="/shop/index?page=2" data-page="1">2</a>
+                                    <li :class="{active:currentPage == page}" 
+                                        v-for="page in fromToArr(currentPage,currentPage+5)" 
+                                        :key="page"
                                         
+                                    >
+                                        <a href="#"  @click="movePage(page)">{{page}}</a>
                                     </li>
 
+                                  
+
                                     <li class="next">
-                                        <a href="#" :disabled="currentPage >= pagination.total" @click="movePage(++currentPage )">
+                                        <a href="#"  @click="movePage(++currentPage )">
                                             &raquo;
                                         </a>                                       
                                       
@@ -54,21 +57,23 @@ export default {
             currentPage:1,
         }
     },
-    created(){
-        console.log("Из пагинации")
-        console.log(this.pagination)
-    },
+    
+    
     methods:{
+        
         movePage:function(page){
                 console.log(page)
+                //если текущая страница 1 то запрещеаем переход на предыдущую страницу
             if (page < 1  ){
+               
                 this.currentPage = 1
                 console.log("Button disabled!")
-            }else if(page >= this.pagination.total){
+
+            }else if(page >= this.pagination.total){//если последняя страница то запрещаем переходиьна следующую
                 this.currentPage = pagination.total
                 console.log("Button disabled!")
             }   
-            else{               
+            else{   //если все ок то выводим содержание            
 
                 this.currentPage = page
                 this.$store.dispatch('asyncGetItems',{
@@ -76,7 +81,34 @@ export default {
                         })
             }
             
-        }
+        },
+        //формируем ограниченную пагинацию (выводим не все 30 стр а только по 6 шт.)
+            fromToArr(curPage,end){
+
+               // pageCount = Math.floor(this.pagination.total/10)
+                //console.log
+                
+
+                //если end пришел больше чем колличесво стр приравниваем его к колличесву стр.
+               if(end > Math.floor(this.pagination.total/10) ){
+                   end = Math.floor(this.pagination.total/10)
+               }
+               
+                let arr=[] 
+
+                //делаем "отступы" в отображении номера стр в пагинации <-1 1 0 1 1->
+                if(Math.floor(this.pagination.total/10) > 5){
+                    if(curPage > 2 &&  end  > 4){
+                        curPage -=2                                           
+                    }
+                }else{ curPage = 1 }                   
+
+                for(curPage; curPage <= end; curPage++){
+                    arr.push(curPage)
+                }
+               
+                return  arr
+            },
     }
 }
 </script>>

@@ -5490,7 +5490,24 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({});
+//
+//
+//
+//
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      searchItem: ''
+    };
+  },
+  methods: {
+    search: function search(_search) {
+      this.$store.dispatch('asyncGetItems', {
+        search: _search
+      }); //TO DO поиск в HEADER`е 1- нужно перенапрваить в  SHOP 2-передать значение search
+    }
+  }
+});
 
 /***/ }),
 
@@ -5659,6 +5676,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['pagination'],
   data: function data() {
@@ -5666,26 +5686,49 @@ __webpack_require__.r(__webpack_exports__);
       currentPage: 1
     };
   },
-  created: function created() {
-    console.log("Из пагинации");
-    console.log(this.pagination);
-  },
   methods: {
     movePage: function movePage(page) {
-      console.log(page);
+      console.log(page); //если текущая страница 1 то запрещеаем переход на предыдущую страницу
 
       if (page < 1) {
         this.currentPage = 1;
         console.log("Button disabled!");
       } else if (page >= this.pagination.total) {
+        //если последняя страница то запрещаем переходиьна следующую
         this.currentPage = pagination.total;
         console.log("Button disabled!");
       } else {
+        //если все ок то выводим содержание            
         this.currentPage = page;
         this.$store.dispatch('asyncGetItems', {
           page: page
         });
       }
+    },
+    //формируем ограниченную пагинацию (выводим не все 30 стр а только по 6 шт.)
+    fromToArr: function fromToArr(curPage, end) {
+      // pageCount = Math.floor(this.pagination.total/10)
+      //console.log
+      //если end пришел больше чем колличесво стр приравниваем его к колличесву стр.
+      if (end > Math.floor(this.pagination.total / 10)) {
+        end = Math.floor(this.pagination.total / 10);
+      }
+
+      var arr = []; //делаем "отступы" в отображении номера стр в пагинации <-1 1 0 1 1->
+
+      if (Math.floor(this.pagination.total / 10) > 5) {
+        if (curPage > 2 && end > 4) {
+          curPage -= 2;
+        }
+      } else {
+        curPage = 1;
+      }
+
+      for (curPage; curPage <= end; curPage++) {
+        arr.push(curPage);
+      }
+
+      return arr;
     }
   }
 });
@@ -6489,15 +6532,14 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      //sortBy:"item",
-      //sortType:'ASC',
+      sortB: "item",
+      sortT: 'ASC',
       pagination: null
     };
   },
   created: function created() {
     this.$store.dispatch('asyncGetItems');
     this.pagination = this.$store.getters.pagination;
-    console.log(this.pagination);
   },
   computed: {
     items: function items() {
@@ -6506,23 +6548,23 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     setSortBy: function setSortBy(sortBy) {
-      this.sortBy = sortBy;
+      this.sortB = sortBy;
       this.$store.commit('setSort', {
         sortBy: sortBy,
-        sortType: this.sortType
+        sortType: this.sortT
       });
-      this.$store.dispatch('asyncGetItems', {
-        sortBy: this.sortBy,
-        sortType: this.sortType
-      });
-      console.log(this.sortBy);
+      this.$store.dispatch('asyncGetItems');
+      console.log(this.sortB);
     },
     sortType: function sortType() {
       var _sortType = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'ASC';
 
-      //this.$store.commit('setSort', {sortBy:this.sortBy, sortType:this.sortType})
-      this.$store.dispatch('asyncGetItems');
-      console.log(this.sortType + this.sortBy);
+      this.sortT = _sortType;
+      this.$store.commit('setSort', {
+        sortBy: this.sortB,
+        sortType: this.sortT
+      });
+      this.$store.dispatch('asyncGetItems'); // console.log(this.sortType + this.sort)
     }
   }
 });
@@ -6791,17 +6833,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   mutations: {
     setSort: function setSort(state, payload) {
-      state.sort.sortBy = payload.sort.sortBy;
-      state.sort.sortType = payload.sort.sortType;
+      console.log("SETSORT");
+      console.log(payload);
+      state.sort.sortBy = payload.sortBy;
+      state.sort.sortType = payload.sortType;
     },
     setItems: function setItems(state, payload) {
       state.items = payload.data;
     },
     setPagination: function setPagination(state, payload) {
-      state.pagination.sfirst_page_url = payload.first_page_url;
+      //state.pagination.sfirst_page_url = payload.first_page_url
       state.pagination.from = payload.from;
-      state.pagination.last_page = payload.last_page;
-      state.pagination.last_page_url = payload.last_page_url;
+      state.pagination.last_page = payload.last_page; // state.pagination.last_page_url = payload.last_page_url
+
       state.pagination.links = payload.links;
       state.pagination.next_page_url = payload.next_page_url;
       state.pagination.path = payload.path;
@@ -6817,35 +6861,40 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+        var search;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                // console.log("GET ITEMS !")
-                //console.log(payload.page)
-                //при первом заходе в shop sortBy и sortType  не установлены
+                search = ''; //при первом заходе в shop sortBy и sortType  не установлены
+
                 if (typeof payload == 'undefined') {
                   payload = {
-                    sortBy: 'item',
-                    sortType: 'ASC'
+                    sortBy: _this.state.items.sort.sortBy,
+                    sortType: _this.state.items.sort.sortType
                   };
                 } else if (typeof payload.sortBy == 'undefined' || typeof payload.sortType == 'undefined') {
-                  payload.sortBy = 'item';
-                  payload.sortType = 'ASC';
+                  payload.sortBy = _this.state.items.sort.sortBy;
+                  payload.sortType = _this.state.items.sort.sortType;
                 }
 
                 if (typeof payload.page == 'undefined') {
                   payload.page = 1;
                 }
 
-                vue__WEBPACK_IMPORTED_MODULE_1__["default"].resource("/api/v1/items?sort=".concat(_this.state.items.sort.sortBy, "&sortType=").concat(_this.state.items.sort.sortType, "&page=").concat(payload.page)).get().then(function (res) {
+                if (typeof payload.search != 'undefined') {
+                  console.log("searach =" + payload.search);
+                  search = payload.search;
+                }
+
+                vue__WEBPACK_IMPORTED_MODULE_1__["default"].resource("/api/v1/items?sort=".concat(_this.state.items.sort.sortBy, "&sortType=").concat(_this.state.items.sort.sortType, "&page=").concat(payload.page, "&search=").concat(payload.search)).get().then(function (res) {
                   return res.json();
                 }).then(function (res) {
                   context.commit('setItems', res);
                   context.commit('setPagination', res);
                 });
 
-              case 3:
+              case 5:
               case "end":
                 return _context.stop();
             }
@@ -30774,7 +30823,52 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("header", [
-    _vm._m(0),
+    _c("div", { staticClass: "header-top" }, [
+      _c("div", { staticClass: "container" }, [
+        _c("div", { staticClass: "row" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-lg-4 col-md-6 ml-auto mr-auto" }, [
+            _c("div", { staticClass: "search-box-view" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.searchItem,
+                    expression: "searchItem",
+                  },
+                ],
+                staticClass: "email",
+                attrs: { type: "text", placeholder: "Поиск ..." },
+                domProps: { value: _vm.searchItem },
+                on: {
+                  input: function ($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.searchItem = $event.target.value
+                  },
+                },
+              }),
+              _vm._v(" "),
+              _c("i", { staticClass: "fa-solid fa-magnifying-glass" }),
+              _vm._v(" "),
+              _c("button", {
+                staticClass: "submit",
+                on: {
+                  click: function ($event) {
+                    return _vm.search(_vm.searchItem)
+                  },
+                },
+              }),
+            ]),
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-lg-4 col-md-12" }),
+        ]),
+      ]),
+    ]),
     _vm._v(" "),
     _c("div", { staticClass: "header-bottom header-sticky" }, [
       _c("div", { staticClass: "container" }, [
@@ -30904,49 +30998,10 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "header-top" }, [
-      _c("div", { staticClass: "container" }, [
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-lg-4 col-md-12 d-center" }, [
-            _c("div", { staticClass: "header-top-left" }, [
-              _c("img", { attrs: { src: "images/icon/call.png", alt: "" } }),
-              _vm._v(" +7(9000) - 741-791\n                    "),
-            ]),
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-lg-4 col-md-6 ml-auto mr-auto" }, [
-            _c("div", { staticClass: "search-box-view" }, [
-              _c(
-                "form",
-                {
-                  attrs: {
-                    action: "http://textileshop/shop/search",
-                    method: "get",
-                  },
-                },
-                [
-                  _c("input", {
-                    staticClass: "email",
-                    attrs: {
-                      type: "text",
-                      placeholder: "Поиск ...",
-                      name: "q",
-                    },
-                  }),
-                  _vm._v(" "),
-                  _c("i", { staticClass: "fa-solid fa-magnifying-glass" }),
-                  _vm._v(" "),
-                  _c("button", {
-                    staticClass: "submit",
-                    attrs: { type: "submit" },
-                  }),
-                ]
-              ),
-            ]),
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-lg-4 col-md-12" }),
-        ]),
+    return _c("div", { staticClass: "col-lg-4 col-md-12 d-center" }, [
+      _c("div", { staticClass: "header-top-left" }, [
+        _c("img", { attrs: { src: "images/icon/call.png", alt: "" } }),
+        _vm._v(" +7(9000) - 741-791\n                    "),
       ]),
     ])
   },
@@ -31135,79 +31190,81 @@ var render = function () {
   return _c("div", [
     _c("div", { staticClass: "pagination-box fix" }, [
       _c("ul", { staticClass: "blog-pagination " }, [
-        _c("ul", { staticClass: "pagination" }, [
-          _c("li", { staticClass: "prev disabled" }, [
-            _c(
-              "a",
-              {
-                attrs: { href: "#", disabled: _vm.currentPage <= 1 },
-                on: {
-                  click: function ($event) {
-                    return _vm.movePage(--_vm.currentPage)
+        _c(
+          "ul",
+          { staticClass: "pagination" },
+          [
+            _c("li", { staticClass: "prev disabled" }, [
+              _c(
+                "a",
+                {
+                  attrs: { href: "#" },
+                  on: {
+                    click: function ($event) {
+                      return _vm.movePage(--_vm.currentPage)
+                    },
                   },
                 },
-              },
-              [
-                _vm._v(
-                  "\n                                         «\n                                    "
-                ),
-              ]
+                [
+                  _vm._v(
+                    "\n                                         «\n                                    "
+                  ),
+                ]
+              ),
+            ]),
+            _vm._v(" "),
+            _vm._l(
+              _vm.fromToArr(_vm.currentPage, _vm.currentPage + 5),
+              function (page) {
+                return _c(
+                  "li",
+                  { key: page, class: { active: _vm.currentPage == page } },
+                  [
+                    _c(
+                      "a",
+                      {
+                        attrs: { href: "#" },
+                        on: {
+                          click: function ($event) {
+                            return _vm.movePage(page)
+                          },
+                        },
+                      },
+                      [_vm._v(_vm._s(page))]
+                    ),
+                  ]
+                )
+              }
             ),
-          ]),
-          _vm._v(" "),
-          _vm._m(0),
-          _vm._v(" "),
-          _vm._m(1),
-          _vm._v(" "),
-          _c("li", { staticClass: "next" }, [
-            _c(
-              "a",
-              {
-                attrs: {
-                  href: "#",
-                  disabled: _vm.currentPage >= _vm.pagination.total,
-                },
-                on: {
-                  click: function ($event) {
-                    return _vm.movePage(++_vm.currentPage)
+            _vm._v(" "),
+            _c("li", { staticClass: "next" }, [
+              _c(
+                "a",
+                {
+                  attrs: { href: "#" },
+                  on: {
+                    click: function ($event) {
+                      return _vm.movePage(++_vm.currentPage)
+                    },
                   },
                 },
-              },
-              [
-                _vm._v(
-                  "\n                                        »\n                                    "
-                ),
-              ]
-            ),
-          ]),
-        ]),
+                [
+                  _vm._v(
+                    "\n                                        »\n                                    "
+                  ),
+                ]
+              ),
+            ]),
+          ],
+          2
+        ),
       ]),
       _vm._v(" "),
-      _vm._m(2),
+      _vm._m(0),
     ]),
   ])
 }
 var staticRenderFns = [
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", { staticClass: "active" }, [
-      _c("a", { attrs: { href: "/shop/index", "data-page": "0" } }, [
-        _vm._v("1"),
-      ]),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", [
-      _c("a", { attrs: { href: "/shop/index?page=2", "data-page": "1" } }, [
-        _vm._v("2"),
-      ]),
-    ])
-  },
   function () {
     var _vm = this
     var _h = _vm.$createElement
@@ -32274,7 +32331,7 @@ var render = function () {
                             attrs: { href: "#" },
                             on: {
                               click: function ($event) {
-                                return _vm.ssortType("ASC")
+                                return _vm.sortType("ASC")
                               },
                             },
                           },

@@ -18,18 +18,21 @@ class ItemsController extends Controller
     public function index(Request $request)
     {   
         //dd($request->sort);
-        $query = Items::query();
+        if( empty($request->search)){
+            $query = Items::query();
 
-        $sort = $request->sort ? $request->sort : 'item';
-        $sortType = $request->sortType ? $request->sortType : 'ASC';
+            $sort = $request->sort ? $request->sort : 'item';
+            $sortType = $request->sortType ? $request->sortType : 'ASC';    
+    
+            $query->orderBy($sort, $sortType);    
+          
+            return $query->paginate(10);
+        }else{
+            $query = Items::where('item','LIKE',"%$request->search%")->getQuery();
 
-        $query->orderBy($sort, $sortType);
-
-       // $items = ItemsResource::collection(Items::paginate(10));
-        //$items = ItemsResource::collection(Items::paginate(10)->sortDesc($sort));
-        
-        //return ItemsResource::collection(Items::paginate(10));
-        return $query->paginate(10);
+            return $query->paginate(10);
+        }
+       
     }
 
     /**

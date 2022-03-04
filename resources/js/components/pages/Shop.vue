@@ -51,7 +51,7 @@
                                     </div>
 
                                     <span>
-                                        <a href="#" @click="ssortType('ASC')">
+                                        <a href="#" @click="sortType('ASC')">
                                             <i class="fa fa-arrow-up"></i>
                                         </a>
                                     </span>
@@ -236,8 +236,8 @@ import Pagination from "../layout/Pagination.vue"
         },
         data(){
             return{
-                //sortBy:"item",
-                //sortType:'ASC',
+                sortB:"item",
+                sortT:'ASC',
                 pagination: null
             }
         },
@@ -247,8 +247,7 @@ import Pagination from "../layout/Pagination.vue"
            
 
             this.$store.dispatch('asyncGetItems')
-            this.pagination = this.$store.getters.pagination      
-            console.log(this.pagination)      
+            this.pagination = this.$store.getters.pagination  
             
         },
          computed:{
@@ -262,23 +261,25 @@ import Pagination from "../layout/Pagination.vue"
            
 
             setSortBy: function(sortBy){               
-                this.sortBy = sortBy
+                this.sortB = sortBy
                 
-                this.$store.commit('setSort', { sortBy: sortBy, sortType:this.sortType})
+                this.$store.commit('setSort', { sortBy: sortBy, sortType:this.sortT})
 
-                this.$store.dispatch('asyncGetItems',{sortBy:this.sortBy, sortType:this.sortType})
-                console.log(this.sortBy)
+                this.$store.dispatch('asyncGetItems')
+                console.log(this.sortB)
             },
            
 
             sortType:function(sortType='ASC'){
-               //this.$store.commit('setSort', {sortBy:this.sortBy, sortType:this.sortType})
+                this.sortT = sortType
+               this.$store.commit('setSort', {sortBy:this.sortB, sortType:this.sortT})
              
            
               this.$store.dispatch('asyncGetItems')
 
-                console.log(this.sortType + this.sortBy)
-            }
+               // console.log(this.sortType + this.sort)
+            },
+           
         }
 
     }

@@ -16,13 +16,17 @@
                         <!-- Search Box Start -->
                         <div class="col-lg-4 col-md-6 ml-auto mr-auto">
                             <div class="search-box-view">
-                                <form action="http://textileshop/shop/search" method="get">
-                                    <input type="text" class="email" placeholder="Поиск ..." name="q">
+                               
+                                    <input type="text" 
+                                    v-model ="searchItem"
+                                    class="email" 
+                                    placeholder="Поиск ..." 
+                                    >
                                     <i class="fa-solid fa-magnifying-glass"></i>
 
 
-                                    <button type="submit" class="submit"></button>
-                                </form>
+                                    <button  class="submit" @click="search(searchItem)"></button>
+                              
                             </div>
                         </div>
                         <!-- Search Box End -->
@@ -178,6 +182,17 @@
 
 <script>
     export default {
-
+        data(){
+            return{
+                searchItem:''
+            }
+        },
+        methods:{
+             search(search){
+                
+                this.$store.dispatch('asyncGetItems',{search})
+                //TO DO поиск в HEADER`е 1- нужно перенапрваить в  SHOP 2-передать значение search
+            }
+        }
     }
 </script>
