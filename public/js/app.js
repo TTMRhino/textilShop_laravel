@@ -5494,6 +5494,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -5502,9 +5505,24 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     search: function search(_search) {
+      console.log('Searh path');
+      console.log(this.$route.path);
       this.$store.dispatch('asyncGetItems', {
         search: _search
       }); //TO DO поиск в HEADER`е 1- нужно перенапрваить в  SHOP 2-передать значение search
+
+      var path = this.$route.path.split("/"); // path = path
+
+      console.log('Split path = ' + path[1]);
+
+      if (path[1] != 'shop') {
+        this.$router.push({
+          name: 'shop',
+          params: {
+            search: _search
+          }
+        });
+      }
     }
   }
 });
@@ -5612,6 +5630,22 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     //забираем с сервера группы(все) 
     this.$store.dispatch('asyncGetGroups');
+  },
+  methods: {
+    getItemByMainGroup: function getItemByMainGroup(id) {
+      console.log("GET Item by Main group  = " + id);
+      this.$store.dispatch('asyncGetItems', {
+        'search': id,
+        searchRow: 'maingroup_id'
+      });
+    },
+    getItemBySubGroup: function getItemBySubGroup(id) {
+      console.log("GET Item by Sub group = " + id);
+      this.$store.dispatch('asyncGetItems', {
+        'search': id,
+        searchRow: 'subgroup_id'
+      });
+    }
   }
 });
 
@@ -6534,11 +6568,16 @@ __webpack_require__.r(__webpack_exports__);
     return {
       sortB: "item",
       sortT: 'ASC',
-      pagination: null
+      pagination: null,
+      search: this.$route.params['search']
     };
   },
   created: function created() {
-    this.$store.dispatch('asyncGetItems');
+    console.log('SHOP');
+    console.log('search =' + this.search);
+    this.$store.dispatch('asyncGetItems', {
+      search: this.search
+    });
     this.pagination = this.$store.getters.pagination;
   },
   computed: {
@@ -6676,7 +6715,7 @@ __webpack_require__.r(__webpack_exports__);
     component: _components_pages_About_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
     name: 'about'
   }, {
-    path: '/shop',
+    path: '/shop/:search',
     component: _components_pages_Shop_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
     name: 'shop'
   }, {
@@ -6876,25 +6915,29 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 } else if (typeof payload.sortBy == 'undefined' || typeof payload.sortType == 'undefined') {
                   payload.sortBy = _this.state.items.sort.sortBy;
                   payload.sortType = _this.state.items.sort.sortType;
-                }
+                } //если страница не казана переходим на стр № 1 (пагинация)
+
 
                 if (typeof payload.page == 'undefined') {
                   payload.page = 1;
                 }
 
-                if (typeof payload.search != 'undefined') {
+                if (typeof payload.search != 'undefined' && typeof payload.searchRow == 'undefined') {
                   console.log("searach =" + payload.search);
-                  search = payload.search;
+                  search = "&search=".concat(payload.search, "&searchRow='item'");
+                } else if (typeof payload.searchRow != 'undefined') {
+                  search = "&search=".concat(payload.search, "&searchRow=").concat(payload.searchRow, " ");
                 }
 
-                vue__WEBPACK_IMPORTED_MODULE_1__["default"].resource("/api/v1/items?sort=".concat(_this.state.items.sort.sortBy, "&sortType=").concat(_this.state.items.sort.sortType, "&page=").concat(payload.page, "&search=").concat(payload.search)).get().then(function (res) {
+                console.log("item dipath =" + search);
+                vue__WEBPACK_IMPORTED_MODULE_1__["default"].resource("/api/v1/items?sort=".concat(_this.state.items.sort.sortBy, "&sortType=").concat(_this.state.items.sort.sortType, "&page=").concat(payload.page).concat(search)).get().then(function (res) {
                   return res.json();
                 }).then(function (res) {
                   context.commit('setItems', res);
                   context.commit('setPagination', res);
                 });
 
-              case 5:
+              case 6:
               case "end":
                 return _context.stop();
             }
@@ -31089,17 +31132,29 @@ var render = function () {
               [
                 _c(
                   "li",
+                  { staticStyle: { cursor: "pointer" } },
                   [
-                    _c("a", { attrs: { href: "/shop/index?maingroup_id=1" } }, [
-                      _vm._v(
-                        "\n                            " +
-                          _vm._s(mgroup.title) +
-                          " "
-                      ),
-                      mgroup.subgroup.length
-                        ? _c("i", { staticClass: "fa fa-angle-down" })
-                        : _vm._e(),
-                    ]),
+                    _c(
+                      "a",
+                      {
+                        staticClass: "menu-group",
+                        on: {
+                          click: function ($event) {
+                            return _vm.getItemByMainGroup(mgroup.id)
+                          },
+                        },
+                      },
+                      [
+                        _vm._v(
+                          "\n                            " +
+                            _vm._s(mgroup.title) +
+                            " "
+                        ),
+                        mgroup.subgroup.length
+                          ? _c("i", { staticClass: "fa fa-angle-down" })
+                          : _vm._e(),
+                      ]
+                    ),
                     _vm._v(" "),
                     _vm._l(mgroup.subgroup, function (subGroup) {
                       return _c(
@@ -31112,7 +31167,13 @@ var render = function () {
                           _c("li", [
                             _c(
                               "a",
-                              { attrs: { href: "/shop/index?subgroup_id=1" } },
+                              {
+                                on: {
+                                  click: function ($event) {
+                                    return _vm.getItemBySubGroup(subGroup.id)
+                                  },
+                                },
+                              },
                               [_vm._v(_vm._s(subGroup.title))]
                             ),
                           ]),

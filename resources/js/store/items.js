@@ -27,7 +27,6 @@ export default {
         setPagination(state, payload) {
 
 
-
             //state.pagination.sfirst_page_url = payload.first_page_url
             state.pagination.from = payload.from
             state.pagination.last_page = payload.last_page
@@ -40,8 +39,6 @@ export default {
             state.pagination.to = payload.to
             state.pagination.total = payload.total
             state.pagination.current_page = payload.current_page
-
-
 
         }
 
@@ -62,20 +59,22 @@ export default {
                 payload.sortType = this.state.items.sort.sortType
             }
 
-
+            //если страница не казана переходим на стр № 1 (пагинация)
             if (typeof payload.page == 'undefined') {
                 payload.page = 1
 
             }
 
-            if (typeof payload.search != 'undefined') {
+            if (typeof payload.search != 'undefined' && typeof payload.searchRow == 'undefined') {
                 console.log("searach =" + payload.search)
-                search = payload.search
+                search = `&search=${payload.search}&searchRow='item'`
+            } else if (typeof payload.searchRow != 'undefined') {
+                search = `&search=${payload.search}&searchRow=${payload.searchRow} `
             }
 
+            console.log("item dipath =" + search)
 
-
-            Vue.resource(`/api/v1/items?sort=${this.state.items.sort.sortBy}&sortType=${this.state.items.sort.sortType}&page=${payload.page}&search=${payload.search}`)
+            Vue.resource(`/api/v1/items?sort=${this.state.items.sort.sortBy}&sortType=${this.state.items.sort.sortType}&page=${payload.page}${search}`)
                 .get().then(res => res.json()).then(res => {
                     context.commit('setItems', res)
                     context.commit('setPagination', res)

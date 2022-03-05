@@ -233,20 +233,24 @@ import Pagination from "../layout/Pagination.vue"
     components:{
             'menu-shop':Menu,
             'pagination': Pagination,
+           
         },
         data(){
             return{
                 sortB:"item",
                 sortT:'ASC',
-                pagination: null
+                pagination: null,
+                search:this.$route.params['search'],
             }
         },
 
        
         created(){
            
+            console.log('SHOP')
+            console.log('search ='+this.search)
 
-            this.$store.dispatch('asyncGetItems')
+            this.$store.dispatch('asyncGetItems',{search:this.search})
             this.pagination = this.$store.getters.pagination  
             
         },

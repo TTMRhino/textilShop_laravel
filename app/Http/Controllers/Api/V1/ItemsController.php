@@ -28,7 +28,12 @@ class ItemsController extends Controller
           
             return $query->paginate(10);
         }else{
-            $query = Items::where('item','LIKE',"%$request->search%")->getQuery();
+            if($request->searchRow === 'item'){
+                $query = Items::where( 'item','LIKE',"%$request->search%")->getQuery();
+            }else{
+                $query = Items::where( $request->searchRow,$request->search)->getQuery();
+            }
+           
 
             return $query->paginate(10);
         }

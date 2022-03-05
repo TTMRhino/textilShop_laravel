@@ -18,7 +18,7 @@ export default new VueRouter({
             name: 'about',
         },
         {
-            path: '/shop',
+            path: '/shop/:search',
             component: Shop,
             name: 'shop'
         },

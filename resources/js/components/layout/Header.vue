@@ -25,7 +25,10 @@
                                     <i class="fa-solid fa-magnifying-glass"></i>
 
 
-                                    <button  class="submit" @click="search(searchItem)"></button>
+                                   
+                                     <button class="submit" @click="search(searchItem)">
+
+                                     </button>
                               
                             </div>
                         </div>
@@ -189,9 +192,20 @@
         },
         methods:{
              search(search){
-                
+                 console.log('Searh path')
+               console.log(this.$route.path)
                 this.$store.dispatch('asyncGetItems',{search})
                 //TO DO поиск в HEADER`е 1- нужно перенапрваить в  SHOP 2-передать значение search
+                let path = this.$route.path.split("/")
+               // path = path
+                console.log('Split path = '+ path[1])
+
+                if( path[1] != 'shop'){
+                     this.$router.push({ name: 'shop', params: { search } });
+                }
+                   
+                
+                 
             }
         }
     }

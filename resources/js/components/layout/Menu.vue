@@ -11,8 +11,8 @@
                         v-for=" mgroup in mainGroups"
                         :key="mgroup.id"
                     >
-                        <li>
-                            <a href="/shop/index?maingroup_id=1">
+                        <li style="cursor: pointer;">
+                            <a class="menu-group" @click="getItemByMainGroup(mgroup.id)" >
                                 {{ mgroup.title }} <i class="fa fa-angle-down" v-if="mgroup.subgroup.length"></i>
                             </a>
 
@@ -20,8 +20,8 @@
                                 v-for="subGroup in mgroup.subgroup"
                                 :key="subGroup.id"
                             >
-                                <li> 
-                                    <a href="/shop/index?subgroup_id=1">{{ subGroup.title }}</a>
+                                <li > 
+                                    <a   @click="getItemBySubGroup(subGroup.id)">{{ subGroup.title }}</a>
                                 </li>
                                 
                             </ul>
@@ -86,11 +86,22 @@
             mainGroups(){
                
                 return this.$store.getters.groups
-            }
+            }           
         },
         created(){
             //забираем с сервера группы(все) 
             this.$store.dispatch('asyncGetGroups')
+        },
+        methods:{
+             getItemByMainGroup(id){
+                console.log("GET Item by Main group  = " + id)
+
+                this.$store.dispatch('asyncGetItems',{'search': id, searchRow: 'maingroup_id'})
+            },
+             getItemBySubGroup(id){
+                console.log("GET Item by Sub group = "+ id)
+                 this.$store.dispatch('asyncGetItems',{'search': id, searchRow: 'subgroup_id'})
+            }
         }
     }
 </script>
