@@ -2,32 +2,28 @@
     <div>
         <!--Breadcrumb and Page Show Start -->
                         <div class="pagination-box fix">
-
-
-
                             <ul class="blog-pagination ">
-
                                 <ul class="pagination">
-                                    <li class="prev disabled">                                       
-                                       
+                                    <li class="prev disabled menu-group"> 
 
-                                         <a href="#"   @click="movePage(--currentPage )">
+                                         <a  style="cursor: pointer;" @click="movePage(--currentPage )">
                                              &laquo;
-                                        </a>   
+                                        </a>  
                                     </li>
-                                    
-                                    <li :class="{active:currentPage == page}" 
+
+                                   
+                                    <li :class="{active:currentPage == page}"
                                         v-for="page in fromToArr(currentPage,currentPage+5)" 
                                         :key="page"
-                                        
                                     >
-                                        <a href="#"  @click="movePage(page)">{{page}}</a>
-                                    </li>
+                                        <a  style="cursor: pointer;" 
+                                        @click="movePage(page)">
+                                            {{ page }}
+                                        </a>
+                                    </li>                                   
 
-                                  
-
-                                    <li class="next">
-                                        <a href="#"  @click="movePage(++currentPage )">
+                                    <li class="next menu-group">
+                                        <a  style="cursor: pointer;" @click="movePage(++currentPage )">
                                             &raquo;
                                         </a>                                       
                                       
@@ -50,14 +46,32 @@
 </template>
 
 <script>
+import {eventEmitter} from "../../app"
 export default {
-    props:['pagination'],
+   
+   props:['pagination'],
     data() {
         return{
-            currentPage:1,
+            //pagination: this.$store.getters.pagination,
+            currentPage:1
         }
     },
-    
+    created(){
+       
+        eventEmitter.$on('paginationUpdate',() =>{
+            this.pagination =  this.$store.getters.pagination
+            console.log("ddddddddddddddddddddddd")
+            console.log( this.pagination)
+           
+            this.$forceUpdate();
+        })
+
+       
+    },
+    update(){
+      //this.pagination =  this.$store.getters.pagination
+    },
+   
     
     methods:{
         
@@ -69,8 +83,8 @@ export default {
                 this.currentPage = 1
                 console.log("Button disabled!")
 
-            }else if(page >= this.pagination.total){//если последняя страница то запрещаем переходиьна следующую
-                this.currentPage = pagination.total
+            }else if(page >= this.pagination.last_page){//если последняя страница то запрещаем переходиьна следующую
+                this.currentPage = this.pagination.last_page
                 console.log("Button disabled!")
             }   
             else{   //если все ок то выводим содержание            
@@ -79,26 +93,28 @@ export default {
                 this.$store.dispatch('asyncGetItems',{
                         page,                       
                         })
+                        
             }
             
-        },
+        },        
+      
         //формируем ограниченную пагинацию (выводим не все 30 стр а только по 6 шт.)
             fromToArr(curPage,end){
 
                // pageCount = Math.floor(this.pagination.total/10)
-                //console.log
+                console.log(`curPage=${curPage} end=${end}`)
                 
 
                 //если end пришел больше чем колличесво стр приравниваем его к колличесву стр.
-               if(end > Math.floor(this.pagination.total/10) ){
-                   end = Math.floor(this.pagination.total/10)
+               if(end > this.pagination.last_page ){
+                   end = this.pagination.last_page
                }
                
                 let arr=[] 
 
                 //делаем "отступы" в отображении номера стр в пагинации <-1 1 0 1 1->
-                if(Math.floor(this.pagination.total/10) > 5){
-                    if(curPage > 2 &&  end  > 4){
+                if(this.pagination.last_page > 5){
+                    if(curPage > 1 &&  end  > 4){
                         curPage -=2                                           
                     }
                 }else{ curPage = 1 }                   

@@ -5540,6 +5540,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var _app__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../app */ "./resources/js/app.js");
 //
 //
 //
@@ -5603,6 +5604,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {// mainGroups:this.$store.getters.getGroups
@@ -5610,17 +5612,6 @@ __webpack_require__.r(__webpack_exports__);
       //errored:false,
       //loading:true
     };
-  },
-  mounted: function mounted() {
-    /*axios.get('/api/v1/maingroup')
-    .then(res => { 
-        this.mainGroups = res.data.data
-        }).catch(err => {
-            this.errored = true
-            console.err(err)
-        }).finally(() => { 
-            this.loading = false 
-            })*/
   },
   computed: {
     mainGroups: function mainGroups() {
@@ -5638,6 +5629,7 @@ __webpack_require__.r(__webpack_exports__);
         'search': id,
         searchRow: 'maingroup_id'
       });
+      _app__WEBPACK_IMPORTED_MODULE_0__.eventEmitter.$emit('paginationUpdate');
     },
     getItemBySubGroup: function getItemBySubGroup(id) {
       console.log("GET Item by Sub group = " + id);
@@ -5662,6 +5654,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var _app__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../app */ "./resources/js/app.js");
 //
 //
 //
@@ -5709,16 +5702,27 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['pagination'],
   data: function data() {
     return {
+      //pagination: this.$store.getters.pagination,
       currentPage: 1
     };
+  },
+  created: function created() {
+    var _this = this;
+
+    _app__WEBPACK_IMPORTED_MODULE_0__.eventEmitter.$on('paginationUpdate', function () {
+      _this.pagination = _this.$store.getters.pagination;
+      console.log("ddddddddddddddddddddddd");
+      console.log(_this.pagination);
+
+      _this.$forceUpdate();
+    });
+  },
+  update: function update() {//this.pagination =  this.$store.getters.pagination
   },
   methods: {
     movePage: function movePage(page) {
@@ -5727,9 +5731,9 @@ __webpack_require__.r(__webpack_exports__);
       if (page < 1) {
         this.currentPage = 1;
         console.log("Button disabled!");
-      } else if (page >= this.pagination.total) {
+      } else if (page >= this.pagination.last_page) {
         //если последняя страница то запрещаем переходиьна следующую
-        this.currentPage = pagination.total;
+        this.currentPage = this.pagination.last_page;
         console.log("Button disabled!");
       } else {
         //если все ок то выводим содержание            
@@ -5742,16 +5746,16 @@ __webpack_require__.r(__webpack_exports__);
     //формируем ограниченную пагинацию (выводим не все 30 стр а только по 6 шт.)
     fromToArr: function fromToArr(curPage, end) {
       // pageCount = Math.floor(this.pagination.total/10)
-      //console.log
-      //если end пришел больше чем колличесво стр приравниваем его к колличесву стр.
-      if (end > Math.floor(this.pagination.total / 10)) {
-        end = Math.floor(this.pagination.total / 10);
+      console.log("curPage=".concat(curPage, " end=").concat(end)); //если end пришел больше чем колличесво стр приравниваем его к колличесву стр.
+
+      if (end > this.pagination.last_page) {
+        end = this.pagination.last_page;
       }
 
       var arr = []; //делаем "отступы" в отображении номера стр в пагинации <-1 1 0 1 1->
 
-      if (Math.floor(this.pagination.total / 10) > 5) {
-        if (curPage > 2 && end > 4) {
+      if (this.pagination.last_page > 5) {
+        if (curPage > 1 && end > 4) {
           curPage -= 2;
         }
       } else {
@@ -6557,6 +6561,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -6573,15 +6578,17 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   created: function created() {
-    console.log('SHOP');
-    console.log('search =' + this.search);
     this.$store.dispatch('asyncGetItems', {
       search: this.search
     });
     this.pagination = this.$store.getters.pagination;
   },
+  updated: function updated() {
+    this.pagination = this.$store.getters.pagination;
+  },
   computed: {
     items: function items() {
+      this.pagination = this.$store.getters.pagination;
       return this.$store.getters.items;
     }
   },
@@ -6618,6 +6625,9 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "eventEmitter": () => (/* binding */ eventEmitter)
+/* harmony export */ });
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
 /* harmony import */ var _components_App_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/App.vue */ "./resources/js/components/App.vue");
 /* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
@@ -6634,6 +6644,7 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 vue__WEBPACK_IMPORTED_MODULE_4__["default"].use(vue_router__WEBPACK_IMPORTED_MODULE_5__["default"]);
 vue__WEBPACK_IMPORTED_MODULE_4__["default"].use(vue_resource__WEBPACK_IMPORTED_MODULE_2__["default"]);
+var eventEmitter = new vue__WEBPACK_IMPORTED_MODULE_4__["default"]();
 var app = new vue__WEBPACK_IMPORTED_MODULE_4__["default"]({
   el: '#app',
   components: {
@@ -6850,14 +6861,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
-
-
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+/* harmony import */ var _app__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../app */ "./resources/js/app.js");
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -6868,7 +6873,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     sort: {
       sortBy: 'item',
       sortType: 'ASC'
-    }
+    },
+    //searchRow: null,
+    search: null
   },
   mutations: {
     setSort: function setSort(state, payload) {
@@ -6881,7 +6888,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       state.items = payload.data;
     },
     setPagination: function setPagination(state, payload) {
-      //state.pagination.sfirst_page_url = payload.first_page_url
+      //state.pagination.first_page_url = payload.first_page_url
       state.pagination.from = payload.from;
       state.pagination.last_page = payload.last_page; // state.pagination.last_page_url = payload.last_page_url
 
@@ -6893,57 +6900,49 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       state.pagination.to = payload.to;
       state.pagination.total = payload.total;
       state.pagination.current_page = payload.current_page;
+      console.log("ПАГИНАЦИЯ ИЗМЕНЕНА!");
+      _app__WEBPACK_IMPORTED_MODULE_0__.eventEmitter.$emit('paginationUpdate');
+    },
+    setCurrentPage: function setCurrentPage(state, payload) {
+      state.pagination.current_page = payload.current_page;
     }
   },
   actions: {
     asyncGetItems: function asyncGetItems(context, payload) {
-      var _this = this;
+      var search = ''; //при первом заходе в shop sortBy и sortType  не установлены
 
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-        var search;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                search = ''; //при первом заходе в shop sortBy и sortType  не установлены
-
-                if (typeof payload == 'undefined') {
-                  payload = {
-                    sortBy: _this.state.items.sort.sortBy,
-                    sortType: _this.state.items.sort.sortType
-                  };
-                } else if (typeof payload.sortBy == 'undefined' || typeof payload.sortType == 'undefined') {
-                  payload.sortBy = _this.state.items.sort.sortBy;
-                  payload.sortType = _this.state.items.sort.sortType;
-                } //если страница не казана переходим на стр № 1 (пагинация)
+      if (typeof payload == 'undefined') {
+        payload = {
+          sortBy: this.state.items.sort.sortBy,
+          sortType: this.state.items.sort.sortType
+        };
+      } else if (typeof payload.sortBy == 'undefined' || typeof payload.sortType == 'undefined') {
+        payload.sortBy = this.state.items.sort.sortBy;
+        payload.sortType = this.state.items.sort.sortType;
+      } //если страница не указана переходим на стр № 1 (пагинация)
 
 
-                if (typeof payload.page == 'undefined') {
-                  payload.page = 1;
-                }
+      if (typeof payload.page == 'undefined') {
+        payload.page = 1;
+      }
+      /* if (typeof payload.search != 'undefined' && typeof payload.searchRow == 'undefined') {
+           console.log("searach =" + payload.search)
+           search = `&search=${payload.search}&searchRow='item'`
+       } else if (typeof payload.searchRow != 'undefined') {
+           search = `&search=${payload.search}&searchRow=${payload.searchRow} `
+       }
+         console.log("item dipath =" + search)*/
+      //${search}
 
-                if (typeof payload.search != 'undefined' && typeof payload.searchRow == 'undefined') {
-                  console.log("searach =" + payload.search);
-                  search = "&search=".concat(payload.search, "&searchRow='item'");
-                } else if (typeof payload.searchRow != 'undefined') {
-                  search = "&search=".concat(payload.search, "&searchRow=").concat(payload.searchRow, " ");
-                }
 
-                console.log("item dipath =" + search);
-                vue__WEBPACK_IMPORTED_MODULE_1__["default"].resource("/api/v1/items?sort=".concat(_this.state.items.sort.sortBy, "&sortType=").concat(_this.state.items.sort.sortType, "&page=").concat(payload.page).concat(search)).get().then(function (res) {
-                  return res.json();
-                }).then(function (res) {
-                  context.commit('setItems', res);
-                  context.commit('setPagination', res);
-                });
-
-              case 6:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee);
-      }))();
+      vue__WEBPACK_IMPORTED_MODULE_1__["default"].resource("/api/v1/items?sort=".concat(this.state.items.sort.sortBy, "&sortType=").concat(this.state.items.sort.sortType, "&page=").concat(payload.page)).get().then(function (res) {
+        return res.json();
+      }).then(function (res) {
+        context.commit('setItems', res);
+        context.commit('setPagination', res);
+      });
+    },
+    asyncGetItemsByMGroup: function asyncGetItemsByMGroup(context, payload) {// To DO ...
     }
   },
   getters: {
@@ -30965,18 +30964,6 @@ var render = function () {
                     ],
                     1
                   ),
-                  _vm._v(" "),
-                  _c(
-                    "li",
-                    [
-                      _c(
-                        "router-link",
-                        { attrs: { to: { name: "contact" } } },
-                        [_vm._v("Контакты")]
-                      ),
-                    ],
-                    1
-                  ),
                 ]),
               ]),
             ]),
@@ -31255,11 +31242,11 @@ var render = function () {
           "ul",
           { staticClass: "pagination" },
           [
-            _c("li", { staticClass: "prev disabled" }, [
+            _c("li", { staticClass: "prev disabled menu-group" }, [
               _c(
                 "a",
                 {
-                  attrs: { href: "#" },
+                  staticStyle: { cursor: "pointer" },
                   on: {
                     click: function ($event) {
                       return _vm.movePage(--_vm.currentPage)
@@ -31284,25 +31271,31 @@ var render = function () {
                     _c(
                       "a",
                       {
-                        attrs: { href: "#" },
+                        staticStyle: { cursor: "pointer" },
                         on: {
                           click: function ($event) {
                             return _vm.movePage(page)
                           },
                         },
                       },
-                      [_vm._v(_vm._s(page))]
+                      [
+                        _vm._v(
+                          "\n                                        " +
+                            _vm._s(page) +
+                            "\n                                    "
+                        ),
+                      ]
                     ),
                   ]
                 )
               }
             ),
             _vm._v(" "),
-            _c("li", { staticClass: "next" }, [
+            _c("li", { staticClass: "next menu-group" }, [
               _c(
                 "a",
                 {
-                  attrs: { href: "#" },
+                  staticStyle: { cursor: "pointer" },
                   on: {
                     click: function ($event) {
                       return _vm.movePage(++_vm.currentPage)
@@ -32418,6 +32411,8 @@ var render = function () {
                   ]),
                 ]
               ),
+              _vm._v(" "),
+              _c("pagination", { attrs: { pagination: _vm.pagination } }),
               _vm._v(" "),
               _c("div", { staticClass: "main-categorie" }, [
                 _c(

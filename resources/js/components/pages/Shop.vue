@@ -11,7 +11,7 @@
                     <!-- Sidebar Shopping Option Start -->
                     <div class="col-lg-3  order-2">
                    
-                       <menu-shop/>
+                       <menu-shop   />
                     </div>
                     <!-- Sidebar Shopping Option End -->
                     <!-- Product Categorie List Start -->
@@ -65,7 +65,8 @@
                             <!-- Toolbar Short Area End -->
                         </div>
 
-
+             <!-- PAGINATION -->
+                        <pagination :pagination ="pagination" />
 
                         <!-- Grid & List View End -->
                         <div class="main-categorie">
@@ -246,21 +247,24 @@ import Pagination from "../layout/Pagination.vue"
 
        
         created(){
-           
-            console.log('SHOP')
-            console.log('search ='+this.search)
 
             this.$store.dispatch('asyncGetItems',{search:this.search})
             this.pagination = this.$store.getters.pagination  
             
         },
+        updated(){
+           this.pagination = this.$store.getters.pagination  
+        },
+        
+        
          computed:{
             items(){                
-                
+                this.pagination = this.$store.getters.pagination 
                 return this.$store.getters.items
             },
            
         },
+
         methods:{
            
 

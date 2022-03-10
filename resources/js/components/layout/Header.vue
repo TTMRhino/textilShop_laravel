@@ -82,10 +82,10 @@
                                         </li>
 
 
-                                        <li>
+                                      <!--  <li>
                                             
                                             <router-link :to="{name:'contact'}">Контакты</router-link> 
-                                        </li>
+                                        </li>-->
                                         <!--<li>
                                            
                                             <router-link :to="{name:'about'}"> <i class="fa fa-key"></i>Кабинет</router-link> 

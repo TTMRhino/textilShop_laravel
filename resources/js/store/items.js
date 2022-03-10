@@ -1,5 +1,5 @@
 import Vue from 'vue'
-
+import { eventEmitter } from "../app"
 export default {
     state: {
         items: null,
@@ -8,10 +8,14 @@ export default {
         sort: {
             sortBy: 'item',
             sortType: 'ASC'
-        }
+        },
+        //searchRow: null,
+        search: null,
+
 
     },
     mutations: {
+
         setSort(state, payload) {
             console.log("SETSORT");
             console.log(payload);
@@ -27,7 +31,7 @@ export default {
         setPagination(state, payload) {
 
 
-            //state.pagination.sfirst_page_url = payload.first_page_url
+            //state.pagination.first_page_url = payload.first_page_url
             state.pagination.from = payload.from
             state.pagination.last_page = payload.last_page
                 // state.pagination.last_page_url = payload.last_page_url
@@ -40,11 +44,19 @@ export default {
             state.pagination.total = payload.total
             state.pagination.current_page = payload.current_page
 
+
+            console.log("ПАГИНАЦИЯ ИЗМЕНЕНА!")
+            eventEmitter.$emit('paginationUpdate')
+
+        },
+
+        setCurrentPage(state, payload) {
+            state.pagination.current_page = payload.current_page
         }
 
     },
     actions: {
-        async asyncGetItems(context, payload) {
+        asyncGetItems(context, payload) {
 
             let search = ''
 
@@ -59,27 +71,31 @@ export default {
                 payload.sortType = this.state.items.sort.sortType
             }
 
-            //если страница не казана переходим на стр № 1 (пагинация)
+            //если страница не указана переходим на стр № 1 (пагинация)
             if (typeof payload.page == 'undefined') {
                 payload.page = 1
 
             }
 
-            if (typeof payload.search != 'undefined' && typeof payload.searchRow == 'undefined') {
-                console.log("searach =" + payload.search)
-                search = `&search=${payload.search}&searchRow='item'`
-            } else if (typeof payload.searchRow != 'undefined') {
-                search = `&search=${payload.search}&searchRow=${payload.searchRow} `
-            }
+            /* if (typeof payload.search != 'undefined' && typeof payload.searchRow == 'undefined') {
+                 console.log("searach =" + payload.search)
+                 search = `&search=${payload.search}&searchRow='item'`
+             } else if (typeof payload.searchRow != 'undefined') {
+                 search = `&search=${payload.search}&searchRow=${payload.searchRow} `
+             }
 
-            console.log("item dipath =" + search)
-
-            Vue.resource(`/api/v1/items?sort=${this.state.items.sort.sortBy}&sortType=${this.state.items.sort.sortType}&page=${payload.page}${search}`)
+             console.log("item dipath =" + search)*/
+            //${search}
+            Vue.resource(`/api/v1/items?sort=${this.state.items.sort.sortBy}&sortType=${this.state.items.sort.sortType}&page=${payload.page}`)
                 .get().then(res => res.json()).then(res => {
                     context.commit('setItems', res)
                     context.commit('setPagination', res)
                 })
         },
+
+        asyncGetItemsByMGroup(context, payload) {
+            // To DO ...
+        }
 
     },
     getters: {
@@ -93,5 +109,6 @@ export default {
         pagination(state) {
             return state.pagination
         },
+
     },
 }

@@ -62,7 +62,9 @@
 </template>
 
 <script>
+import {eventEmitter} from "../../app"
     export default {
+       
         data(){
             return{
                // mainGroups:this.$store.getters.getGroups
@@ -71,17 +73,7 @@
                 //loading:true
             }
         },
-        mounted(){
-            /*axios.get('/api/v1/maingroup')
-            .then(res => { 
-                this.mainGroups = res.data.data
-                }).catch(err => {
-                    this.errored = true
-                    console.err(err)
-                }).finally(() => { 
-                    this.loading = false 
-                    })*/
-        },
+       
         computed:{
             mainGroups(){
                
@@ -95,8 +87,11 @@
         methods:{
              getItemByMainGroup(id){
                 console.log("GET Item by Main group  = " + id)
+                
 
-                this.$store.dispatch('asyncGetItems',{'search': id, searchRow: 'maingroup_id'})
+               this.$store.dispatch('asyncGetItems',{'search': id, searchRow: 'maingroup_id'})
+                 
+                eventEmitter.$emit('paginationUpdate')
             },
              getItemBySubGroup(id){
                 console.log("GET Item by Sub group = "+ id)

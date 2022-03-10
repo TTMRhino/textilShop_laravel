@@ -13,7 +13,7 @@ import store from "./store"
 Vue.use(VueRouter)
 Vue.use(VueResource)
 
-
+export const eventEmitter = new Vue()
 
 const app = new Vue({
     el: '#app',

@@ -27,19 +27,30 @@ class ItemsController extends Controller
             $query->orderBy($sort, $sortType);    
           
             return $query->paginate(10);
-        }else{
-            if($request->searchRow === 'item'){
-                $query = Items::where( 'item','LIKE',"%$request->search%")->getQuery();
-            }else{
-                $query = Items::where( $request->searchRow,$request->search)->getQuery();
-            }
-           
+        }else{           
+                $query = Items::where( 'item','LIKE',"%$request->search%")->getQuery();           
+                
+            }           
 
-            return $query->paginate(10);
-        }
+            return $query->paginate(10);         
+        
        
     }
 
+    public function getItemByMGroup(Request $request){
+        //dd("Tis is function getItemByMGroup =".$request->id);
+        $query = Items::where( 'maingroup_id',$request->id)->getQuery();
+
+        return $query->paginate(10);
+    }
+
+    public function getItemBySGroup(Request $request){
+        //dd("Tis is function getItemBySGroup =".$request->id);
+
+        $query = Items::where( 'subgroup_id',$request->id)->getQuery();
+
+        return $query->paginate(10);
+    }
     /**
      * Store a newly created resource in storage.
      *
