@@ -88,14 +88,16 @@ import {eventEmitter} from "../../app"
              getItemByMainGroup(id){
                 console.log("GET Item by Main group  = " + id)
                 
-
-               this.$store.dispatch('asyncGetItems',{'search': id, searchRow: 'maingroup_id'})
+                
+              // this.$store.dispatch('asyncGetItems',{'search': id, searchRow: 'maingroup_id'})
+               this.$store.dispatch('asyncGetItemsByMGroup',{'id': id})
                  
                 eventEmitter.$emit('paginationUpdate')
             },
              getItemBySubGroup(id){
                 console.log("GET Item by Sub group = "+ id)
-                 this.$store.dispatch('asyncGetItems',{'search': id, searchRow: 'subgroup_id'})
+                // this.$store.dispatch('asyncGetItems',{'search': id, searchRow: 'subgroup_id'})
+                 this.$store.dispatch('asyncGetItemsBySGroup',{'id': id})
             }
         }
     }

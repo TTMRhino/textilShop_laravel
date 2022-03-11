@@ -18,7 +18,7 @@ class ItemsController extends Controller
     public function index(Request $request)
     {   
         //dd($request->sort);
-        if( empty($request->search)){
+      /*  if( empty($request->search)){
             $query = Items::query();
 
             $sort = $request->sort ? $request->sort : 'item';
@@ -30,7 +30,9 @@ class ItemsController extends Controller
         }else{           
                 $query = Items::where( 'item','LIKE',"%$request->search%")->getQuery();           
                 
-            }           
+            }    */
+            $query = Items::query();  
+            $query = Items::where( $request->searchRow,$request->searchValue)->getQuery()->orderBy($sort, $sortType);    
 
             return $query->paginate(10);         
         
@@ -51,6 +53,13 @@ class ItemsController extends Controller
 
         return $query->paginate(10);
     }
+
+    public function item(Request $request){
+       // dd($id);
+        return Items::where('id',$request->id)->get();
+    }
+
+
     /**
      * Store a newly created resource in storage.
      *

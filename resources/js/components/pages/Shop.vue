@@ -37,26 +37,26 @@
                                             Сортировать <span class="caret"></span>
                                         </button>
                                         <ul class="dropdown-menu" role="menu">
-                                            <li>
-                                                <a href="#" @click="setSortBy('item')">
+                                            <li style="cursor: pointer;">
+                                                <a  @click="setSortBy('item')">
                                                     Имя
                                                 </a>
                                                 </li>
-                                            <li>
-                                                <a href="#" @click="setSortBy('price')">
+                                            <li style="cursor: pointer;">
+                                                <a  @click="setSortBy('price')">
                                                     Цена
                                                 </a>
                                             </li>
                                         </ul>
                                     </div>
 
-                                    <span>
-                                        <a href="#" @click="sortType('ASC')">
+                                    <span style="cursor: pointer;">
+                                        <a  @click="sortType('ASC')">
                                             <i class="fa fa-arrow-up"></i>
                                         </a>
                                     </span>
-                                    <span>
-                                        <a href="#" @click="sortType('DESC')">
+                                    <span style="cursor: pointer;">
+                                        <a  @click="sortType('DESC')">
                                             <i class="fa fa-arrow-down"></i>
                                         </a>
                                     </span>
@@ -248,7 +248,7 @@ import Pagination from "../layout/Pagination.vue"
        
         created(){
 
-            this.$store.dispatch('asyncGetItems',{search:this.search})
+            this.$store.dispatch('asyncGetItems')
             this.pagination = this.$store.getters.pagination  
             
         },
@@ -274,7 +274,7 @@ import Pagination from "../layout/Pagination.vue"
                 this.$store.commit('setSort', { sortBy: sortBy, sortType:this.sortT})
 
                 this.$store.dispatch('asyncGetItems')
-                console.log(this.sortB)
+               // console.log(this.sortB)
             },
            
 

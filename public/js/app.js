@@ -5624,18 +5624,18 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     getItemByMainGroup: function getItemByMainGroup(id) {
-      console.log("GET Item by Main group  = " + id);
-      this.$store.dispatch('asyncGetItems', {
-        'search': id,
-        searchRow: 'maingroup_id'
+      console.log("GET Item by Main group  = " + id); // this.$store.dispatch('asyncGetItems',{'search': id, searchRow: 'maingroup_id'})
+
+      this.$store.dispatch('asyncGetItemsByMGroup', {
+        'id': id
       });
       _app__WEBPACK_IMPORTED_MODULE_0__.eventEmitter.$emit('paginationUpdate');
     },
     getItemBySubGroup: function getItemBySubGroup(id) {
-      console.log("GET Item by Sub group = " + id);
-      this.$store.dispatch('asyncGetItems', {
-        'search': id,
-        searchRow: 'subgroup_id'
+      console.log("GET Item by Sub group = " + id); // this.$store.dispatch('asyncGetItems',{'search': id, searchRow: 'subgroup_id'})
+
+      this.$store.dispatch('asyncGetItemsBySGroup', {
+        'id': id
       });
     }
   }
@@ -5715,9 +5715,8 @@ __webpack_require__.r(__webpack_exports__);
     var _this = this;
 
     _app__WEBPACK_IMPORTED_MODULE_0__.eventEmitter.$on('paginationUpdate', function () {
-      _this.pagination = _this.$store.getters.pagination;
-      console.log("ddddddddddddddddddddddd");
-      console.log(_this.pagination);
+      _this.pagination = _this.$store.getters.pagination; //console.log("ddddddddddddddddddddddd")
+      //console.log( this.pagination)
 
       _this.$forceUpdate();
     });
@@ -5729,18 +5728,13 @@ __webpack_require__.r(__webpack_exports__);
       console.log(page); //если текущая страница 1 то запрещеаем переход на предыдущую страницу
 
       if (page < 1) {
-        this.currentPage = 1;
-        console.log("Button disabled!");
+        this.currentPage = 1; //console.log("Button disabled!")
       } else if (page >= this.pagination.last_page) {
         //если последняя страница то запрещаем переходиьна следующую
-        this.currentPage = this.pagination.last_page;
-        console.log("Button disabled!");
+        this.currentPage = this.pagination.last_page; // console.log("Button disabled!")
       } else {
         //если все ок то выводим содержание            
-        this.currentPage = page;
-        this.$store.dispatch('asyncGetItems', {
-          page: page
-        });
+        this.currentPage = page; // this.$store.dispatch('asyncGetItems',{page})
       }
     },
     //формируем ограниченную пагинацию (выводим не все 30 стр а только по 6 шт.)
@@ -6134,10 +6128,10 @@ __webpack_require__.r(__webpack_exports__);
     var _this = this;
 
     console.log("id = ".concat(this.id));
-    this.item = this.$resource("/api/v1/items/".concat(this.id)).get().then(function (res) {
+    this.item = this.$resource("/api/v1/items/item/".concat(this.id)).get().then(function (res) {
       return res.json();
     }).then(function (item) {
-      _this.item = item.data;
+      _this.item = item[0];
     });
   }
 });
@@ -6578,9 +6572,7 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   created: function created() {
-    this.$store.dispatch('asyncGetItems', {
-      search: this.search
-    });
+    this.$store.dispatch('asyncGetItems');
     this.pagination = this.$store.getters.pagination;
   },
   updated: function updated() {
@@ -6599,8 +6591,7 @@ __webpack_require__.r(__webpack_exports__);
         sortBy: sortBy,
         sortType: this.sortT
       });
-      this.$store.dispatch('asyncGetItems');
-      console.log(this.sortB);
+      this.$store.dispatch('asyncGetItems'); // console.log(this.sortB)
     },
     sortType: function sortType() {
       var _sortType = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'ASC';
@@ -6874,8 +6865,8 @@ __webpack_require__.r(__webpack_exports__);
       sortBy: 'item',
       sortType: 'ASC'
     },
-    //searchRow: null,
-    search: null
+    searchRow: '',
+    searchValue: ''
   },
   mutations: {
     setSort: function setSort(state, payload) {
@@ -6916,10 +6907,12 @@ __webpack_require__.r(__webpack_exports__);
           sortBy: this.state.items.sort.sortBy,
           sortType: this.state.items.sort.sortType
         };
-      } else if (typeof payload.sortBy == 'undefined' || typeof payload.sortType == 'undefined') {
-        payload.sortBy = this.state.items.sort.sortBy;
-        payload.sortType = this.state.items.sort.sortType;
-      } //если страница не указана переходим на стр № 1 (пагинация)
+      }
+      /*else if (typeof payload.sortBy == 'undefined' || typeof payload.sortType == 'undefined') {
+                     payload.sortBy = this.state.items.sort.sortBy
+                     payload.sortType = this.state.items.sort.sortType
+                 }*/
+      //если страница не указана переходим на стр № 1 (пагинация)
 
 
       if (typeof payload.page == 'undefined') {
@@ -6935,14 +6928,28 @@ __webpack_require__.r(__webpack_exports__);
       //${search}
 
 
-      vue__WEBPACK_IMPORTED_MODULE_1__["default"].resource("/api/v1/items?sort=".concat(this.state.items.sort.sortBy, "&sortType=").concat(this.state.items.sort.sortType, "&page=").concat(payload.page)).get().then(function (res) {
+      vue__WEBPACK_IMPORTED_MODULE_1__["default"].resource("/api/v1/items?sort=".concat(this.state.items.sort.sortBy, "&sortType=").concat(this.state.items.sort.sortType, "\n            &page=").concat(payload.page, "&searchRow=").concat(this.state.searchRow, "&searchValue=").concat(this.state.searchValue)).get().then(function (res) {
         return res.json();
       }).then(function (res) {
         context.commit('setItems', res);
         context.commit('setPagination', res);
       });
     },
-    asyncGetItemsByMGroup: function asyncGetItemsByMGroup(context, payload) {// To DO ...
+    asyncGetItemsByMGroup: function asyncGetItemsByMGroup(context, payload) {
+      vue__WEBPACK_IMPORTED_MODULE_1__["default"].resource("/api/v1/items/mgroup/".concat(payload.id, "?sort=").concat(this.state.items.sort.sortBy, "&sortType=").concat(this.state.items.sort.sortType)).get().then(function (res) {
+        return res.json();
+      }).then(function (res) {
+        context.commit('setItems', res);
+        context.commit('setPagination', res);
+      });
+    },
+    asyncGetItemsBySGroup: function asyncGetItemsBySGroup(context, payload) {
+      vue__WEBPACK_IMPORTED_MODULE_1__["default"].resource("/api/v1/items/sgroup/".concat(payload.id, "?sort=").concat(this.state.items.sort.sortBy, "&sortType=").concat(this.state.items.sort.sortType)).get().then(function (res) {
+        return res.json();
+      }).then(function (res) {
+        context.commit('setItems', res);
+        context.commit('setPagination', res);
+      });
     }
   },
   getters: {
@@ -32337,11 +32344,10 @@ var render = function () {
                             attrs: { role: "menu" },
                           },
                           [
-                            _c("li", [
+                            _c("li", { staticStyle: { cursor: "pointer" } }, [
                               _c(
                                 "a",
                                 {
-                                  attrs: { href: "#" },
                                   on: {
                                     click: function ($event) {
                                       return _vm.setSortBy("item")
@@ -32356,11 +32362,10 @@ var render = function () {
                               ),
                             ]),
                             _vm._v(" "),
-                            _c("li", [
+                            _c("li", { staticStyle: { cursor: "pointer" } }, [
                               _c(
                                 "a",
                                 {
-                                  attrs: { href: "#" },
                                   on: {
                                     click: function ($event) {
                                       return _vm.setSortBy("price")
@@ -32378,11 +32383,10 @@ var render = function () {
                         ),
                       ]),
                       _vm._v(" "),
-                      _c("span", [
+                      _c("span", { staticStyle: { cursor: "pointer" } }, [
                         _c(
                           "a",
                           {
-                            attrs: { href: "#" },
                             on: {
                               click: function ($event) {
                                 return _vm.sortType("ASC")
@@ -32393,11 +32397,10 @@ var render = function () {
                         ),
                       ]),
                       _vm._v(" "),
-                      _c("span", [
+                      _c("span", { staticStyle: { cursor: "pointer" } }, [
                         _c(
                           "a",
                           {
-                            attrs: { href: "#" },
                             on: {
                               click: function ($event) {
                                 return _vm.sortType("DESC")

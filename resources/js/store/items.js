@@ -9,8 +9,8 @@ export default {
             sortBy: 'item',
             sortType: 'ASC'
         },
-        //searchRow: null,
-        search: null,
+        searchRow: '',
+        searchValue: '',
 
 
     },
@@ -66,10 +66,11 @@ export default {
                     sortBy: this.state.items.sort.sortBy,
                     sortType: this.state.items.sort.sortType
                 }
-            } else if (typeof payload.sortBy == 'undefined' || typeof payload.sortType == 'undefined') {
-                payload.sortBy = this.state.items.sort.sortBy
-                payload.sortType = this.state.items.sort.sortType
             }
+            /*else if (typeof payload.sortBy == 'undefined' || typeof payload.sortType == 'undefined') {
+                           payload.sortBy = this.state.items.sort.sortBy
+                           payload.sortType = this.state.items.sort.sortType
+                       }*/
 
             //если страница не указана переходим на стр № 1 (пагинация)
             if (typeof payload.page == 'undefined') {
@@ -86,7 +87,10 @@ export default {
 
              console.log("item dipath =" + search)*/
             //${search}
-            Vue.resource(`/api/v1/items?sort=${this.state.items.sort.sortBy}&sortType=${this.state.items.sort.sortType}&page=${payload.page}`)
+
+            //TO DO ИСКАЛ ПО ГРУППАМ ЧЕРЕЗ ОДИН запрос resource!!!
+            Vue.resource(`/api/v1/items?sort=${this.state.items.sort.sortBy}&sortType=${this.state.items.sort.sortType}
+            &page=${payload.page}&searchRow=${this.state.searchRow}&searchValue=${this.state.searchValue}`)
                 .get().then(res => res.json()).then(res => {
                     context.commit('setItems', res)
                     context.commit('setPagination', res)
@@ -94,7 +98,19 @@ export default {
         },
 
         asyncGetItemsByMGroup(context, payload) {
-            // To DO ...
+            Vue.resource(`/api/v1/items/mgroup/${payload.id}?sort=${this.state.items.sort.sortBy}&sortType=${this.state.items.sort.sortType}`)
+                .get().then(res => res.json()).then(res => {
+                    context.commit('setItems', res)
+                    context.commit('setPagination', res)
+                })
+        },
+
+        asyncGetItemsBySGroup(context, payload) {
+            Vue.resource(`/api/v1/items/sgroup/${payload.id}?sort=${this.state.items.sort.sortBy}&sortType=${this.state.items.sort.sortType}`)
+                .get().then(res => res.json()).then(res => {
+                    context.commit('setItems', res)
+                    context.commit('setPagination', res)
+                })
         }
 
     },

@@ -60,8 +60,8 @@ export default {
        
         eventEmitter.$on('paginationUpdate',() =>{
             this.pagination =  this.$store.getters.pagination
-            console.log("ddddddddddddddddddddddd")
-            console.log( this.pagination)
+            //console.log("ddddddddddddddddddddddd")
+            //console.log( this.pagination)
            
             this.$forceUpdate();
         })
@@ -81,18 +81,16 @@ export default {
             if (page < 1  ){
                
                 this.currentPage = 1
-                console.log("Button disabled!")
+                //console.log("Button disabled!")
 
             }else if(page >= this.pagination.last_page){//если последняя страница то запрещаем переходиьна следующую
                 this.currentPage = this.pagination.last_page
-                console.log("Button disabled!")
+               // console.log("Button disabled!")
             }   
             else{   //если все ок то выводим содержание            
 
                 this.currentPage = page
-                this.$store.dispatch('asyncGetItems',{
-                        page,                       
-                        })
+               // this.$store.dispatch('asyncGetItems',{page})
                         
             }
             

@@ -101,9 +101,10 @@
         created(){
             console.log(`id = ${this.id}`)
 
-            this.item = this.$resource(`/api/v1/items/${this.id}`)
+            this.item = this.$resource(`/api/v1/items/item/${this.id}`)
                 .get().then(res => res.json()).then(item => {
-                    this.item = item.data
+                    this.item = item[0]
+                    
                 })      
         
         }

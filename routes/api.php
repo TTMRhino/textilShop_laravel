@@ -38,6 +38,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
 Route::get('/items/{sort?}',[App\Http\Controllers\Api\V1\ItemsController::class, 'index']);
 Route::get('/items/mgroup/{id}',[App\Http\Controllers\Api\V1\ItemsController::class, 'getItemByMGroup']);
 Route::get('/items/sgroup/{id}',[App\Http\Controllers\Api\V1\ItemsController::class, 'getItemBySGroup']);
+Route::get('/items/item/{id}',[App\Http\Controllers\Api\V1\ItemsController::class, 'item']);
 
 
 Route::apiResources([
