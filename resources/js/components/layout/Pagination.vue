@@ -53,16 +53,14 @@ export default {
     data() {
         return{
             //pagination: this.$store.getters.pagination,
-            currentPage:1
+            currentPage:this.$store.getters.currentPage
         }
     },
     created(){
        
         eventEmitter.$on('paginationUpdate',() =>{
-            this.pagination =  this.$store.getters.pagination
-            //console.log("ddddddddddddddddddddddd")
-            //console.log( this.pagination)
-           
+            this.pagination =  this.$store.getters.pagination           
+            this.currentPage = this.$store.getters.currentPage
             this.$forceUpdate();
         })
 
@@ -90,7 +88,10 @@ export default {
             else{   //если все ок то выводим содержание            
 
                 this.currentPage = page
-               // this.$store.dispatch('asyncGetItems',{page})
+                //const method = this.$store.getters.method
+                this.$store.commit('setMethod', { method: 'items'})
+                
+                this.$store.dispatch('asyncGetItems',{page})
                         
             }
             

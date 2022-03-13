@@ -5624,16 +5624,26 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     getItemByMainGroup: function getItemByMainGroup(id) {
-      console.log("GET Item by Main group  = " + id); // this.$store.dispatch('asyncGetItems',{'search': id, searchRow: 'maingroup_id'})
-
+      console.log("GET Item by Main group  = " + id);
+      this.$store.commit('setMethod', {
+        method: 'mgroup'
+      });
+      this.$store.commit('setCurrentPage', {
+        current_page: 1
+      });
       this.$store.dispatch('asyncGetItemsByMGroup', {
         'id': id
       });
       _app__WEBPACK_IMPORTED_MODULE_0__.eventEmitter.$emit('paginationUpdate');
     },
     getItemBySubGroup: function getItemBySubGroup(id) {
-      console.log("GET Item by Sub group = " + id); // this.$store.dispatch('asyncGetItems',{'search': id, searchRow: 'subgroup_id'})
-
+      console.log("GET Item by Sub group = " + id);
+      this.$store.commit('setMethod', {
+        method: 'sgroup'
+      });
+      this.$store.commit('setCurrentPage', {
+        current_page: 1
+      });
       this.$store.dispatch('asyncGetItemsBySGroup', {
         'id': id
       });
@@ -5708,15 +5718,15 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       //pagination: this.$store.getters.pagination,
-      currentPage: 1
+      currentPage: this.$store.getters.currentPage
     };
   },
   created: function created() {
     var _this = this;
 
     _app__WEBPACK_IMPORTED_MODULE_0__.eventEmitter.$on('paginationUpdate', function () {
-      _this.pagination = _this.$store.getters.pagination; //console.log("ddddddddddddddddddddddd")
-      //console.log( this.pagination)
+      _this.pagination = _this.$store.getters.pagination;
+      _this.currentPage = _this.$store.getters.currentPage;
 
       _this.$forceUpdate();
     });
@@ -5734,7 +5744,14 @@ __webpack_require__.r(__webpack_exports__);
         this.currentPage = this.pagination.last_page; // console.log("Button disabled!")
       } else {
         //если все ок то выводим содержание            
-        this.currentPage = page; // this.$store.dispatch('asyncGetItems',{page})
+        this.currentPage = page; //const method = this.$store.getters.method
+
+        this.$store.commit('setMethod', {
+          method: 'items'
+        });
+        this.$store.dispatch('asyncGetItems', {
+          page: page
+        });
       }
     },
     //формируем ограниченную пагинацию (выводим не все 30 стр а только по 6 шт.)
@@ -6591,6 +6608,9 @@ __webpack_require__.r(__webpack_exports__);
         sortBy: sortBy,
         sortType: this.sortT
       });
+      this.$store.commit('setMethod', {
+        method: 'items'
+      });
       this.$store.dispatch('asyncGetItems'); // console.log(this.sortB)
     },
     sortType: function sortType() {
@@ -6600,6 +6620,9 @@ __webpack_require__.r(__webpack_exports__);
       this.$store.commit('setSort', {
         sortBy: this.sortB,
         sortType: this.sortT
+      });
+      this.$store.commit('setMethod', {
+        method: 'items'
       });
       this.$store.dispatch('asyncGetItems'); // console.log(this.sortType + this.sort)
     }
@@ -6865,8 +6888,10 @@ __webpack_require__.r(__webpack_exports__);
       sortBy: 'item',
       sortType: 'ASC'
     },
-    searchRow: '',
-    searchValue: ''
+    method: 'items',
+    // searchRow: '',
+    // searchValue: '',
+    currentPage: 1
   },
   mutations: {
     setSort: function setSort(state, payload) {
@@ -6891,11 +6916,15 @@ __webpack_require__.r(__webpack_exports__);
       state.pagination.to = payload.to;
       state.pagination.total = payload.total;
       state.pagination.current_page = payload.current_page;
+      state.currentPage = payload.current_page;
       console.log("ПАГИНАЦИЯ ИЗМЕНЕНА!");
       _app__WEBPACK_IMPORTED_MODULE_0__.eventEmitter.$emit('paginationUpdate');
     },
     setCurrentPage: function setCurrentPage(state, payload) {
       state.pagination.current_page = payload.current_page;
+    },
+    setMethod: function setMethod(state, payload) {
+      state.method = payload.method;
     }
   },
   actions: {
@@ -6926,9 +6955,10 @@ __webpack_require__.r(__webpack_exports__);
        }
          console.log("item dipath =" + search)*/
       //${search}
+      //TO DO ИСКАЛ ПО ГРУППАМ ЧЕРЕЗ ОДИН запрос resource!!!
 
 
-      vue__WEBPACK_IMPORTED_MODULE_1__["default"].resource("/api/v1/items?sort=".concat(this.state.items.sort.sortBy, "&sortType=").concat(this.state.items.sort.sortType, "\n            &page=").concat(payload.page, "&searchRow=").concat(this.state.searchRow, "&searchValue=").concat(this.state.searchValue)).get().then(function (res) {
+      vue__WEBPACK_IMPORTED_MODULE_1__["default"].resource("/api/v1/".concat(this.state.items.method, "?sort=").concat(this.state.items.sort.sortBy, "&sortType=").concat(this.state.items.sort.sortType, "\n            &page=").concat(payload.page)).get().then(function (res) {
         return res.json();
       }).then(function (res) {
         context.commit('setItems', res);
@@ -6936,15 +6966,17 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     asyncGetItemsByMGroup: function asyncGetItemsByMGroup(context, payload) {
-      vue__WEBPACK_IMPORTED_MODULE_1__["default"].resource("/api/v1/items/mgroup/".concat(payload.id, "?sort=").concat(this.state.items.sort.sortBy, "&sortType=").concat(this.state.items.sort.sortType)).get().then(function (res) {
+      console.log('asyncGetItemsByMGroup!!');
+      vue__WEBPACK_IMPORTED_MODULE_1__["default"].resource("/api/v1/items/".concat(this.state.items.method, "/").concat(payload.id, "?sort=").concat(this.state.items.sort.sortBy, "&sortType=").concat(this.state.items.sort.sortType)).get().then(function (res) {
         return res.json();
       }).then(function (res) {
         context.commit('setItems', res);
         context.commit('setPagination', res);
       });
+      console.log("/api/v1/items/".concat(this.state.items.method, "/").concat(payload.id, "?sort=").concat(this.state.items.sort.sortBy, "&sortType=").concat(this.state.items.sort.sortType));
     },
     asyncGetItemsBySGroup: function asyncGetItemsBySGroup(context, payload) {
-      vue__WEBPACK_IMPORTED_MODULE_1__["default"].resource("/api/v1/items/sgroup/".concat(payload.id, "?sort=").concat(this.state.items.sort.sortBy, "&sortType=").concat(this.state.items.sort.sortType)).get().then(function (res) {
+      vue__WEBPACK_IMPORTED_MODULE_1__["default"].resource("/api/v1/items/".concat(this.state.items.method, "/").concat(payload.id, "?sort=").concat(this.state.items.sort.sortBy, "&sortType=").concat(this.state.items.sort.sortType)).get().then(function (res) {
         return res.json();
       }).then(function (res) {
         context.commit('setItems', res);
@@ -6961,6 +6993,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     pagination: function pagination(state) {
       return state.pagination;
+    },
+    currentPage: function currentPage(state) {
+      return state.currentPage;
     }
   }
 });

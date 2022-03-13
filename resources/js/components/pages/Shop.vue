@@ -272,6 +272,7 @@ import Pagination from "../layout/Pagination.vue"
                 this.sortB = sortBy
                 
                 this.$store.commit('setSort', { sortBy: sortBy, sortType:this.sortT})
+                this.$store.commit('setMethod', { method: 'items'})
 
                 this.$store.dispatch('asyncGetItems')
                // console.log(this.sortB)
@@ -281,6 +282,7 @@ import Pagination from "../layout/Pagination.vue"
             sortType:function(sortType='ASC'){
                 this.sortT = sortType
                this.$store.commit('setSort', {sortBy:this.sortB, sortType:this.sortT})
+               this.$store.commit('setMethod', { method: 'items'})
              
            
               this.$store.dispatch('asyncGetItems')

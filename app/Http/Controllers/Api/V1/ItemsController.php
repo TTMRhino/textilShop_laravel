@@ -17,6 +17,12 @@ class ItemsController extends Controller
      */
     public function index(Request $request)
     {   
+       
+
+        $sort = $request->sort ? $request->sort : 'item';
+        $sortType = $request->sortType ? $request->sortType : 'ASC';
+
+        
         //dd($request->sort);
       /*  if( empty($request->search)){
             $query = Items::query();
@@ -31,8 +37,8 @@ class ItemsController extends Controller
                 $query = Items::where( 'item','LIKE',"%$request->search%")->getQuery();           
                 
             }    */
-            $query = Items::query();  
-            $query = Items::where( $request->searchRow,$request->searchValue)->getQuery()->orderBy($sort, $sortType);    
+            $query = Items::query()->orderBy($sort, $sortType);  
+            
 
             return $query->paginate(10);         
         
@@ -40,16 +46,23 @@ class ItemsController extends Controller
     }
 
     public function getItemByMGroup(Request $request){
-        //dd("Tis is function getItemByMGroup =".$request->id);
+       
+        $sort = $request->sort ? $request->sort : 'item';
+        $sortType = $request->sortType ? $request->sortType : 'ASC';
+
         $query = Items::where( 'maingroup_id',$request->id)->getQuery();
+        $query->orderBy($sort, $sortType);
 
         return $query->paginate(10);
     }
 
     public function getItemBySGroup(Request $request){
-        //dd("Tis is function getItemBySGroup =".$request->id);
+       
+        $sort = $request->sort ? $request->sort : 'item';
+        $sortType = $request->sortType ? $request->sortType : 'ASC';
 
         $query = Items::where( 'subgroup_id',$request->id)->getQuery();
+        $query->orderBy($sort, $sortType);
 
         return $query->paginate(10);
     }
