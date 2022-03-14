@@ -10,9 +10,8 @@ export default {
             sortType: 'ASC'
         },
         method: 'items',
-        // searchRow: '',
-        // searchValue: '',
         currentPage: 1,
+        id: ''
 
     },
     mutations: {
@@ -55,6 +54,10 @@ export default {
         },
         setMethod(state, payload) {
             state.method = payload.method
+        },
+
+        setId(state, payload) {
+            state.id = payload.id
         }
 
     },
@@ -70,10 +73,7 @@ export default {
                     sortType: this.state.items.sort.sortType
                 }
             }
-            /*else if (typeof payload.sortBy == 'undefined' || typeof payload.sortType == 'undefined') {
-                           payload.sortBy = this.state.items.sort.sortBy
-                           payload.sortType = this.state.items.sort.sortType
-                       }*/
+
 
             //если страница не указана переходим на стр № 1 (пагинация)
             if (typeof payload.page == 'undefined') {
@@ -81,18 +81,13 @@ export default {
 
             }
 
-            /* if (typeof payload.search != 'undefined' && typeof payload.searchRow == 'undefined') {
-                 console.log("searach =" + payload.search)
-                 search = `&search=${payload.search}&searchRow='item'`
-             } else if (typeof payload.searchRow != 'undefined') {
-                 search = `&search=${payload.search}&searchRow=${payload.searchRow} `
-             }
+            if (typeof payload.id == 'undefined') {
+                payload.id = ''
+            }
 
-             console.log("item dipath =" + search)*/
-            //${search}
-
-            //TO DO ИСКАЛ ПО ГРУППАМ ЧЕРЕЗ ОДИН запрос resource!!!
-            Vue.resource(`/api/v1/${this.state.items.method}?sort=${this.state.items.sort.sortBy}&sortType=${this.state.items.sort.sortType}
+            console.log(`METHOD = ${this.state.items.method}`)
+            console.log(`ID = ${this.state.items.id}`)
+            Vue.resource(`/api/v1/${this.state.items.method}/${this.state.items.id}?sort=${this.state.items.sort.sortBy}&sortType=${this.state.items.sort.sortType}
             &page=${payload.page}`)
                 .get().then(res => res.json()).then(res => {
                     context.commit('setItems', res)
@@ -100,25 +95,6 @@ export default {
                 })
         },
 
-        asyncGetItemsByMGroup(context, payload) {
-            console.log('asyncGetItemsByMGroup!!')
-
-            Vue.resource(`/api/v1/items/${this.state.items.method}/${payload.id}?sort=${this.state.items.sort.sortBy}&sortType=${this.state.items.sort.sortType}`)
-                .get().then(res => res.json()).then(res => {
-                    context.commit('setItems', res)
-                    context.commit('setPagination', res)
-                })
-
-            console.log(`/api/v1/items/${this.state.items.method}/${payload.id}?sort=${this.state.items.sort.sortBy}&sortType=${this.state.items.sort.sortType}`)
-        },
-
-        asyncGetItemsBySGroup(context, payload) {
-            Vue.resource(`/api/v1/items/${this.state.items.method}/${payload.id}?sort=${this.state.items.sort.sortBy}&sortType=${this.state.items.sort.sortType}`)
-                .get().then(res => res.json()).then(res => {
-                    context.commit('setItems', res)
-                    context.commit('setPagination', res)
-                })
-        }
 
     },
     getters: {
@@ -134,6 +110,9 @@ export default {
         },
         currentPage(state) {
             return state.currentPage
+        },
+        id(state) {
+            return state.id
         }
 
     },

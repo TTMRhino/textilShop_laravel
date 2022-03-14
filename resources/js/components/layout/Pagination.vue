@@ -13,7 +13,7 @@
 
                                    
                                     <li :class="{active:currentPage == page}"
-                                        v-for="page in fromToArr(currentPage,currentPage+5)" 
+                                        v-for="page in fromToArr(currentPage,currentPage+4)" 
                                         :key="page"
                                     >
                                         <a  style="cursor: pointer;" 
@@ -89,7 +89,7 @@ export default {
 
                 this.currentPage = page
                 //const method = this.$store.getters.method
-                this.$store.commit('setMethod', { method: 'items'})
+                //this.$store.commit('setMethod', { method: 'items'})
                 
                 this.$store.dispatch('asyncGetItems',{page})
                         
@@ -113,7 +113,7 @@ export default {
 
                 //делаем "отступы" в отображении номера стр в пагинации <-1 1 0 1 1->
                 if(this.pagination.last_page > 5){
-                    if(curPage > 1 &&  end  > 4){
+                    if(curPage > 1 &&  end  > 5){
                         curPage -=2                                           
                     }
                 }else{ curPage = 1 }                   

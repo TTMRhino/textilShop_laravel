@@ -5626,27 +5626,33 @@ __webpack_require__.r(__webpack_exports__);
     getItemByMainGroup: function getItemByMainGroup(id) {
       console.log("GET Item by Main group  = " + id);
       this.$store.commit('setMethod', {
-        method: 'mgroup'
-      });
+        method: 'items/mgroup'
+      }); //уставоили мтод api для mainGroup (будем дергать обпределеннуюб группу)
+
       this.$store.commit('setCurrentPage', {
         current_page: 1
-      });
-      this.$store.dispatch('asyncGetItemsByMGroup', {
-        'id': id
-      });
-      _app__WEBPACK_IMPORTED_MODULE_0__.eventEmitter.$emit('paginationUpdate');
+      }); //  пагинация Активная страница №1
+
+      this.$store.commit('setId', {
+        id: id
+      }); // ID группы меню для поиска       
+
+      this.$store.dispatch('asyncGetItems'); // делаем запрос по API
+
+      _app__WEBPACK_IMPORTED_MODULE_0__.eventEmitter.$emit('paginationUpdate'); //jоповещаем компонент pagination
     },
     getItemBySubGroup: function getItemBySubGroup(id) {
       console.log("GET Item by Sub group = " + id);
       this.$store.commit('setMethod', {
-        method: 'sgroup'
+        method: 'items/sgroup'
       });
       this.$store.commit('setCurrentPage', {
         current_page: 1
       });
-      this.$store.dispatch('asyncGetItemsBySGroup', {
-        'id': id
+      this.$store.commit('setId', {
+        id: id
       });
+      this.$store.dispatch('asyncGetItems');
     }
   }
 });
@@ -5745,10 +5751,8 @@ __webpack_require__.r(__webpack_exports__);
       } else {
         //если все ок то выводим содержание            
         this.currentPage = page; //const method = this.$store.getters.method
+        //this.$store.commit('setMethod', { method: 'items'})
 
-        this.$store.commit('setMethod', {
-          method: 'items'
-        });
         this.$store.dispatch('asyncGetItems', {
           page: page
         });
@@ -5766,7 +5770,7 @@ __webpack_require__.r(__webpack_exports__);
       var arr = []; //делаем "отступы" в отображении номера стр в пагинации <-1 1 0 1 1->
 
       if (this.pagination.last_page > 5) {
-        if (curPage > 1 && end > 4) {
+        if (curPage > 1 && end > 5) {
           curPage -= 2;
         }
       } else {
@@ -6889,9 +6893,8 @@ __webpack_require__.r(__webpack_exports__);
       sortType: 'ASC'
     },
     method: 'items',
-    // searchRow: '',
-    // searchValue: '',
-    currentPage: 1
+    currentPage: 1,
+    id: ''
   },
   mutations: {
     setSort: function setSort(state, payload) {
@@ -6925,6 +6928,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     setMethod: function setMethod(state, payload) {
       state.method = payload.method;
+    },
+    setId: function setId(state, payload) {
+      state.id = payload.id;
     }
   },
   actions: {
@@ -6936,47 +6942,20 @@ __webpack_require__.r(__webpack_exports__);
           sortBy: this.state.items.sort.sortBy,
           sortType: this.state.items.sort.sortType
         };
-      }
-      /*else if (typeof payload.sortBy == 'undefined' || typeof payload.sortType == 'undefined') {
-                     payload.sortBy = this.state.items.sort.sortBy
-                     payload.sortType = this.state.items.sort.sortType
-                 }*/
-      //если страница не указана переходим на стр № 1 (пагинация)
+      } //если страница не указана переходим на стр № 1 (пагинация)
 
 
       if (typeof payload.page == 'undefined') {
         payload.page = 1;
       }
-      /* if (typeof payload.search != 'undefined' && typeof payload.searchRow == 'undefined') {
-           console.log("searach =" + payload.search)
-           search = `&search=${payload.search}&searchRow='item'`
-       } else if (typeof payload.searchRow != 'undefined') {
-           search = `&search=${payload.search}&searchRow=${payload.searchRow} `
-       }
-         console.log("item dipath =" + search)*/
-      //${search}
-      //TO DO ИСКАЛ ПО ГРУППАМ ЧЕРЕЗ ОДИН запрос resource!!!
 
+      if (typeof payload.id == 'undefined') {
+        payload.id = '';
+      }
 
-      vue__WEBPACK_IMPORTED_MODULE_1__["default"].resource("/api/v1/".concat(this.state.items.method, "?sort=").concat(this.state.items.sort.sortBy, "&sortType=").concat(this.state.items.sort.sortType, "\n            &page=").concat(payload.page)).get().then(function (res) {
-        return res.json();
-      }).then(function (res) {
-        context.commit('setItems', res);
-        context.commit('setPagination', res);
-      });
-    },
-    asyncGetItemsByMGroup: function asyncGetItemsByMGroup(context, payload) {
-      console.log('asyncGetItemsByMGroup!!');
-      vue__WEBPACK_IMPORTED_MODULE_1__["default"].resource("/api/v1/items/".concat(this.state.items.method, "/").concat(payload.id, "?sort=").concat(this.state.items.sort.sortBy, "&sortType=").concat(this.state.items.sort.sortType)).get().then(function (res) {
-        return res.json();
-      }).then(function (res) {
-        context.commit('setItems', res);
-        context.commit('setPagination', res);
-      });
-      console.log("/api/v1/items/".concat(this.state.items.method, "/").concat(payload.id, "?sort=").concat(this.state.items.sort.sortBy, "&sortType=").concat(this.state.items.sort.sortType));
-    },
-    asyncGetItemsBySGroup: function asyncGetItemsBySGroup(context, payload) {
-      vue__WEBPACK_IMPORTED_MODULE_1__["default"].resource("/api/v1/items/".concat(this.state.items.method, "/").concat(payload.id, "?sort=").concat(this.state.items.sort.sortBy, "&sortType=").concat(this.state.items.sort.sortType)).get().then(function (res) {
+      console.log("METHOD = ".concat(this.state.items.method));
+      console.log("ID = ".concat(this.state.items.id));
+      vue__WEBPACK_IMPORTED_MODULE_1__["default"].resource("/api/v1/".concat(this.state.items.method, "/").concat(this.state.items.id, "?sort=").concat(this.state.items.sort.sortBy, "&sortType=").concat(this.state.items.sort.sortType, "\n            &page=").concat(payload.page)).get().then(function (res) {
         return res.json();
       }).then(function (res) {
         context.commit('setItems', res);
@@ -6996,6 +6975,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     currentPage: function currentPage(state) {
       return state.currentPage;
+    },
+    id: function id(state) {
+      return state.id;
     }
   }
 });
@@ -31304,7 +31286,7 @@ var render = function () {
             ]),
             _vm._v(" "),
             _vm._l(
-              _vm.fromToArr(_vm.currentPage, _vm.currentPage + 5),
+              _vm.fromToArr(_vm.currentPage, _vm.currentPage + 4),
               function (page) {
                 return _c(
                   "li",

@@ -88,19 +88,24 @@ import {eventEmitter} from "../../app"
              getItemByMainGroup(id){
                 console.log("GET Item by Main group  = " + id)
                 
-                this.$store.commit('setMethod', { method: 'mgroup'})
-                this.$store.commit('setCurrentPage', { current_page: 1})
+                this.$store.commit('setMethod', { method: 'items/mgroup'})//уставоили мтод api для mainGroup (будем дергать обпределеннуюб группу)
+                this.$store.commit('setCurrentPage', { current_page: 1})//  пагинация Активная страница №1
+                this.$store.commit('setId', {id}) // ID группы меню для поиска       
              
-               this.$store.dispatch('asyncGetItemsByMGroup',{'id': id})
+               this.$store.dispatch('asyncGetItems')// делаем запрос по API
                  
-                eventEmitter.$emit('paginationUpdate')
+                eventEmitter.$emit('paginationUpdate')//jоповещаем компонент pagination
             },
+            
              getItemBySubGroup(id){
                 console.log("GET Item by Sub group = "+ id)
-                this.$store.commit('setMethod', { method: 'sgroup'})
-                this.$store.commit('setCurrentPage', { current_page: 1})
-               
-                 this.$store.dispatch('asyncGetItemsBySGroup',{'id': id})
+
+                this.$store.commit('setMethod', { method: 'items/sgroup'})              
+                this.$store.commit('setCurrentPage', { current_page: 1})               
+                
+                this.$store.commit('setId', {id}) 
+
+                this.$store.dispatch('asyncGetItems')
             }
         }
     }
