@@ -109,12 +109,15 @@
                                 <ul id="cartBox">
 
                                     <li>
-                                        <a href="/cart/index">
+                                        
+                                        
+                                        <router-link :to="{name:'cart'}">
                                             <i class="fa fa-cart-arrow-down" aria-hidden="true"></i>
                                             <span class="cart-counter">
                                                 0
                                             </span>
-                                        </a>
+                                        </router-link>
+                                        
                                         <ul class="ht-dropdown main-cart-box">
                                             <li>
 
@@ -123,6 +126,7 @@
                                                     <h5>итого :<span class="f-right">0р.</span></h5>
                                                     <div class="cart-actions">
                                                         <a class="checkout" href="/cart/index">Корзина</a>
+                                                        
                                                     </div>
                                                 </div>
                                                 <!-- Cart Footer Inner End -->
@@ -193,9 +197,12 @@
         methods:{
              search(search){
                  console.log('Searh path')
-               console.log(this.$route.path)
-                this.$store.dispatch('asyncGetItems',{search})
-                //TO DO поиск в HEADER`е 1- нужно перенапрваить в  SHOP 2-передать значение search
+                 
+
+                this.$store.commit('setSearch', {search})
+                this.$store.commit('setMethod', { method: 'items'})
+                this.$store.dispatch('asyncGetItems')
+               
                 let path = this.$route.path.split("/")
                // path = path
                 console.log('Split path = '+ path[1])

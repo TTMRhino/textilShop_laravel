@@ -23,7 +23,7 @@
                                     <li><a data-toggle="tab" href="#grid-view"><i class="fa fa-th"></i></a></li>
                                     <li><a class="active" data-toggle="tab" href="#list-view"><i
                                                 class="fa fa-list-ul"></i></a></li>
-                                    <li><span class="grid-item-list"> товары {{ pagination.to - 10}}-{{ pagination.to }} of {{ pagination.total}}</span></li>
+                                    <li><span class="grid-item-list"> товары {{ pagination.to>11?pagination.to - 10:pagination.to}}-{{ pagination.to }} of {{ pagination.total}}</span></li>
                                 </ul>
                             </div>
                             <!-- Toolbar Short Area Start -->
@@ -273,6 +273,7 @@ import Pagination from "../layout/Pagination.vue"
                 
                 this.$store.commit('setSort', { sortBy: sortBy, sortType:this.sortT})
                 this.$store.commit('setMethod', { method: 'items'})
+                 this.$store.commit('setSearch', {search:''})
 
                 this.$store.dispatch('asyncGetItems')
                // console.log(this.sortB)

@@ -11,7 +11,8 @@ export default {
         },
         method: 'items',
         currentPage: 1,
-        id: ''
+        id: '',
+        search: ''
 
     },
     mutations: {
@@ -58,13 +59,14 @@ export default {
 
         setId(state, payload) {
             state.id = payload.id
+        },
+        setSearch(state, payload) {
+            state.search = payload.search
         }
 
     },
     actions: {
         asyncGetItems(context, payload) {
-
-            let search = ''
 
             //при первом заходе в shop sortBy и sortType  не установлены
             if (typeof payload == 'undefined') {
@@ -72,6 +74,12 @@ export default {
                     sortBy: this.state.items.sort.sortBy,
                     sortType: this.state.items.sort.sortType
                 }
+            }
+
+            //search for items
+            if (typeof payload.search != 'undefined') {
+
+                payload.search = this.state.items.search
             }
 
 
@@ -85,10 +93,9 @@ export default {
                 payload.id = ''
             }
 
-            console.log(`METHOD = ${this.state.items.method}`)
-            console.log(`ID = ${this.state.items.id}`)
-            Vue.resource(`/api/v1/${this.state.items.method}/${this.state.items.id}?sort=${this.state.items.sort.sortBy}&sortType=${this.state.items.sort.sortType}
-            &page=${payload.page}`)
+            //console.log(`METHOD = ${this.state.items.method}`)
+            console.log(`/api/v1/${this.state.items.method}/${this.state.items.id}?sort=${this.state.items.sort.sortBy}&sortType=${this.state.items.sort.sortType}&page=${payload.page}&search=${this.state.items.search}`)
+            Vue.resource(`/api/v1/${this.state.items.method}/${this.state.items.id}?sort=${this.state.items.sort.sortBy}&sortType=${this.state.items.sort.sortType}&page=${payload.page}&search=${this.state.items.search}`)
                 .get().then(res => res.json()).then(res => {
                     context.commit('setItems', res)
                     context.commit('setPagination', res)

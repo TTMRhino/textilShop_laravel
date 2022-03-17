@@ -90,7 +90,8 @@ import {eventEmitter} from "../../app"
                 
                 this.$store.commit('setMethod', { method: 'items/mgroup'})//уставоили мтод api для mainGroup (будем дергать обпределеннуюб группу)
                 this.$store.commit('setCurrentPage', { current_page: 1})//  пагинация Активная страница №1
-                this.$store.commit('setId', {id}) // ID группы меню для поиска       
+                this.$store.commit('setId', {id}) // ID группы меню для поиска   
+                this.$store.commit('setSearch', {search:''})    
              
                this.$store.dispatch('asyncGetItems')// делаем запрос по API
                  
@@ -103,7 +104,8 @@ import {eventEmitter} from "../../app"
                 this.$store.commit('setMethod', { method: 'items/sgroup'})              
                 this.$store.commit('setCurrentPage', { current_page: 1})               
                 
-                this.$store.commit('setId', {id}) 
+                this.$store.commit('setId', {id})
+                this.$store.commit('setSearch', {search:''}) 
 
                 this.$store.dispatch('asyncGetItems')
             }

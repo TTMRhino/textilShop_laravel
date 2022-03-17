@@ -22,7 +22,18 @@ class ItemsController extends Controller
         $sort = $request->sort ? $request->sort : 'item';
         $sortType = $request->sortType ? $request->sortType : 'ASC';
 
-        
+        if( !empty($request->search)){
+            //dd($request->search);
+            $sort ='item';
+            $sortType = $request->sortType ? $request->sortType : 'ASC';
+
+            $query = Items::query()->where('item','LIKE',"%$request->search%")->getQuery();
+            //$query = $query->toQuery();
+            //$query = Items::query()->orderBy($sort, $sortType);
+
+            //dd($query);
+            return $query->paginate(10);
+        }
         //dd($request->sort);
       /*  if( empty($request->search)){
             $query = Items::query();

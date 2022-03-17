@@ -13,7 +13,7 @@
 
                                    
                                     <li :class="{active:currentPage == page}"
-                                        v-for="page in fromToArr(currentPage,currentPage+4)" 
+                                        v-for="page in fromToArr(currentPage,currentPage+5)" 
                                         :key="page"
                                     >
                                         <a  style="cursor: pointer;" 
@@ -82,11 +82,12 @@ export default {
                 //console.log("Button disabled!")
 
             }else if(page >= this.pagination.last_page){//если последняя страница то запрещаем переходиьна следующую
+            console.log('если последняя страница то запрещаем переходиьна следующую')
                 this.currentPage = this.pagination.last_page
                // console.log("Button disabled!")
             }   
             else{   //если все ок то выводим содержание            
-
+                console.log('если все ок то выводим содержание')
                 this.currentPage = page
                 //const method = this.$store.getters.method
                 //this.$store.commit('setMethod', { method: 'items'})
@@ -101,7 +102,7 @@ export default {
             fromToArr(curPage,end){
 
                // pageCount = Math.floor(this.pagination.total/10)
-                console.log(`curPage=${curPage} end=${end}`)
+                //console.log(`curPage=${curPage} end=${end}`)
                 
 
                 //если end пришел больше чем колличесво стр приравниваем его к колличесву стр.
@@ -109,12 +110,31 @@ export default {
                    end = this.pagination.last_page
                }
                
-                let arr=[] 
-
-                //делаем "отступы" в отображении номера стр в пагинации <-1 1 0 1 1->
+                let arr=[]
                 if(this.pagination.last_page > 5){
-                    if(curPage > 1 &&  end  > 5){
-                        curPage -=2                                           
+                    if(curPage == 2){
+                        curPage -=1
+                        end -=1
+                    }else if(curPage > 2 && end < this.pagination.last_page){
+                         console.log("Сработал curPage+3")
+                        curPage -= 2
+                        end -=2
+                    }else if (curPage > 2 && end == this.pagination.last_page){
+                        console.log("Сработал curPage+2")                      
+                        curPage -= 2
+                        //end -=1
+                    }
+                }
+
+                for(curPage; curPage <= end; curPage++){
+                    arr.push(curPage)
+                }
+                return  arr
+                //делаем "отступы" в отображении номера стр в пагинации <-1 1 0 1 1->
+              /*  if(this.pagination.last_page > 5){
+                    if(curPage >3 &&  end  > 5){
+                        curPage -=2
+                        end -=2                                          
                     }
                 }else{ curPage = 1 }                   
 
@@ -122,8 +142,8 @@ export default {
                     arr.push(curPage)
                 }
                
-                return  arr
+                return  arr*/
             },
     }
 }
-</script>>
+</script>
