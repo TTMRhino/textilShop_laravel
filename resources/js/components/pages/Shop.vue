@@ -14,8 +14,12 @@
                        <menu-shop   />
                     </div>
                     <!-- Sidebar Shopping Option End -->
+
+                    
+
+
                     <!-- Product Categorie List Start -->
-                    <div class="col-lg-9 order-lg-2">
+                    <div  class="col-lg-9 order-lg-2">
                         <!-- Grid & List View Start -->
                         <div class="grid-list-top border-default universal-padding fix mb-30">
                             <div class="grid-list-view f-left">
@@ -27,7 +31,10 @@
                                 </ul>
                             </div>
                             <!-- Toolbar Short Area Start -->
-                            <div class="main-toolbar-sorter f-right">
+
+                           
+
+                            <div  class="main-toolbar-sorter f-right">
 
                                 <div class="toolbar-sorter">
 
@@ -66,10 +73,34 @@
                         </div>
 
              <!-- PAGINATION -->
-                        <pagination :pagination ="pagination" />
+                       
+
+                            <div class="pagination-box fix">                            
+                            <paginate
+                                    :page-count="pagination.last_page"
+                                    :click-handler="movePage"
+                                    :prev-text="'Prev'"
+                                    :next-text="'Next'"
+                                    :container-class="'blog-pagination '">
+                            </paginate>
+                            </div>
+
+                            <!-- LOADING -->
+                            <div 
+                                v-if="loading"
+                                class="media">
+
+                                <div class="media-body">
+                                    <HourGlass class="mt-5 mb-5" 
+                                        style="text-align:center;margin-left:auto; margin-right:auto; color:red"
+                                    ></HourGlass>
+                                                
+                                </div>
+                            </div>
+
 
                         <!-- Grid & List View End -->
-                        <div class="main-categorie">
+                        <div v-else class="main-categorie">
                             <!-- Grid & List Main Area End -->
                             <div class="tab-content fix">
                                 <div id="grid-view" class="tab-pane ">
@@ -212,7 +243,15 @@
                         </div>
 
                         <!-- PAGINATION -->
-                        <pagination :pagination ="pagination" />
+                        <div class="pagination-box fix">                            
+                            <paginate
+                                    :page-count="pagination.last_page"
+                                    :click-handler="movePage"
+                                    :prev-text="'Prev'"
+                                    :next-text="'Next'"
+                                    :container-class="'blog-pagination '">
+                            </paginate>
+                            </div>
 
                     </div>
                     <!-- product Categorie List End -->
@@ -229,11 +268,13 @@
 <script>
 
 import Menu from "../layout/Menu.vue"
-import Pagination from "../layout/Pagination.vue"
-    export default {
+import Paginate from 'vuejs-paginate'
+import {HourGlass} from 'vue-loading-spinner'
+    export default {          
     components:{
             'menu-shop':Menu,
-            'pagination': Pagination,
+            HourGlass,
+            Paginate        
            
         },
         data(){
@@ -242,6 +283,7 @@ import Pagination from "../layout/Pagination.vue"
                 sortT:'ASC',
                 pagination: null,
                 search:this.$route.params['search'],
+                //totalPage:this.$store.getters.pagination
             }
         },
 
@@ -262,12 +304,17 @@ import Pagination from "../layout/Pagination.vue"
                 this.pagination = this.$store.getters.pagination 
                 return this.$store.getters.items
             },
+            loading(){              
+                return this.$store.getters.loading
+            }
            
         },
 
         methods:{
            
-
+            movePage:function(pageNum){
+                this.$store.dispatch('asyncGetItems',{page:pageNum})
+            },
             setSortBy: function(sortBy){               
                 this.sortB = sortBy
                 
@@ -282,11 +329,10 @@ import Pagination from "../layout/Pagination.vue"
 
             sortType:function(sortType='ASC'){
                 this.sortT = sortType
-               this.$store.commit('setSort', {sortBy:this.sortB, sortType:this.sortT})
-               this.$store.commit('setMethod', { method: 'items'})
-             
+                this.$store.commit('setSort', {sortBy:this.sortB, sortType:this.sortT})
+                this.$store.commit('setMethod', { method: 'items'})
            
-              this.$store.dispatch('asyncGetItems')
+                this.$store.dispatch('asyncGetItems')
 
                // console.log(this.sortType + this.sort)
             },
