@@ -5501,11 +5501,58 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
-      searchItem: ''
+      searchItem: '',
+      items: this.$store.getters.getCartItems
     };
+  },
+  computed: {
+    totalQuantity: function totalQuantity() {
+      return this.$store.getters.totalQuantity;
+    },
+    totalSum: function totalSum() {
+      return this.$store.getters.totalSum;
+    }
   },
   methods: {
     search: function search(_search) {
@@ -5529,6 +5576,9 @@ __webpack_require__.r(__webpack_exports__);
           }
         });
       }
+    },
+    deleteItem: function deleteItem(id) {
+      console.log("DELTE ".concat(id));
     }
   }
 });
@@ -6684,6 +6734,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -6750,6 +6805,11 @@ __webpack_require__.r(__webpack_exports__);
         method: 'items'
       });
       this.$store.dispatch('asyncGetItems'); // console.log(this.sortType + this.sort)
+    },
+    addItemToCart: function addItemToCart(item) {
+      this.$store.dispatch('addToCart', {
+        item: item
+      });
     }
   }
 });
@@ -6900,6 +6960,110 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/store/cart.js":
+/*!************************************!*\
+  !*** ./resources/js/store/cart.js ***!
+  \************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+//import Vue from 'vue'
+function countCart(state) {
+  state.cart.totalQuantity = 0;
+  state.cart.totalSum = 0;
+  state.cart.items.map(function (item) {
+    state.cart.totalQuantity += item.quantity;
+    state.cart.totalSum += item.price * item.quantity;
+  });
+}
+
+function _delItemFromCart(state, item) {
+  var idx = state.cart.items.findIndex(function (item1) {
+    return item1.id === item.id;
+  }); //console.log(`УДАЛЯЕМ ${item} idx = ${idx}`)
+
+  state.cart.items.splice(idx, 1);
+  countCart(state);
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  state: {
+    cart: {
+      items: [],
+      totalSum: 0,
+      totalQuantity: 0
+    }
+  },
+  actions: {
+    addToCart: function addToCart(context, paload) {
+      //console.log(paload)
+      context.commit('setItemToCart', paload);
+    },
+    deleteItemFromCart: function deleteItemFromCart(context, paload) {
+      //удаляе элемент ссылаясь на функцию (method)-> далее на внешнию функцию удаление (она нужна что бы не дублировать код)
+      context.commit('delItemFromCart', paload);
+    },
+    clearCart: function clearCart(context) {
+      context.commit('clearCart');
+    }
+  },
+  mutations: {
+    setItemToCart: function setItemToCart(state, _ref) {
+      var item = _ref.item,
+          _ref$quantity = _ref.quantity,
+          quantity = _ref$quantity === void 0 ? 1 : _ref$quantity;
+      //console.log(`item = ${item.item} q = ${quantity}`)
+      var idx = state.cart.items.findIndex(function (item1) {
+        return item1.id === item.id;
+      }); //console.log(idx)
+
+      if (idx === -1) {
+        state.cart.items.push({
+          id: item.id,
+          img: '/img/products/l' + item.vendor + '.jpg',
+          item: item.item,
+          price: item.price,
+          quantity: quantity
+        });
+      } else {
+        state.cart.items[idx].quantity += quantity;
+        state.cart.items[idx].quantity === 0 ? _delItemFromCart(state, state.cart.items[idx].item) : '';
+      }
+
+      countCart(state); //console.log(state.cart)
+    },
+    delItemFromCart: function delItemFromCart(state, _ref2) {
+      var item = _ref2.item;
+
+      //удалени происходит во внешней функции для того чтобы не дублировать код
+      _delItemFromCart(state, item);
+    },
+    clearCart: function clearCart(state) {
+      console.log('clear CART!!!');
+      state.cart.items = [];
+      state.cart.totalQuantity = 0;
+      state.cart.totalSum = 0;
+    }
+  },
+  getters: {
+    totalQuantity: function totalQuantity(state) {
+      return state.cart.totalQuantity;
+    },
+    totalSum: function totalSum(state) {
+      return state.cart.totalSum;
+    },
+    getCartItems: function getCartItems(state) {
+      return state.cart.items;
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./resources/js/store/groups.js":
 /*!**************************************!*\
   !*** ./resources/js/store/groups.js ***!
@@ -6972,19 +7136,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var _groups__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./groups */ "./resources/js/store/groups.js");
 /* harmony import */ var _items__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./items */ "./resources/js/store/items.js");
+/* harmony import */ var _cart__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./cart */ "./resources/js/store/cart.js");
 
 
 
 
-vue__WEBPACK_IMPORTED_MODULE_2__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_3__["default"]);
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (new vuex__WEBPACK_IMPORTED_MODULE_3__["default"].Store({
+
+vue__WEBPACK_IMPORTED_MODULE_3__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_4__["default"]);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (new vuex__WEBPACK_IMPORTED_MODULE_4__["default"].Store({
   modules: {
     groups: _groups__WEBPACK_IMPORTED_MODULE_0__["default"],
-    items: _items__WEBPACK_IMPORTED_MODULE_1__["default"]
+    items: _items__WEBPACK_IMPORTED_MODULE_1__["default"],
+    cart: _cart__WEBPACK_IMPORTED_MODULE_2__["default"]
   }
 }));
 
@@ -41290,12 +41457,132 @@ var render = function () {
                       _vm._v(" "),
                       _c("span", { staticClass: "cart-counter" }, [
                         _vm._v(
-                          "\n                                        0\n                                    "
+                          "\n                                        " +
+                            _vm._s(_vm.totalQuantity) +
+                            "\n                                    "
                         ),
                       ]),
                     ]),
                     _vm._v(" "),
-                    _vm._m(1),
+                    _c("ul", { staticClass: "ht-dropdown main-cart-box" }, [
+                      _c(
+                        "li",
+                        [
+                          _vm._l(_vm.items, function (item) {
+                            return _c(
+                              "div",
+                              { key: item.id, staticClass: "single-cart-box" },
+                              [
+                                _c(
+                                  "div",
+                                  { staticClass: "cart-img" },
+                                  [
+                                    _c(
+                                      "router-link",
+                                      {
+                                        attrs: {
+                                          to: {
+                                            name: "detail",
+                                            params: { id: item.id },
+                                            query: { img: item.img },
+                                          },
+                                        },
+                                      },
+                                      [
+                                        _c("img", {
+                                          attrs: {
+                                            src: item.img,
+                                            alt: item.img,
+                                          },
+                                        }),
+                                      ]
+                                    ),
+                                  ],
+                                  1
+                                ),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "cart-content" }, [
+                                  _c(
+                                    "h6",
+                                    [
+                                      _c(
+                                        "router-link",
+                                        {
+                                          attrs: {
+                                            to: {
+                                              name: "detail",
+                                              params: { id: item.id },
+                                              query: { img: item.img },
+                                            },
+                                          },
+                                        },
+                                        [
+                                          _vm._v(
+                                            "\n                                                                " +
+                                              _vm._s(item.item) +
+                                              " \n                                                            "
+                                          ),
+                                        ]
+                                      ),
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c("span", [
+                                    _vm._v(_vm._s(item.quantity * item.price)),
+                                  ]),
+                                ]),
+                                _vm._v(" "),
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass:
+                                      "del-icone delete btn btn-link",
+                                    attrs: { type: "button" },
+                                    on: {
+                                      click: function ($event) {
+                                        return _vm.deleteItem(item.id)
+                                      },
+                                    },
+                                  },
+                                  [
+                                    _c("i", {
+                                      staticClass: "fa fa-window-close-o",
+                                    }),
+                                  ]
+                                ),
+                              ]
+                            )
+                          }),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "cart-footer fix" }, [
+                            _c("h5", [
+                              _vm._v("итого :"),
+                              _c("span", { staticClass: "f-right" }, [
+                                _vm._v(_vm._s(_vm.totalSum) + "р."),
+                              ]),
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              { staticClass: "cart-actions" },
+                              [
+                                _c(
+                                  "router-link",
+                                  {
+                                    staticClass: "checkout",
+                                    attrs: { to: "/cart" },
+                                  },
+                                  [_vm._v("Корзина")]
+                                ),
+                              ],
+                              1
+                            ),
+                          ]),
+                        ],
+                        2
+                      ),
+                    ]),
                   ],
                   1
                 ),
@@ -41364,29 +41651,6 @@ var staticRenderFns = [
       _c("div", { staticClass: "header-top-left" }, [
         _c("img", { attrs: { src: "images/icon/call.png", alt: "" } }),
         _vm._v(" +7(9000) - 741-791\n                    "),
-      ]),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("ul", { staticClass: "ht-dropdown main-cart-box" }, [
-      _c("li", [
-        _c("div", { staticClass: "cart-footer fix" }, [
-          _c("h5", [
-            _vm._v("итого :"),
-            _c("span", { staticClass: "f-right" }, [_vm._v("0р.")]),
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "cart-actions" }, [
-            _c(
-              "a",
-              { staticClass: "checkout", attrs: { href: "/cart/index" } },
-              [_vm._v("Корзина")]
-            ),
-          ]),
-        ]),
       ]),
     ])
   },
@@ -41809,10 +42073,6 @@ var render = function () {
         _vm._v(" "),
         _c("div", { staticClass: "row" }, [
           _c("div", { staticClass: "col-md-12" }, [
-            _vm._v(
-              "\n\n                   if(!empty($_SESSION['cart'])): \n                        "
-            ),
-            _vm._v(" "),
             _vm.items.length > 0
               ? _c("form", { attrs: { action: "#", id: "table" } }, [
                   _c(
@@ -43006,7 +43266,39 @@ var render = function () {
                                         ]
                                       ),
                                       _vm._v(" "),
-                                      _vm._m(4, true),
+                                      _c(
+                                        "div",
+                                        { staticClass: "pro-actions" },
+                                        [
+                                          _c(
+                                            "div",
+                                            {
+                                              staticClass: "actions-secondary",
+                                            },
+                                            [
+                                              _c(
+                                                "button",
+                                                {
+                                                  staticClass:
+                                                    "add-cart add-to-cart",
+                                                  on: {
+                                                    click: function ($event) {
+                                                      return _vm.addItemToCart(
+                                                        item
+                                                      )
+                                                    },
+                                                  },
+                                                },
+                                                [
+                                                  _vm._v(
+                                                    "\n                                                            В корзину\n                                                        "
+                                                  ),
+                                                ]
+                                              ),
+                                            ]
+                                          ),
+                                        ]
+                                      ),
                                     ]),
                                   ]),
                                 ]
@@ -43059,7 +43351,7 @@ var render = function () {
                               ),
                               _vm._v(" "),
                               _c("div", { staticClass: "pro-content" }, [
-                                _vm._m(5, true),
+                                _vm._m(4, true),
                                 _vm._v(" "),
                                 _c(
                                   "h4",
@@ -43109,7 +43401,26 @@ var render = function () {
                                   ]
                                 ),
                                 _vm._v(" "),
-                                _vm._m(6, true),
+                                _c("div", { staticClass: "pro-actions" }, [
+                                  _c(
+                                    "div",
+                                    { staticClass: "actions-secondary" },
+                                    [
+                                      _c(
+                                        "button",
+                                        {
+                                          staticClass: "add-cart add-to-cart",
+                                          on: {
+                                            click: function ($event) {
+                                              return _vm.addItemToCart(item)
+                                            },
+                                          },
+                                        },
+                                        [_vm._v("В корзину")]
+                                      ),
+                                    ]
+                                  ),
+                                ]),
                               ]),
                             ]),
                           ]
@@ -43204,28 +43515,6 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "pro-actions" }, [
-      _c("div", { staticClass: "actions-secondary" }, [
-        _c(
-          "a",
-          {
-            staticClass: "add-cart add-to-cart",
-            attrs: {
-              href: "/cart/add?id=557",
-              "data-id": "557",
-              "data-toggle": "tooltip",
-              title: "Add to Cart",
-            },
-          },
-          [_vm._v("В корзину")]
-        ),
-      ]),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("div", { staticClass: "product-rating" }, [
       _c("i", { staticClass: "fa fa-star" }),
       _vm._v(" "),
@@ -43236,32 +43525,6 @@ var staticRenderFns = [
       _c("i", { staticClass: "fa fa-star" }),
       _vm._v(" "),
       _c("i", { staticClass: "fa fa-star" }),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "pro-actions" }, [
-      _c("div", { staticClass: "actions-secondary" }, [
-        _c(
-          "a",
-          {
-            staticClass: "add-cart add-to-cart",
-            attrs: {
-              href: "/cart/add?id=557",
-              "data-id": "557",
-              "data-toggle": "tooltip",
-              title: "Add to Cart",
-            },
-          },
-          [
-            _vm._v(
-              "В\n                                                    корзину"
-            ),
-          ]
-        ),
-      ]),
     ])
   },
 ]

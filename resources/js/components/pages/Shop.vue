@@ -146,9 +146,13 @@
                                                     <div class="pro-actions">
                                                         <div class="actions-secondary">
                                                             <!--<a href="wishlist.html" data-toggle="tooltip" title="Add to Wishlist"><i class="fa fa-heart"></i></a>-->
-                                                            <a class="add-cart add-to-cart" href="/cart/add?id=557"
-                                                                data-id="557" data-toggle="tooltip"
-                                                                title="Add to Cart">В корзину</a>
+                                                            <button class="add-cart add-to-cart"                                                              
+                                                                
+                                                                 @click="addItemToCart(item)"                                                                
+                                                                >
+                                                                В корзину
+                                                            </button>
+                                                            
 
                                                         </div>
                                                     </div>
@@ -217,9 +221,10 @@
                                             <div class="pro-actions">
                                                 <div class="actions-secondary">
                                                     <!--<a href="wishlist.html" data-toggle="tooltip" title="Add to Wishlist"><i class="fa fa-heart"></i></a>-->
-                                                    <a class="add-cart add-to-cart" href="/cart/add?id=557"
-                                                        data-id="557" data-toggle="tooltip" title="Add to Cart">В
-                                                        корзину</a>
+                                                    <button class="add-cart add-to-cart"                                                         
+                                                        @click="addItemToCart(item)"
+                                                       
+                                                        >В корзину</button>
 
                                                 </div>
                                             </div>
@@ -336,6 +341,11 @@ import {HourGlass} from 'vue-loading-spinner'
 
                // console.log(this.sortType + this.sort)
             },
+
+            addItemToCart(item){
+          
+                this.$store.dispatch('addToCart',{item})
+            }
            
         }
 

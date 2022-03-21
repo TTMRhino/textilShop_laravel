@@ -114,19 +114,57 @@
                                         <router-link :to="{name:'cart'}">
                                             <i class="fa fa-cart-arrow-down" aria-hidden="true"></i>
                                             <span class="cart-counter">
-                                                0
+                                                {{ totalQuantity }}
                                             </span>
                                         </router-link>
                                         
                                         <ul class="ht-dropdown main-cart-box">
-                                            <li>
+                                           <li>                                                   
+                                                        <!-- Cart Box Start -->
+                                                        <div class="single-cart-box"
+                                                        v-for="item in items"
+                                                        :key="item.id"
+                                                        >
+                                                            <div class="cart-img">
+
+                                                               
+                                                                <router-link 
+                                                                    :to="{ name:'detail', params:{ id:item.id }, 
+                                                                            query: { img: item.img }}">
+                                                                    <img :src=" item.img " :alt="item.img">
+                                                                       
+                                                                </router-link>
+
+                                                            </div>
+                                                            <div class="cart-content">
+                                                                <h6>                                                                   
+                                                                    <router-link 
+                                                                        :to="{ name:'detail', params:{ id:item.id }, 
+                                                                            query: { img: item.img }}">
+                                                                        {{ item.item}} 
+                                                                    </router-link>
+                                                                </h6>
+                                                                <span>{{ item.quantity * item.price }}</span>
+                                                            </div>
+
+                                                            <button
+                                                                type="button"
+                                                                class="del-icone delete btn btn-link"    
+                                                                @click="deleteItem(item.id)"
+                                                            >
+                                                                <i class="fa fa-window-close-o"></i>
+                                                            </button>
+
+                                                        </div>
+                                                        <!-- Cart Box End -->
+
+                                                    
 
                                                 <!-- Cart Footer Inner Start -->
                                                 <div class="cart-footer fix">
-                                                    <h5>итого :<span class="f-right">0р.</span></h5>
+                                                    <h5>итого :<span class="f-right">{{ totalSum }}р.</span></h5>
                                                     <div class="cart-actions">
-                                                        <a class="checkout" href="/cart/index">Корзина</a>
-                                                        
+                                                        <router-link class="checkout" to="/cart">Корзина</router-link>
                                                     </div>
                                                 </div>
                                                 <!-- Cart Footer Inner End -->
@@ -191,7 +229,16 @@
     export default {
         data(){
             return{
-                searchItem:''
+                searchItem:'',
+                items:this.$store.getters.getCartItems
+            }
+        },
+        computed:{
+            totalQuantity(){
+                return this.$store.getters.totalQuantity
+            },
+            totalSum(){
+                return this.$store.getters.totalSum
             }
         },
         methods:{
@@ -213,7 +260,10 @@
                    
                 
                  
-            }
+            },
+            deleteItem(id){
+        console.log(`DELTE ${id}`)
+    }
         }
     }
 </script>

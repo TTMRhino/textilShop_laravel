@@ -7,7 +7,7 @@
                 <div class="row" >
                     <div class="col-md-12">
 
-                   if(!empty($_SESSION['cart'])): 
+                  
                         <!-- Form Start -->
                         <form action="#" id="table"
                          v-if="items.length > 0"
