@@ -6,6 +6,7 @@ import Shop from "./components/pages/Shop.vue"
 import Detail from "./components/pages/Detail.vue"
 import Contact from "./components/pages/Contact.vue"
 import Cart from "./components/pages/Cart.vue"
+import Checkout from "./components/pages/Checkout.vue"
 
 export default new VueRouter({
     routes: [{
@@ -40,17 +41,18 @@ export default new VueRouter({
             name: "cart",
             component: Cart
         },
+
+        {
+            path: '/checkout',
+            name: "checkout",
+            component: Checkout
+        },
         /*
-                {
-                    path: '/checkout',
-                    name: "checkout",
-                    component: Checkout
-                },
-                {
-                    path: '/orderdone',
-                    name: "orderdone",
-                    component: Orderdone
-                }*/
+                        {
+                            path: '/orderdone',
+                            name: "orderdone",
+                            component: Orderdone
+                        }*/
     ],
     mode: 'history'
 })

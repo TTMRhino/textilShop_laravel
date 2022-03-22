@@ -114,8 +114,8 @@
                                                 </tr>
                                             </tbody>
                                         </table>
-                                        <div class="wc-proceed-to-checkout">
-                                            <router-link to="/checkout">Оформить заказ</router-link>
+                                        <div class="wc-proceed-to-checkout">                                           
+                                            <router-link :to="{name:'checkout'}"> Оформить заказ</router-link>
                                         </div>
                                     </div>
                                 </div>
