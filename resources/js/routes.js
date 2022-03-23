@@ -7,6 +7,7 @@ import Detail from "./components/pages/Detail.vue"
 import Contact from "./components/pages/Contact.vue"
 import Cart from "./components/pages/Cart.vue"
 import Checkout from "./components/pages/Checkout.vue"
+import Orderdone from "./components/pages/Orderdone.vue"
 
 export default new VueRouter({
     routes: [{
@@ -47,12 +48,12 @@ export default new VueRouter({
             name: "checkout",
             component: Checkout
         },
-        /*
-                        {
-                            path: '/orderdone',
-                            name: "orderdone",
-                            component: Orderdone
-                        }*/
+
+        {
+            path: '/orderdone',
+            name: "orderdone",
+            component: Orderdone
+        }
     ],
     mode: 'history'
 })

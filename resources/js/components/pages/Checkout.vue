@@ -173,6 +173,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 
            
             
@@ -230,10 +231,13 @@ export default {
     methods:{
         setCustomer:function(){
             console.log("SET Customer")
-             this.$http.interceptors.push((request, next) => {
+
+
+             /*this.$http.interceptors.push((request, next) => {
                 request.headers.set('X-CSRF-TOKEN', CoolApp.csrfToken);
                 next();
-            });
+               
+            });*/
 
 
             
@@ -244,18 +248,66 @@ export default {
             order.mailindex = this.mailIndex
             order.city = this.city
 
-             const resource = this.$resource('/api/v1/customers')
+            /* const resource = this.$resource('/api/v1/customers')
              resource.save({},order).then(res => {
                  this.setOrder(res.body.id)
+             })*/
+            axios.post('/api/v1/customers',{
+                 _method: 'POST',
+                 name:order.name,
+                 phone:order.phone,
+                 city:order.city,
+                 adress:order.adress           
              })
-
+             .then( response => {
+                 //console.log(response.data.data)
+                 //console.log(response.data.data.id)
+                 this.setOrder(response.data.data.id)
+            })
+            .catch(function (error) {
+                console.log(error);
              
+            })
         },
+        
         setOrder(customerId){
+          console.log(`Зашли в SetOrder id=${customerId}`)
+          let order ={}
+          this.items.map(item =>{
+                order ={
+                    item: item.item,
+                    item_id: item.id,
+                    quantity: item.quantity,
+                    customers_id: customerId,
+                    price:item.price,
+                    total: item.price * item.quantity
+                }
+
+                axios.post('/api/v1/order',{
+                    _method: 'POST',
+                    item: order.item,
+                    item_id: order.id,
+                    quantity: order.quantity,
+                    customers_id: customerId,
+                    price:order.price,
+                    total:order.total
+                })
+                .then(function (response) {
+                    console.log(response);
+
+                    this.$store.dispatch('clearCart')
+                    this.$router.push('/orderdone')
+                })
+                .catch(function (error) {
+                    console.log(error);
+                
+                })
+            })
+
           
             
 
-            const resource = this.$resource('/api/v1/order')
+           /* const resource = this.$resource('/api/v1/order')
             let order ={}
             this.items.map(item =>{
                 order ={
@@ -272,7 +324,7 @@ export default {
                       this.$store.dispatch('clearCart')
                       this.$router.push('/orderdone')
                  })
-            })
+            })*/
         }
     }
 }

@@ -24,12 +24,12 @@ class CustomersRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|max 50',
-            'phone' => 'required|max 15',
-            'mailindex' => 'max 15',
-            'city' => 'required|max 30',
-            'adress' => 'required|max 30',
-            'comments' => 'max 255',            
+            'name' => 'required|max:50',
+            'phone' => 'required|max:15',
+            'mailindex' => 'max:15',
+            'city' => 'required|max:30',
+            'adress' => 'required|max:30',
+            'comments' => 'max:255',            
         ];
     }
 }

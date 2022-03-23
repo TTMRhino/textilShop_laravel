@@ -10,8 +10,8 @@ class Customers extends Model
     use HasFactory;
 
     public $timestamps = false;
-   // protected $fillable = ['name','phone','mailindex','city','adress','comments','orders_id'];
-
+    protected $fillable = ['name','phone','mailindex','city','adress','comments','orders_id'];
+   //protected $fillable = ['name'];
     public function customer_orders()
     {
        return $this->hasMany(Orders::class);    
