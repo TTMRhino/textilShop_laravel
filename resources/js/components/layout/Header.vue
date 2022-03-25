@@ -129,9 +129,10 @@
 
                                                                
                                                                 <router-link 
-                                                                    :to="{ name:'detail', params:{ id:item.id }, 
-                                                                            query: { img: item.img }}">
-                                                                    <img :src=" item.img " :alt="item.img">
+                                                                    :to="{name:'detail', params:{id: item.id}}">
+                                                                    <img :src="'/images/products/' + item.vendor +'.jpg'"
+                                                                     :alt=" item.item"
+                                                                    >
                                                                        
                                                                 </router-link>
 
@@ -188,9 +189,6 @@
                                         <li>
                                             
                                             <router-link :to="{name:'about'}"> Товары</router-link>
-                                        </li>
-
-
                                         </li>
                                         <li>
                                             

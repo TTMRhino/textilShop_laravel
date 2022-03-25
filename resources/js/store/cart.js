@@ -56,7 +56,7 @@ export default {
             if (idx === -1) {
                 state.cart.items.push({
                     id: item.id,
-                    img: '/img/products/l' + item.vendor + '.jpg',
+                    vendor: item.vendor,
                     item: item.item,
                     price: item.price,
                     quantity: quantity

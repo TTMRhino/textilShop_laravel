@@ -148,7 +148,7 @@
                                                             <!--<a href="wishlist.html" data-toggle="tooltip" title="Add to Wishlist"><i class="fa fa-heart"></i></a>-->
                                                             <button class="add-cart add-to-cart"                                                              
                                                                 
-                                                                 @click="addItemToCart(item)"                                                                
+                                                                 @click="addItemToCart(item)"                                                             
                                                                 >
                                                                 В корзину
                                                             </button>

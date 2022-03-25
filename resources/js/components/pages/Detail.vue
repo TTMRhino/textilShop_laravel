@@ -68,10 +68,15 @@
                             </div>
 
                             <div class="box-quantity">
-                                <form action="#">
+                               
 
-                                    <a class="add-cart" href="/cart/add?id=557">в корзину</a>
-                                </form>
+                                   
+
+                                    <button class="add-cart add-to-cart"                                                        
+                                        @click="addItemToCart(item)"> 
+                                        В корзину
+                                    </button>
+                               
                             </div>
 
                             <p class="ptb-20">
@@ -107,6 +112,12 @@
                     
                 })      
         
+        },
+        methods:{
+             addItemToCart(item){
+          
+                this.$store.dispatch('addToCart',{item})
+            }
         }
 
     }

@@ -153,7 +153,7 @@
                                 {{ $order->price * $order->quantity}}
                             </td> 
                             <td>                               
-                                <img class="img-thumbnail mx-auto d-block" src="/images/product/{{ $order->items_order->vendor}}.jpg" alt="pic">
+                                <img class="img-thumbnail mx-auto d-block" src="/images/products/{{ $order->items_order->vendor}}.jpg" alt="pic">
                             </td> 
                            
 

@@ -5537,8 +5537,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -6219,6 +6217,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -6227,9 +6229,10 @@ __webpack_require__.r(__webpack_exports__);
       items: this.$store.getters.getCartItems,
       name: '',
       phone: '',
-      mailIndex: '',
+      mailindex: '',
       city: '',
-      adress: ''
+      adress: '',
+      comments: ''
     };
   },
   validations: {
@@ -6244,7 +6247,7 @@ __webpack_require__.r(__webpack_exports__);
       maxLength: (0,vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.maxLength)(20),
       numeric: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.numeric
     },
-    mailIndex: {
+    mailindex: {
       required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.required,
       minLength: (0,vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.minLength)(3),
       maxLength: (0,vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.maxLength)(20)
@@ -6258,6 +6261,9 @@ __webpack_require__.r(__webpack_exports__);
       required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.required,
       minLength: (0,vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.minLength)(5),
       maxLength: (0,vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.maxLength)(20)
+    },
+    comments: {
+      maxLength: (0,vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.maxLength)(500)
     }
   },
   computed: {
@@ -6283,8 +6289,9 @@ __webpack_require__.r(__webpack_exports__);
       order.name = this.name;
       order.phone = this.phone;
       order.adress = this.adress;
-      order.mailindex = this.mailIndex;
+      order.mailindex = this.mailindex;
       order.city = this.city;
+      order.comments = this.comments;
       /* const resource = this.$resource('/api/v1/customers')
        resource.save({},order).then(res => {
            this.setOrder(res.body.id)
@@ -6295,7 +6302,9 @@ __webpack_require__.r(__webpack_exports__);
         name: order.name,
         phone: order.phone,
         city: order.city,
-        adress: order.adress
+        adress: order.adress,
+        mailindex: order.mailindex,
+        comments: order.comments
       }).then(function (response) {
         //console.log(response.data.data)
         //console.log(response.data.data.id)
@@ -6305,7 +6314,11 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     setOrder: function setOrder(customerId) {
+      var _this2 = this;
+
       console.log("\u0417\u0430\u0448\u043B\u0438 \u0432 SetOrder id=".concat(customerId));
+      console.log(this.items);
+      console.log(this.items[0].id);
       var order = {};
       this.items.map(function (item) {
         order = {
@@ -6316,18 +6329,20 @@ __webpack_require__.r(__webpack_exports__);
           price: item.price,
           total: item.price * item.quantity
         };
-        axios__WEBPACK_IMPORTED_MODULE_0___default().post('/api/v1/order', {
+        axios__WEBPACK_IMPORTED_MODULE_0___default().post('/api/v1/orders', {
           _method: 'POST',
           item: order.item,
-          item_id: order.id,
+          item_id: order.item_id,
           quantity: order.quantity,
           customers_id: customerId,
           price: order.price,
           total: order.total
         }).then(function (response) {
           console.log(response);
-          this.$store.dispatch('clearCart');
-          this.$router.push('/orderdone');
+
+          _this2.$store.dispatch('clearCart');
+
+          _this2.$router.push('/orderdone');
         })["catch"](function (error) {
           console.log(error);
         });
@@ -6579,6 +6594,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -6595,6 +6615,13 @@ __webpack_require__.r(__webpack_exports__);
     }).then(function (item) {
       _this.item = item[0];
     });
+  },
+  methods: {
+    addItemToCart: function addItemToCart(item) {
+      this.$store.dispatch('addToCart', {
+        item: item
+      });
+    }
   }
 });
 
@@ -7352,7 +7379,7 @@ function _delItemFromCart(state, item) {
       if (idx === -1) {
         state.cart.items.push({
           id: item.id,
-          img: '/img/products/l' + item.vendor + '.jpg',
+          vendor: item.vendor,
           item: item.item,
           price: item.price,
           quantity: quantity
@@ -41938,15 +41965,17 @@ var render = function () {
                                           to: {
                                             name: "detail",
                                             params: { id: item.id },
-                                            query: { img: item.img },
                                           },
                                         },
                                       },
                                       [
                                         _c("img", {
                                           attrs: {
-                                            src: item.img,
-                                            alt: item.img,
+                                            src:
+                                              "/images/products/" +
+                                              item.vendor +
+                                              ".jpg",
+                                            alt: item.item,
                                           },
                                         }),
                                       ]
@@ -42885,23 +42914,23 @@ var render = function () {
                   {
                     name: "model",
                     rawName: "v-model",
-                    value: _vm.mailIndex,
-                    expression: "mailIndex",
+                    value: _vm.mailindex,
+                    expression: "mailindex",
                   },
                 ],
                 staticClass: "form-control",
-                class: { "is-invalid": _vm.$v.mailIndex.$error },
+                class: { "is-invalid": _vm.$v.mailindex.$error },
                 attrs: { id: "InputIndex", placeholder: "Почтовый индекс" },
-                domProps: { value: _vm.mailIndex },
+                domProps: { value: _vm.mailindex },
                 on: {
                   blur: function ($event) {
-                    return _vm.$v.mailIndex.$touch()
+                    return _vm.$v.mailindex.$touch()
                   },
                   input: function ($event) {
                     if ($event.target.composing) {
                       return
                     }
-                    _vm.mailIndex = $event.target.value
+                    _vm.mailindex = $event.target.value
                   },
                 },
               }),
@@ -42993,7 +43022,37 @@ var render = function () {
               ]),
             ]),
             _vm._v(" "),
-            _vm._m(0),
+            _c("div", { staticClass: "form-group" }, [
+              _c("label", { attrs: { for: "exampleFormControlTextarea1" } }, [
+                _vm._v("Коментарий"),
+              ]),
+              _vm._v(" "),
+              _c("textarea", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.comments,
+                    expression: "comments",
+                  },
+                ],
+                staticClass: "form-control",
+                class: { "is-invalid": _vm.$v.comments.$error },
+                attrs: { id: "exampleFormControlTextarea1", rows: "3" },
+                domProps: { value: _vm.comments },
+                on: {
+                  blur: function ($event) {
+                    return _vm.$v.comments.$touch()
+                  },
+                  input: function ($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.comments = $event.target.value
+                  },
+                },
+              }),
+            ]),
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "col-lg-6 col-md-6" }, [
@@ -43002,7 +43061,7 @@ var render = function () {
               _vm._v(" "),
               _c("div", { staticClass: "your-order-table table-responsive" }, [
                 _c("table", [
-                  _vm._m(1),
+                  _vm._m(0),
                   _vm._v(" "),
                   _c(
                     "tbody",
@@ -43053,7 +43112,7 @@ var render = function () {
               _vm._v(" "),
               _c("div", { staticClass: "payment-method" }, [
                 _c("div", { staticClass: "payment-accordion" }, [
-                  _vm._m(2),
+                  _vm._m(1),
                   _vm._v(" "),
                   _c("div", { staticClass: "order-button-payment" }, [
                     _c(
@@ -43080,21 +43139,6 @@ var render = function () {
   ])
 }
 var staticRenderFns = [
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group" }, [
-      _c("label", { attrs: { for: "exampleFormControlTextarea1" } }, [
-        _vm._v("Коментарий"),
-      ]),
-      _vm._v(" "),
-      _c("textarea", {
-        staticClass: "form-control",
-        attrs: { id: "exampleFormControlTextarea1", rows: "3" },
-      }),
-    ])
-  },
   function () {
     var _vm = this
     var _h = _vm.$createElement
@@ -43473,7 +43517,24 @@ var render = function () {
               _vm._v(" "),
               _vm._m(1),
               _vm._v(" "),
-              _vm._m(2),
+              _c("div", { staticClass: "box-quantity" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "add-cart add-to-cart",
+                    on: {
+                      click: function ($event) {
+                        return _vm.addItemToCart(_vm.item)
+                      },
+                    },
+                  },
+                  [
+                    _vm._v(
+                      " \n                                    В корзину\n                                "
+                    ),
+                  ]
+                ),
+              ]),
               _vm._v(" "),
               _c("p", { staticClass: "ptb-20" }, [
                 _vm._v(
@@ -43516,20 +43577,6 @@ var staticRenderFns = [
       _c("p", [
         _c("span", { staticClass: "in-stock" }, [_vm._v("На складе")]),
         _c("span", { staticClass: "sku" }, [_vm._v("50шт.")]),
-      ]),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "box-quantity" }, [
-      _c("form", { attrs: { action: "#" } }, [
-        _c(
-          "a",
-          { staticClass: "add-cart", attrs: { href: "/cart/add?id=557" } },
-          [_vm._v("в корзину")]
-        ),
       ]),
     ])
   },

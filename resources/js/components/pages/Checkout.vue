@@ -41,9 +41,9 @@
                                     <input  class="form-control" 
                                     id="InputIndex" 
                                     placeholder="Почтовый индекс"
-                                    v-model="mailIndex"
-                                    :class="{'is-invalid':$v.mailIndex.$error}"
-                                    @blur="$v.mailIndex.$touch()">
+                                    v-model="mailindex"
+                                    :class="{'is-invalid':$v.mailindex.$error}"
+                                    @blur="$v.mailindex.$touch()">
 
                                     <div class="invalid-feedback">
                                         Не корректый индекс
@@ -83,7 +83,11 @@
 
                                 <div class="form-group">
                                     <label for="exampleFormControlTextarea1">Коментарий</label>
-                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+                                        v-model="comments"
+                                        :class="{'is-invalid':$v.comments.$error}"
+                                        @blur="$v.comments.$touch()"
+                                    ></textarea>
                                 </div>
                         
                                
@@ -186,9 +190,10 @@ export default {
             
                 name:'',
                 phone:'',
-                mailIndex:'',
+                mailindex:'',
                 city:'',
-                adress:''
+                adress:'',
+                comments:'',
             
         }
     },
@@ -204,7 +209,7 @@ export default {
             maxLength:maxLength(20),
             numeric   
         },
-        mailIndex:{
+        mailindex:{
             required,
             minLength:minLength(3),
             maxLength:maxLength(20),
@@ -218,6 +223,9 @@ export default {
             required,
             minLength:minLength(5),
             maxLength:maxLength(20),
+        },
+        comments:{
+            maxLength:maxLength(500)
         }
     },
     computed:{
@@ -245,8 +253,9 @@ export default {
             order.name = this.name
             order.phone = this.phone
             order.adress = this.adress
-            order.mailindex = this.mailIndex
+            order.mailindex = this.mailindex
             order.city = this.city
+            order.comments = this.comments
 
             /* const resource = this.$resource('/api/v1/customers')
              resource.save({},order).then(res => {
@@ -257,7 +266,9 @@ export default {
                  name:order.name,
                  phone:order.phone,
                  city:order.city,
-                 adress:order.adress           
+                 adress:order.adress,
+                 mailindex:order.mailindex,
+                 comments:order.comments,      
              })
              .then( response => {
                  //console.log(response.data.data)
@@ -272,7 +283,10 @@ export default {
         
         setOrder(customerId){
           console.log(`Зашли в SetOrder id=${customerId}`)
+          console.log(this.items)
+          console.log(this.items[0].id)
           let order ={}
+          
           this.items.map(item =>{
                 order ={
                     item: item.item,
@@ -283,16 +297,16 @@ export default {
                     total: item.price * item.quantity
                 }
 
-                axios.post('/api/v1/order',{
+                axios.post('/api/v1/orders',{
                     _method: 'POST',
                     item: order.item,
-                    item_id: order.id,
+                    item_id: order.item_id,
                     quantity: order.quantity,
                     customers_id: customerId,
                     price:order.price,
                     total:order.total
                 })
-                .then(function (response) {
+                .then(response=> {
                     console.log(response);
 
                     this.$store.dispatch('clearCart')

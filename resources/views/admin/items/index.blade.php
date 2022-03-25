@@ -118,7 +118,7 @@
                                 </td>
                                 <td >
                                    
-                                    <img class="img-thumbnail mx-auto d-block" src="/images/product/{{$item->vendor}}.jpg" alt="pic Items">
+                                    <img class="img-thumbnail mx-auto d-block" src="/images/products/{{$item->vendor}}.jpg" alt="pic Items">
                                 </td>
 
                                 <td class="project-actions text-right">
