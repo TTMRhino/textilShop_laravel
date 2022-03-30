@@ -1,94 +1,55 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Jobs;
 
-use App\Http\Controllers\Controller;
-use App\Jobs\LoadItemsJob;
-use App\Jobs\LoadPriceJob;
+use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldBeUnique;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
 use Illuminate\Http\Request;
 use App\Models\MainGroup;
 use App\Models\SubGroup;
 use App\Models\Items;
+
 use Illuminate\Support\Facades\Storage;
 
-class UploadController extends Controller
+class LoadItemsJob implements ShouldQueue//, ShouldBeUnique
 {
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public function index()
-    {
-        return view('admin.upload.index');
+    public $path;
+    /**
+     * Create a new job instance.
+     *
+     * @return void
+     */
+    public function __construct($path)
+    {        
+        $this->path = $path;
     }
 
-    //Загрузка цен  
-    public function uploadPrice()
+    /*public function uniqueId()
     {
-        return view('admin.upload.price');
-    }
+        return null;
+    }*/
 
-
-
-    //Загрузка номенклатуры  !!! удалить?
-    public function uploadItems(Request $req)
-    {       
-        return view('admin.upload.items');
-    }
-
-    //обработка даных цен
-    public function filePrice(Request $req)
+    /**
+     * Execute the job.
+     *
+     * @return void
+     */
+    public function handle()
     {
-        $path = $req->file('filePrice')->store('filePrice');
+       //dd("HANDLE!!!");
         
-        LoadPriceJob::dispatch($path);
-        //$xml = simplexml_load_file($req->file('filePrice')->getPathname());
-        
-        /*foreach ($xml->ПакетПредложений->Предложения->Предложение as $item){
-            
-           //8f38fd0b-8d5a-11e7-8f42-50465d54779c - это тип(Ид) розничной цены в прайсе
-           //ИдТипаЦены
-           $price = null;
-            //отбираем только розничную цену в списке цен (их по прйсу 3 типа)
-            foreach($item->Цены->Цена as $typePrice){
-                if($typePrice->ИдТипаЦены == '8f38fd0b-8d5a-11e7-8f42-50465d54779c'){
-                    $price =  $typePrice->ЦенаЗаЕдиницу;
-                    
-                }
-            }
-          
-
-            
-            $findItem = Items::where('code1c', $item->Ид)->first();
-          
-
-             //ИдКлассификатора - это main_group товара (прекреп)
-            if(!is_null($findItem)){                                   
-               $findItem->price = $price;                   
-               $findItem->save();               
-               
-               //$this->countMessage= 55;
-            }
-
-           
-                   
-        }
-       // $this->countMessage= 55;
-        //return $this->countMessage;   */
-        return redirect('admin_panel/upload/price')->withSuccess('Price uploded successfully!');
-     
-    }
-    
-    //обработка даных номенклатуры
-    public function fileItems(Request $req)
-    {
-       // $patch = $req->file('fileItems')->getPathname();
-        $path = $req->file('fileItems')->store('fileItems');
-        
-        LoadItemsJob::dispatch($path);
-       // $xml = simplexml_load_file();
-
-        
-            //dd($xml);
-
-        /*    //Main groups
+       echo"начало обработки \n";
+      
+        $xml = simplexml_load_file(Storage::path($this->path));
+        echo"загрузили XML \n";
+         
+            //Main groups
                 foreach ($xml->Классификатор->Группы->Группа as $Group){
                     $findMainGroup = null;
                     $mainGroupId = null;
@@ -170,13 +131,11 @@ class UploadController extends Controller
 
                         $new_item->vendor =   "l".strval(intval(preg_replace($patern, '', $string)));
                         $new_item->save();
-                    }
+                    }                        
+                }
 
-                        
-                }*/
-
-        return redirect('admin_panel/upload')->withSuccess('Items uploded successfully!');
-        
+                echo"удаляем файл  $this->path \n";
+                //Storage::delete(Storage::path($this->path));
+                Storage::deleteDirectory('fileItems');
     }
-
 }
